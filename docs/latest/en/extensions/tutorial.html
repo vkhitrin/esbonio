@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Changelog" href="../changelog.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.02.23"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
         <title>Tutorial - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=3c656993158f05539f962c5cea52a5e6c184bb8c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -23,16 +23,18 @@
   --color-code-foreground: black;
   
   }
-  body[data-theme="dark"] {
-    --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
-  
-  }
-  @media (prefers-color-scheme: dark) {
-    body:not([data-theme="light"]) {
+  @media not print {
+    body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
   
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
     }
   }
 </style></head>
@@ -360,8 +362,8 @@ a <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stabl
 <section id="packaging">
 <h4>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">#</a></h4>
 <div class="tabbed-set docutils">
-<input checked="checked" id="dce4987d-d948-41b0-841f-668d5528f163" name="22e9f380-5729-42ed-88ff-3a57332134b8" type="radio"/>
-<label class="tabbed-label" for="dce4987d-d948-41b0-841f-668d5528f163">
+<input checked="checked" id="34597328-26f8-403c-b0eb-cde286e5fa4d" name="f2a91572-4810-4643-b10c-30a79a53aac9" type="radio"/>
+<label class="tabbed-label" for="34597328-26f8-403c-b0eb-cde286e5fa4d">
 setuptools</label><div class="tabbed-content docutils">
 <p>The exported tutorial can be bundled in your Python package using the
 <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">Data Files</a> support built into setuptools. This requires you to add the

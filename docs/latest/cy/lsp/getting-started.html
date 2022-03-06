@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Extending" href="extending.html" /><link rel="prev" title="Esbonio" href="../index.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.02.23"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
         <title>Getting Started - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=3c656993158f05539f962c5cea52a5e6c184bb8c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
@@ -23,16 +23,18 @@
   --color-code-foreground: black;
   
   }
-  body[data-theme="dark"] {
-    --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
-  
-  }
-  @media (prefers-color-scheme: dark) {
-    body:not([data-theme="light"]) {
+  @media not print {
+    body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
   
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
     }
   }
 </style></head>
@@ -526,13 +528,18 @@ augroup END
 </p>
 <div data-content="vscode"><p>Configuration is handled using VSCode's settings system.
 The following options are available.</p>
-<dl class="simple">
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.enabled</span></code> (boolean)</dt><dd><p>A flag that can be used to completely disable the language server, if required.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.pythonPath</span></code> (string)</dt><dd><p>If the official <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python Extension</a> is available the extension will use the same
 Python environment as you have configured for your workspace. However, if you wish
 to use a different environment or do not have the Python extension installed this
 option can be set to tell the extension which environment to use.</p>
+<p>Currently accepted values include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/path/to/python/</span></code> - An absolute path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/../venv/bin/python</span></code> - A path relative to the root of your workspace</p></li>
+</ul>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.installBehavior</span></code> (string)</dt><dd><p>The VSCode extension can manage the installation of the language server for you.
 If the language server is missing from your current environment the extension will prompt
