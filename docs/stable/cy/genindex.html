@@ -256,8 +256,6 @@
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">complete_targets() (esbonio.lsp.roles.TargetCompletion method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.testing.completion_request">completion_request() (in module esbonio.lsp.testing)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.completion_resolve">completion_resolve() (esbonio.lsp.rst.LanguageFeature method)</a>
@@ -272,6 +270,35 @@
 
         <ul>
           <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.configuration">(esbonio.lsp.sphinx.SphinxLanguageServer property)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    configuration value
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.enabled-boolean">esbonio.server.enabled (boolean)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.installBehavior-string">esbonio.server.installBehavior (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.pythonPath-string">esbonio.server.pythonPath (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.updateBehavior-string">esbonio.server.updateBehavior (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.updateFrequency-string">esbonio.server.updateFrequency (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-server.hideSphinxOutput-boolean">server.hideSphinxOutput (boolean)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-server.logFilter-string">server.logFilter (string[])</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-server.logLevel-string">server.logLevel (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.buildDir-string">sphinx.buildDir (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.confDir-string">sphinx.confDir (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.srcDir-string">sphinx.srcDir (string)</a>
 </li>
         </ul></li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.create_language_server">create_language_server() (in module esbonio.lsp)</a>
@@ -322,13 +349,48 @@
 </li>
         <li><a href="lsp/extending.html#term-Entry-Point"><strong>Entry Point</strong></a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     esbonio.lsp.testing
 
         <ul>
           <li><a href="lsp/api-reference.html#module-esbonio.lsp.testing">modiwl</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.enabled (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.enabled-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.installBehavior (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.installBehavior-string">configuration value</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    esbonio.server.pythonPath (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.pythonPath-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.updateBehavior (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.updateBehavior-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.updateFrequency (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-esbonio.server.updateFrequency-string">configuration value</a>
 </li>
         </ul></li>
     </ul></td>
@@ -506,12 +568,54 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.save">save() (esbonio.lsp.rst.LanguageFeature method)</a>
 </li>
+        <li>
+    server.hideSphinxOutput (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.hideSphinxOutput-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    server.logFilter (string[])
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.logFilter-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    server.logLevel (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.logLevel-string">configuration value</a>
+</li>
+        </ul></li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.set_diagnostics">set_diagnostics() (esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
         <li><a href="extensions/tutorial.html#directive-solution">solution (directive)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    sphinx.buildDir (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.buildDir-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.confDir (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.confDir-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.srcDir (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.srcDir-string">configuration value</a>
+</li>
+        </ul></li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.testing.sphinx_version">sphinx_version() (in module esbonio.lsp.testing)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer">SphinxLanguageServer (class in esbonio.lsp.sphinx)</a>

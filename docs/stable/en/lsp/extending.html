@@ -215,12 +215,51 @@
 This section of the documentation outlines the server’s architecture and how you can write your own extensions.</p>
 <section id="architecture">
 <span id="lsp-architecture"></span><h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">#</a></h2>
-<figure class="align-default" id="id1">
-<img alt="../_images/architecture.svg" src="../_images/architecture.svg"/><figcaption>
-<p><span class="caption-text">A rough sketch of how the language server(s) in Esbonio are architected.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<dl class="glossary">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<div class="figure align-default">
+<svg id="svg5" style="background: var(--color-content-background)" version="1.1" viewbox="0 0 297 210" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<defs id="defs2">
+<marker id="Arrow1Mstart" orient="auto" refx="0.0" refy="0.0" style="overflow:visible">
+<path d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z " id="path35046" style="fill:var(--color-content-foreground);fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt" transform="scale(0.4) translate(10,0)"></path>
+</marker>
+<marker id="Arrow1Mend" orient="auto" refx="0.0" refy="0.0" style="overflow:visible;">
+<path d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z " id="path35049" style="fill:var(--color-content-foreground);fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;" transform="scale(0.4) rotate(180) translate(10,0)"></path>
+</marker>
+<marker id="Arrow1Lend" orient="auto" refx="0.0" refy="0.0" style="overflow:visible;">
+<path d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z " id="path35043" style="fill:var(--color-content-foreground);fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;" transform="scale(0.8) rotate(180) translate(12.5,0)"></path>
+</marker>
+<marker id="Arrow1Mend-1" orient="auto" refx="0" refy="0" style="overflow:visible">
+<path d="M 0,0 5,-5 -12.5,0 5,5 Z" id="path35049-8" style="fill:var(--color-content-foreground);fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="matrix(-0.4,0,0,-0.4,-4,0)"></path>
+</marker>
+<marker id="Arrow1Mend-9" orient="auto" refx="0" refy="0" style="overflow:visible">
+<path d="M 0,0 5,-5 -12.5,0 5,5 Z" id="path35049-2" style="fill:var(--color-content-foreground);fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="matrix(-0.4,0,0,-0.4,-4,0)"></path>
+</marker>
+</defs>
+<g id="layer1">
+<rect height="129.64583" id="rect1192" style="fill:var(--color-content-background);stroke:var(--color-content-foreground);stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" width="121.70834" x="166.15813" y="31.75"></rect>
+<rect height="129.64583" id="rect1192-3" style="fill:var(--color-content-background);stroke:var(--color-content-foreground);stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" width="52.916668" x="5.2916665" y="31.75001"></rect>
+<rect height="25.12426" id="rect31" style="fill:var(--color-sidebar-background);fill-rule:evenodd;stroke:var(--color-content-foreground);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="68.096382" x="211.90756" y="46.209999"></rect>
+<rect height="25.12426" id="rect31-3" style="fill:var(--color-sidebar-background);fill-rule:evenodd;stroke:var(--color-content-foreground);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="68.096382" x="211.83255" y="123.03125"></rect>
+<rect height="25.12426" id="rect31-5" style="fill:var(--color-sidebar-background);fill-rule:evenodd;stroke:var(--color-content-foreground);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="68.096382" x="211.83257" y="75.406258"></rect>
+<text id="text3354" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="215.90004" xml:space="preserve" y="60.854172"><tspan id="tspan3352" style="font-size:5.64444px;stroke-width:0.264583" x="215.90004" y="60.854172">Language Feature #1</tspan></text>
+<text id="text3354-6" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="215.5123" xml:space="preserve" y="89.815636"><tspan id="tspan3352-2" style="font-size:5.64444px;stroke-width:0.264583" x="215.5123" y="89.815636">Language Feature #2</tspan></text>
+<text id="text3354-6-0" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="190.10786" xml:space="preserve" y="96.331848"><tspan id="tspan3352-2-9" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="190.10786" y="96.331848">Language </tspan><tspan id="tspan25491" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="190.10786" y="103.3874">Server</tspan></text>
+<text id="text3354-6-0-6" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="31.655663" xml:space="preserve" y="97.075394"><tspan id="tspan3352-2-9-2" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="31.655663" y="97.075394">Language </tspan><tspan id="tspan25491-6" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="31.655663" y="104.13094">Client</tspan></text>
+<text id="text3354-6-0-6-2" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="92.105232" xml:space="preserve" y="99.029205"><tspan id="tspan25491-6-7" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="92.105232" y="99.029205">LSP Protocol</tspan></text>
+<g id="g34651" transform="translate(-5.8208336)">
+<rect height="129.64583" id="rect1192-3-5" style="fill:var(--color-content-background);stroke:var(--color-content-foreground);stroke-width:1.07275;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" width="24.358648" x="129.62888" y="31.750002"></rect>
+<text id="text3354-6-0-3" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="141.52403" xml:space="preserve" y="98.416359"><tspan id="tspan25491-0" style="font-size:5.64444px;text-align:center;text-anchor:middle;stroke-width:0.264583" x="141.52403" y="98.416359">Engine</tspan></text>
+</g>
+<text id="text3354-6-9" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" transform="rotate(90.528171)" x="105.41908" xml:space="preserve" y="-245.68881"><tspan id="tspan20015" style="font-size:5.64444px;stroke-width:0.264583" x="105.41908" y="-245.68881">.....</tspan></text>
+<text id="text3354-6-9-2" style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:var(--color-content-foreground);fill-opacity:1;stroke:none;stroke-width:0.264583" x="215.92711" xml:space="preserve" y="137.34949"><tspan id="tspan3352-2-1-7" style="font-size:5.64444px;stroke-width:0.264583" x="215.92711" y="137.34949">Language Feature #N</tspan></text>
+<path d="M 59.546327,89.945827 H 121.22207" id="path34806" style="fill:none;stroke:var(--color-content-foreground);stroke-width:0.83959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"></path>
+<path d="M 122.87663,104.76253 H 61.200895" id="path34806-0" style="fill:none;stroke:var(--color-content-foreground);stroke-width:0.83959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-9)"></path>
+<path d="m 149.53571,96.847604 h 15.25657" id="path34806-7" style="fill:none;stroke:var(--color-content-foreground);stroke-width:0.417578;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend-1)"></path>
+</g>
+</svg>
+<p class="caption">A rough sketch of how the language server(s) in Esbonio are architected.</p>
+</div><dl class="glossary">
 <dt id="term-Language-Server">Language Server<a class="headerlink" href="#term-Language-Server" title="Permalink to this term">#</a></dt><dd><p>A language server is a subclass of the <code class="docutils literal notranslate"><span class="pre">LanguageServer</span></code> class provided by the <a class="reference external" href="https://pygls.readthedocs.io/en/latest/index.html">pygls</a> library.</p>
 <p>In Esbonio, all the features you would typically associate with a language server, e.g. completions are not actually implemented by the language server.
 These features are provided through a number of “language features” (see below).

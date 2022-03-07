@@ -268,7 +268,7 @@
   }
 </style>
 <div class="full-width" style="display: flex">
-<div id="e8de0731-48a3-4cdd-b212-66c80ce63a3e" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+<div id="600077ab-e7ec-44bf-853d-dbf165e76151" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
 <label for="completion" style="margin-bottom:0; margin-left: 5px">
     Completion
@@ -344,13 +344,13 @@ powers features like the "Outline" view in VSCode.</p>
         item.style.color = 'var(--color-brand-content)'
         item.style.borderColor = 'var(--color-brand-content)'
       } else {
-        item.style.color = 'black'
-        item.style.borderColor = 'white'
+        item.style.color = 'var(--color-content-foreground)'
+        item.style.borderColor = 'var(--color-content-background)'
       }
     })
   }
 
-  const container = document.getElementById('e8de0731-48a3-4cdd-b212-66c80ce63a3e')
+  const container = document.getElementById('600077ab-e7ec-44bf-853d-dbf165e76151')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)
