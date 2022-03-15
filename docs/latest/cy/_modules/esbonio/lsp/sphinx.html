@@ -164,13 +164,16 @@
   <p class="caption" role="heading"><span class="caption-text">Language Server</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -265,18 +268,19 @@
             <span class="k">return</span> <span class="kc">True</span>
 
 
+<span class="c1"># fmt: off</span>
 <span class="c1"># Order matters!</span>
 <span class="n">DEFAULT_MODULES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"esbonio.lsp.directives"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.roles"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.codeblocks"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.domains"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.images"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.includes"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.roles"</span><span class="p">,</span>
+    <span class="s2">"esbonio.lsp.directives"</span><span class="p">,</span>         <span class="c1"># Generic directive support</span>
+    <span class="s2">"esbonio.lsp.roles"</span><span class="p">,</span>              <span class="c1"># Generic roles support</span>
+    <span class="s2">"esbonio.lsp.sphinx.codeblocks"</span><span class="p">,</span>  <span class="c1"># Support for code-block, highlight, etc.</span>
+    <span class="s2">"esbonio.lsp.sphinx.domains"</span><span class="p">,</span>     <span class="c1"># Support for Sphinx domains</span>
+    <span class="s2">"esbonio.lsp.sphinx.images"</span><span class="p">,</span>      <span class="c1"># Support for image, figure etc</span>
+    <span class="s2">"esbonio.lsp.sphinx.includes"</span><span class="p">,</span>    <span class="c1"># Support for include, literal-include etc.</span>
+    <span class="s2">"esbonio.lsp.sphinx.roles"</span><span class="p">,</span>       <span class="c1"># Support for misc roles added by Sphinx e.g. :download:</span>
 <span class="p">]</span>
 <span class="sd">"""The modules to load in the default configuration of the server."""</span>
-
+<span class="c1"># fmt: on</span>
 
 <span class="n">DIAGNOSTIC_SEVERITY</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="n">DiagnosticSeverity</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span>
