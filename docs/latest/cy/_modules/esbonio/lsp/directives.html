@@ -252,15 +252,15 @@
 
 <span class="n">DIRECTIVE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
     <span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">    (\s*)                           # directives can be indented</span>
+<span class="sd">    (\s*)                             # directives can be indented</span>
 <span class="sd">    (?P&lt;directive&gt;</span>
-<span class="sd">      \.\.                          # directives start with a comment</span>
-<span class="sd">      [ ]?                          # followed by a space</span>
-<span class="sd">      ((?P&lt;domain&gt;[\w]+):(?!:))?    # directives may include a domain</span>
-<span class="sd">      (?P&lt;name&gt;([\w-]|:(?!:))+)?    # directives have a name</span>
-<span class="sd">      (::)?                         # directives end with '::'</span>
+<span class="sd">      \.\.                            # directives start with a comment</span>
+<span class="sd">      [ ]?                            # followed by a space</span>
+<span class="sd">      ((?P&lt;domain&gt;[\w]+):(?!:))?      # directives may include a domain</span>
+<span class="sd">      (?P&lt;name&gt;([\w-]|:(?!:))+)?      # directives have a name</span>
+<span class="sd">      (::)?                           # directives end with '::'</span>
 <span class="sd">    )</span>
-<span class="sd">    ([\s]+(?P&lt;argument&gt;.*$))?       # directives may take an argument</span>
+<span class="sd">    ([\s]+(?P&lt;argument&gt;.*?)\s*$)?     # directives may take an argument</span>
 <span class="sd">    """</span><span class="p">,</span>
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
 <span class="p">)</span>
