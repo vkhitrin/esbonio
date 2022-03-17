@@ -926,6 +926,12 @@ for the current document but to the side of the editor window. Additionally, as 
 between source files the preview will automatically update to show the page you are
 currently working on.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">esbonio.sphinx.selectConfDir</span></code></dt><dd><p>Interactively pick a new <code class="docutils literal notranslate"><span class="pre">confDir</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">esbonio.sphinx.selectSrcDir</span></code></dt><dd><p>Interactively pick a new <code class="docutils literal notranslate"><span class="pre">srcDir</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">esbonio.sphinx.selectBuildDir</span></code></dt><dd><p>Interactively pick a new <code class="docutils literal notranslate"><span class="pre">buildDir</span></code>.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.restart</span></code></dt><dd><p>This will kill and restart the language server</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.install</span></code></dt><dd><p>This can be used to manually install the language server into the current environment</p>
@@ -1252,19 +1258,19 @@ entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/
 </section>
 <style>
 [data-content] {display: none}
-[data-selected="vscode"] ~ div[data-content="vscode"] {  display: block 
+[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
+}
+[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
 }
 [data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
 }
 [data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
 }
-[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
-}
 [data-selected="kate"] ~ div[data-content="kate"] {  display: block 
 }
 [data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
 }
-[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
+[data-selected="vscode"] ~ div[data-content="vscode"] {  display: block 
 }
 </style>
 <script>

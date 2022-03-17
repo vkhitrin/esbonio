@@ -355,8 +355,8 @@ This assembly process calls any functions with the name <code class="docutils li
 The API that a provider must implement varies and is defined by the language feature that uses it. An example of such a provider it the <a class="reference internal" href="api-reference.html#esbonio.lsp.directives.ArgumentCompletion" title="esbonio.lsp.directives.ArgumentCompletion"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentCompletion</span></code></a>
 provider which allows extensions to provide completion suggestions for directive arguments.</p>
 </dd>
-<dt id="term-Entry-Point">Entry Point<a class="headerlink" href="#term-Entry-Point" title="Permalink to this term">#</a></dt><dd><p>As mentioned above, language servers are assembled and this is done inside an entry point.
-Not to be confused with the entry points you find in <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/entry_point.html">packaging</a>, an entry point in Esbonio is any Python module runnable by a <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">&lt;modulename&gt;</span></code> command that results in a running language server.
+<dt id="term-Startup-Module">Startup Module<a class="headerlink" href="#term-Startup-Module" title="Permalink to this term">#</a></dt><dd><p>As mentioned above, language servers are assembled and this is done inside a startup module.
+A startup module in Esbonio is any Python script or module runnable by a <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">&lt;modulename&gt;</span></code> command that results in a running language server.
 A good use case for a custom entry point would be starting up a language server instance pre configured with all the extensions required by your project.</p>
 </dd>
 </dl>
