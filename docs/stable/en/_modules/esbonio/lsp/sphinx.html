@@ -160,13 +160,16 @@
   <p class="caption" role="heading"><span class="caption-text">Language Server</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -215,6 +218,7 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
@@ -237,6 +241,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">MessageType</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Position</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ShowDocumentParams</span>
 <span class="kn">from</span> <span class="nn">sphinx</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">__sphinx_version__</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.domains</span> <span class="kn">import</span> <span class="n">Domain</span>
@@ -248,6 +253,7 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">LspHandler</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">ServerConfig</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx.preview</span> <span class="kn">import</span> <span class="n">make_preview_server</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">OnceFilter</span>
@@ -258,18 +264,19 @@
             <span class="k">return</span> <span class="kc">True</span>
 
 
+<span class="c1"># fmt: off</span>
 <span class="c1"># Order matters!</span>
 <span class="n">DEFAULT_MODULES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"esbonio.lsp.directives"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.roles"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.codeblocks"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.domains"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.images"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.includes"</span><span class="p">,</span>
-    <span class="s2">"esbonio.lsp.sphinx.roles"</span><span class="p">,</span>
+    <span class="s2">"esbonio.lsp.directives"</span><span class="p">,</span>         <span class="c1"># Generic directive support</span>
+    <span class="s2">"esbonio.lsp.roles"</span><span class="p">,</span>              <span class="c1"># Generic roles support</span>
+    <span class="s2">"esbonio.lsp.sphinx.codeblocks"</span><span class="p">,</span>  <span class="c1"># Support for code-block, highlight, etc.</span>
+    <span class="s2">"esbonio.lsp.sphinx.domains"</span><span class="p">,</span>     <span class="c1"># Support for Sphinx domains</span>
+    <span class="s2">"esbonio.lsp.sphinx.images"</span><span class="p">,</span>      <span class="c1"># Support for image, figure etc</span>
+    <span class="s2">"esbonio.lsp.sphinx.includes"</span><span class="p">,</span>    <span class="c1"># Support for include, literal-include etc.</span>
+    <span class="s2">"esbonio.lsp.sphinx.roles"</span><span class="p">,</span>       <span class="c1"># Support for misc roles added by Sphinx e.g. :download:</span>
 <span class="p">]</span>
 <span class="sd">"""The modules to load in the default configuration of the server."""</span>
-
+<span class="c1"># fmt: on</span>
 
 <span class="n">DIAGNOSTIC_SEVERITY</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="n">DiagnosticSeverity</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span>
@@ -425,11 +432,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sphinx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="sd">"""The Sphinx application instance."""</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Process</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="sd">"""The process hosting the preview server."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="sd">"""The port the preview server is running on."""</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_role_target_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="sd">"""Cache for role target types."""</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">"""Cache for role target objects."""</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -486,6 +496,15 @@
                 <span class="s2">"esbonio/buildComplete"</span><span class="p">,</span>
                 <span class="p">{</span><span class="s2">"config"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"warnings"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
             <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="p">,</span> <span class="s2">"kill"</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidSaveTextDocumentParams</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
@@ -607,7 +626,88 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
             <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_extensions</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_config</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">app</span></div>
+
+    <span class="k">def</span> <span class="nf">_load_sphinx_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+        <span class="sd">"""Loop through each of Sphinx's extensions and see if any contain server</span>
+<span class="sd">        functionality.</span>
+<span class="sd">        """</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">module</span>
+
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_modules</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Skipping previously loaded module '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="s2">"esbonio_setup"</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Loading sphinx module '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">mod</span><span class="o">.</span><span class="n">esbonio_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">"Unable to load sphinx module '</span><span class="si">%s</span><span class="s2">'</span><span class="se">\n</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_sphinx_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+        <span class="sd">"""Try and load the config as an server extension."""</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"&lt;sphinx-config&gt;"</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_modules</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Skipping previously loaded module '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">_raw_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"esbonio_setup"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fn</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Loading sphinx module '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fn</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">"Unable to load sphinx module '</span><span class="si">%s</span><span class="s2">'</span><span class="se">\n</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="SphinxLanguageServer.preview"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">builder_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">builder_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"html"</span><span class="p">}:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Previews are not currently supported for the '</span><span class="si">{</span><span class="n">builder_name</span><span class="si">}</span><span class="s2">' builder."</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Starting preview server."</span><span class="p">)</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="n">make_preview_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">outdir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_port</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"show"</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_document</span><span class="p">(</span>
+                <span class="n">ShowDocumentParams</span><span class="p">(</span>
+                    <span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">"http://localhost:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">external</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"port"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="SphinxLanguageServer.get_doctree"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree">[docs]</a>    <span class="k">def</span> <span class="nf">get_doctree</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">docname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -639,7 +739,8 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">get_and_resolve_doctree</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Could not find doctree for '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">docname</span><span class="p">)</span>
+            <span class="c1"># self.logger.debug(traceback.format_exc())</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="SphinxLanguageServer.get_domain"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Domain</span><span class="p">]:</span>
@@ -771,8 +872,8 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">           {</span>
-<span class="sd">               "func": ["py:function"],</span>
-<span class="sd">               "class": ["py:class", "py:exception"]</span>
+<span class="sd">               "func": ["function"],</span>
+<span class="sd">               "class": ["class", "exception"]</span>
 <span class="sd">           }</span>
 <span class="sd">        """</span>
 
@@ -790,7 +891,7 @@
                 <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">item_type</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
                     <span class="n">role_key</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">role</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
                     <span class="n">target_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_role_target_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">role_key</span><span class="p">,</span> <span class="nb">list</span><span class="p">())</span>
-                    <span class="n">target_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">))</span>
+                    <span class="n">target_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
                     <span class="bp">self</span><span class="o">.</span><span class="n">_role_target_types</span><span class="p">[</span><span class="n">role_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_types</span>
 
@@ -810,27 +911,30 @@
 <span class="sd">           The domain the role is a part of, if applicable.</span>
 <span class="sd">        """</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_index_role_targets</span><span class="p">()</span>
-
         <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">target_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_role_target_types</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
-            <span class="n">targets</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">target_type</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">domain_obj</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Domain</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">domain</span><span class="p">:</span>
+            <span class="n">domain_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">"std"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">std</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">std</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+                <span class="n">domain_obj</span> <span class="o">=</span> <span class="n">std</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">primary_domain</span><span class="p">:</span>
+                <span class="n">domain_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">primary_domain</span><span class="p">)</span>
+
+        <span class="n">target_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_role_target_types</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">domain_obj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Unable to find domain for role '</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">domain_obj</span><span class="o">.</span><span class="n">get_objects</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">in</span> <span class="n">target_types</span><span class="p">:</span>
+                <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">targets</span></div>
-
-    <span class="k">def</span> <span class="nf">_index_role_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">for</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">domain_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domains</span><span class="p">():</span>
-            <span class="n">fmt</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{prefix}</span><span class="s2">:</span><span class="si">{name}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="s2">"</span><span class="si">{name}</span><span class="s2">"</span>
-
-            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">domain_obj</span><span class="o">.</span><span class="n">get_objects</span><span class="p">():</span>
-                <span class="n">obj_key</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">obj</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
-                <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_key</span><span class="p">,</span> <span class="nb">list</span><span class="p">())</span>
-                <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">_role_targets</span><span class="p">[</span><span class="n">obj_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">objects</span>
 
 <div class="viewcode-block" id="SphinxLanguageServer.get_intersphinx_projects"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_projects">[docs]</a>    <span class="k">def</span> <span class="nf">get_intersphinx_projects</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">"""Return the list of configured intersphinx project names."""</span>
@@ -888,23 +992,22 @@
 
         <span class="n">targets</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
-        <span class="n">primary_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">primary_domain</span> <span class="ow">or</span> <span class="s2">""</span>
 
         <span class="k">for</span> <span class="n">target_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_role_target_types</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
 
-            <span class="k">if</span> <span class="n">target_type</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
-                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span>
+            <span class="n">explicit_domain</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">if</span> <span class="n">explicit_domain</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
+                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">explicit_domain</span><span class="p">]</span>
                 <span class="k">continue</span>
 
-            <span class="c1"># Intersphinx targets are always namespaced, so we would need to be explicit</span>
-            <span class="c1"># about the domain the type sits in.</span>
-            <span class="k">if</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">primary_domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
-                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">primary_domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="n">primary_domain</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">primary_domain</span> <span class="ow">or</span> <span class="s2">""</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s1">'</span>
+            <span class="k">if</span> <span class="n">primary_domain</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
+                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">primary_domain</span><span class="p">]</span>
                 <span class="k">continue</span>
 
-            <span class="c1"># The 'std' domain must also be considered.</span>
-            <span class="k">if</span> <span class="sa">f</span><span class="s2">"std:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
-                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="sa">f</span><span class="s2">"std:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="n">std_domain</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"std:</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">if</span> <span class="n">std_domain</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
+                <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">std_domain</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">targets</span></div></div>
 
@@ -937,6 +1040,8 @@
 
 <span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided by the</span>
 <span class="sd">      language client.</span>
+<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
+<span class="sd">    multi-root support.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -947,7 +1052,7 @@
 <span class="sd">    """</span>
 
     <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span> <span class="ow">or</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"workspaceRoot"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span> <span class="ow">or</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span>
 
     <span class="n">conf</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -967,6 +1072,8 @@
 
 <span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
 <span class="sd">      by the language client.</span>
+<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
+<span class="sd">      multi-root support.</span>
 <span class="sd">    - ``${confDir}`` which expands to the configured config dir.</span>
 
 <span class="sd">    Parameters</span>
@@ -986,7 +1093,7 @@
     <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
 
     <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"workspaceRoot"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
 
@@ -1012,6 +1119,8 @@
 
 <span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
 <span class="sd">      by the language client.</span>
+<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
+<span class="sd">      multi-root support.</span>
 <span class="sd">    - ``${confDir}`` which expands to the configured config dir.</span>
 
 <span class="sd">    Parameters</span>
@@ -1034,7 +1143,7 @@
     <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"workspaceRoot"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
         <span class="n">build</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">build</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
 

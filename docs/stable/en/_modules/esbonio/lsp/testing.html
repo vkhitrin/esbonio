@@ -160,13 +160,16 @@
   <p class="caption" role="heading"><span class="caption-text">Language Server</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -237,6 +240,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">TEXT_DOCUMENT_DID_OPEN</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">TEXT_DOCUMENT_PUBLISH_DIAGNOSTICS</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">WINDOW_LOG_MESSAGE</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">WINDOW_SHOW_DOCUMENT</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">WINDOW_SHOW_MESSAGE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ClientCapabilities</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItem</span>
@@ -253,6 +257,8 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Location</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Position</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ShowDocumentParams</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ShowMessageParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">TextDocumentContentChangeEvent</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">TextDocumentIdentifier</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">TextDocumentItem</span>
@@ -753,8 +759,14 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Diagnostic</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ShowMessageParams</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">"""Holds any received ``window/showMessage`` requests"""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Diagnostic</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="sd">"""Holds any received diagnostics"""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">documents_shown</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ShowDocumentParams</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">"""Holds any received ``window/showDocument`` requests"""</span></div>
 
 
 <span class="k">def</span> <span class="nf">new_test_client</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Client</span><span class="p">:</span>
@@ -768,6 +780,10 @@
     <span class="nd">@client</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">WINDOW_LOG_MESSAGE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">log_message</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="k">pass</span>
+
+    <span class="nd">@client</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">WINDOW_SHOW_DOCUMENT</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">show_document</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ShowDocumentParams</span><span class="p">):</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">documents_shown</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
     <span class="nd">@client</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">WINDOW_SHOW_MESSAGE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">show_message</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>

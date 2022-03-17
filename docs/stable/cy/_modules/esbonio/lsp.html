@@ -160,13 +160,16 @@
   <p class="caption" role="heading"><span class="caption-text">Language Server</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../lsp/getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lsp/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lsp/advanced-usage.html">Advanced Usage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lsp/api-reference.html">API Reference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -215,6 +218,8 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
 
@@ -225,6 +230,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DOCUMENT_SYMBOL</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZED</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">SHUTDOWN</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">TEXT_DOCUMENT_DID_CHANGE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">TEXT_DOCUMENT_DID_OPEN</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">TEXT_DOCUMENT_DID_SAVE</span>
@@ -263,6 +269,10 @@
 <span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># Commands</span>
+<span class="n">ESBONIO_SERVER_CONFIGURATION</span> <span class="o">=</span> <span class="s2">"esbonio.server.configuration"</span>
+<span class="n">ESBONIO_SERVER_PREVIEW</span> <span class="o">=</span> <span class="s2">"esbonio.server.preview"</span>
 
 
 <span class="k">class</span> <span class="nc">Patched</span><span class="p">(</span><span class="n">LanguageServerProtocol</span><span class="p">):</span>
@@ -329,6 +339,13 @@
 
         <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ls</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">feature</span><span class="o">.</span><span class="n">initialized</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">SHUTDOWN</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">on_shutdown</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ls</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">feature</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">TEXT_DOCUMENT_DID_OPEN</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_open</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidOpenTextDocumentParams</span><span class="p">):</span>
@@ -463,20 +480,28 @@
 
         <span class="k">return</span> <span class="n">visitor</span><span class="o">.</span><span class="n">symbols</span>
 
-    <span class="nd">@server</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">"esbonio.server.configuration"</span><span class="p">)</span>
+    <span class="nd">@server</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">ESBONIO_SERVER_CONFIGURATION</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_configuration</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">"""Get the server's configuration.</span>
 
 <span class="sd">        Not to be confused with the ``workspace/configuration`` request where the server</span>
-<span class="sd">        can request the client's configuration. This is so client's can ask for sphinx's</span>
+<span class="sd">        can request the client's configuration. This is so clients can ask for sphinx's</span>
 <span class="sd">        output path for example.</span>
 
 <span class="sd">        As far as I know, there isn't anything built into the spec to cater for this?</span>
 <span class="sd">        """</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">configuration</span>
-        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"esbonio.server.configuration"</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_CONFIGURATION</span><span class="p">,</span> <span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">config</span>
+
+    <span class="nd">@server</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">ESBONIO_SERVER_PREVIEW</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">"""Start/Generate a preview of the project"""</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_PREVIEW</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ls</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
     <span class="k">return</span> <span class="n">server</span>
 
