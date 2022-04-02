@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
         <title>esbonio.lsp.rst - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
@@ -238,6 +238,7 @@
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
 <span class="kn">from</span> <span class="nn">pygls</span> <span class="kn">import</span> <span class="n">IS_WIN</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ClientCapabilities</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CodeAction</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CodeActionParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItem</span>
@@ -271,11 +272,16 @@
 
 
 <div class="viewcode-block" id="CompletionContext"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.CompletionContext">[docs]</a><span class="k">class</span> <span class="nc">CompletionContext</span><span class="p">:</span>
-    <span class="sd">"""A class that captures the context within which a completion request has been</span>
-<span class="sd">    made."""</span>
+    <span class="sd">"""Captures the context within which a completion request has been made."""</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="s2">"re.Match"</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">match</span><span class="p">:</span> <span class="s2">"re.Match"</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span>
+        <span class="n">capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
@@ -291,14 +297,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
         <span class="sd">"""The position at which the completion request was made."""</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_capabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
+        <span class="sd">"""The client's capabilities"""</span>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">"CompletionContext&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s2">) -- </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2">&gt;"</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">snippet_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports snippets"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.snippet_support"</span><span class="p">,</span> <span class="kc">False</span>
         <span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">DefinitionContext</span><span class="p">:</span>
+<div class="viewcode-block" id="DefinitionContext"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.DefinitionContext">[docs]</a><span class="k">class</span> <span class="nc">DefinitionContext</span><span class="p">:</span>
     <span class="sd">"""A class that captures the context within which a definition request has been</span>
 <span class="sd">    made."""</span>
 
@@ -323,7 +339,7 @@
         <span class="n">p</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">"DefinitionContext&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s2">) -- </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2">&gt;"</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LanguageFeature"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature">[docs]</a><span class="k">class</span> <span class="nc">LanguageFeature</span><span class="p">:</span>
