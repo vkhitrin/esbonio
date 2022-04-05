@@ -250,6 +250,7 @@
 <span class="kn">from</span> <span class="nn">sphinx</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">__sphinx_version__</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.domains</span> <span class="kn">import</span> <span class="n">Domain</span>
+<span class="kn">from</span> <span class="nn">sphinx.errors</span> <span class="kn">import</span> <span class="n">ConfigError</span>
 <span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">console</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">SphinxLogRecord</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">WarningLogRecordTranslator</span>
@@ -492,12 +493,12 @@
                     <span class="s2">"warnings"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
                 <span class="p">},</span>
             <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span>
-                <span class="n">message</span><span class="o">=</span><span class="s2">"Unable to initialize Sphinx, see output window for details."</span><span class="p">,</span>
-                <span class="n">msg_type</span><span class="o">=</span><span class="n">MessageType</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">uri</span><span class="p">,</span> <span class="n">diagnostic</span> <span class="o">=</span> <span class="n">exception_to_diagnostic</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_diagnostics</span><span class="p">(</span><span class="s2">"conf.py"</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="p">[</span><span class="n">diagnostic</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">sync_diagnostics</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">send_notification</span><span class="p">(</span>
                 <span class="s2">"esbonio/buildComplete"</span><span class="p">,</span>
                 <span class="p">{</span><span class="s2">"config"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"warnings"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
@@ -531,7 +532,10 @@
                 <span class="p">)</span> <span class="ow">or</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span> <span class="o">/</span> <span class="s2">"conf.py"</span><span class="p">)</span> <span class="o">==</span> <span class="n">filepath</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clear_diagnostics</span><span class="p">(</span><span class="s2">"conf.py"</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sync_diagnostics</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_sphinx</span><span class="p">()</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clear_diagnostics</span><span class="p">(</span><span class="s2">"sphinx"</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
 
@@ -553,6 +557,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Building..."</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_notification</span><span class="p">(</span><span class="s2">"esbonio/buildStart"</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_diagnostics</span><span class="p">(</span><span class="s2">"sphinx-build"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync_diagnostics</span><span class="p">()</span>
 
         <span class="c1"># Reset the warnings counter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">_warncount</span> <span class="o">=</span> <span class="mi">0</span>
@@ -561,12 +567,11 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">"Unable to build documentation, see output window for details."</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="n">error</span> <span class="o">=</span> <span class="kc">True</span>
-
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">msg_type</span><span class="o">=</span><span class="n">MessageType</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span>
+            <span class="n">uri</span><span class="p">,</span> <span class="n">diagnostic</span> <span class="o">=</span> <span class="n">exception_to_diagnostic</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_diagnostics</span><span class="p">(</span><span class="s2">"sphinx-build"</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="p">[</span><span class="n">diagnostic</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">diagnostics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Found </span><span class="si">%d</span><span class="s2"> problems for </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">diagnostics</span><span class="p">),</span> <span class="n">doc</span><span class="p">)</span>
@@ -1177,6 +1182,36 @@
         <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">exception_to_diagnostic</span><span class="p">(</span><span class="n">exc</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">"""Convert an exception into a diagnostic we can send to the client."""</span>
+
+    <span class="c1"># Config errors sometimes wrap the true cause of the problem</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">ConfigError</span><span class="p">)</span> <span class="ow">and</span> <span class="n">exc</span><span class="o">.</span><span class="n">__cause__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">exc</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">__cause__</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="ne">SyntaxError</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">filename</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">lineno</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tb</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">__traceback__</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_tb</span><span class="p">(</span><span class="n">tb</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">message</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">diagnostic</span> <span class="o">=</span> <span class="n">Diagnostic</span><span class="p">(</span>
+        <span class="nb">range</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+        <span class="n">severity</span><span class="o">=</span><span class="n">DiagnosticSeverity</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)),</span> <span class="n">diagnostic</span>
 
 
 <span class="n">cli</span> <span class="o">=</span> <span class="n">setup_cli</span><span class="p">(</span><span class="s2">"esbonio.lsp.sphinx"</span><span class="p">,</span> <span class="s2">"Esbonio's Sphinx language server."</span><span class="p">)</span>

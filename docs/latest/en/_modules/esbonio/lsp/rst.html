@@ -242,6 +242,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CodeAction</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CodeActionParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItem</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItemTag</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DeleteFilesParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Diagnostic</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidSaveTextDocumentParams</span>
@@ -249,6 +250,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializedParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializeParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Location</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">MarkupKind</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Position</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">SymbolKind</span>
@@ -284,20 +286,20 @@
         <span class="n">capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span><span class="p">,</span>
     <span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">:</span> <span class="n">Document</span> <span class="o">=</span> <span class="n">doc</span>
         <span class="sd">"""The document within which the completion request was made."""</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">location</span>
         <span class="sd">"""The location type where the request was made.</span>
 <span class="sd">        See :meth:`~esbonio.lsp.rst.RstLanguageServer.get_location_type` for details."""</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">match</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="p">:</span> <span class="s2">"re.Match"</span> <span class="o">=</span> <span class="n">match</span>
         <span class="sd">"""The match object describing the site of the completion request."""</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">=</span> <span class="n">position</span>
         <span class="sd">"""The position at which the completion request was made."""</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">client_capabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
         <span class="sd">"""The client's capabilities"""</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -307,11 +309,60 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">commit_characters_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports commit characters."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.commit_characters_support"</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">deprecated_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports the deprecated field on a</span>
+<span class="sd">        ``CompletionItem``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.deprecated_support"</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">documentation_formats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">MarkupKind</span><span class="p">]:</span>
+        <span class="sd">"""The list of documentation formats supported by the client."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.documentation_format"</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">insert_replace_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports ``InsertReplaceEdit``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.insert_replace_support"</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">preselect_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports the preselect field on a</span>
+<span class="sd">        ``CompletionItem``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.preselect_support"</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">snippet_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""Indicates if the client supports snippets"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
             <span class="s2">"text_document.completion.completion_item.snippet_support"</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">supported_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItemTag</span><span class="p">]:</span>
+        <span class="sd">"""The list of ``CompletionItemTags`` supported by the client."""</span>
+        <span class="n">capabilities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.completion.completion_item.tag_support"</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">capabilities</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="n">capabilities</span><span class="o">.</span><span class="n">value_set</span></div>
 
 
 <div class="viewcode-block" id="DefinitionContext"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.DefinitionContext">[docs]</a><span class="k">class</span> <span class="nc">DefinitionContext</span><span class="p">:</span>
