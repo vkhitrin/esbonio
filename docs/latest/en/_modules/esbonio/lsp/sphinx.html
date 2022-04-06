@@ -219,6 +219,7 @@
 <span></span><span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
@@ -270,6 +271,8 @@
         <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
 
+
+<span class="n">IS_LINUX</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"Linux"</span>
 
 <span class="c1"># fmt: off</span>
 <span class="c1"># Order matters!</span>
@@ -703,7 +706,7 @@
 
             <span class="k">return</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">IS_WIN</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="ow">and</span> <span class="n">IS_LINUX</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Starting preview server."</span><span class="p">)</span>
             <span class="n">server</span> <span class="o">=</span> <span class="n">make_preview_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">outdir</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_port</span>
@@ -711,7 +714,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="ow">and</span> <span class="n">IS_WIN</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_process</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">IS_LINUX</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Starting preview server"</span><span class="p">)</span>
 
             <span class="n">q</span><span class="p">:</span> <span class="n">Queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
@@ -1180,6 +1183,10 @@
     <span class="c1"># But make sure paths starting with '~' are not corrupted</span>
     <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">):</span>
         <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
+
+    <span class="c1"># But make sure paths starting with '~' are not corrupted</span>
+    <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">):</span>
+        <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
 
