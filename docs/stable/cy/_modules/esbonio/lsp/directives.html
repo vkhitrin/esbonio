@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Indecs" href="../../../genindex.html" /><link rel="search" title="Chwilio" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
         <title>esbonio.lsp.directives - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
@@ -527,7 +527,7 @@
         <span class="c1"># If there is an existing argument to the directive, we should leave it untouched</span>
         <span class="c1"># otherwise, edit the whole line to insert any required arguments.</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
-        <span class="n">include_argument</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">include_argument</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">snippet_support</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"argument"</span><span class="p">]:</span>
@@ -555,13 +555,18 @@
                 <span class="n">args</span> <span class="o">=</span> <span class="s2">""</span>
                 <span class="n">insert_format</span> <span class="o">=</span> <span class="n">InsertTextFormat</span><span class="o">.</span><span class="n">PlainText</span>
 
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+
             <span class="n">insert_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">".. </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">"</span>
 
             <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">CompletionItem</span><span class="p">(</span>
                     <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                     <span class="n">kind</span><span class="o">=</span><span class="n">CompletionItemKind</span><span class="o">.</span><span class="n">Class</span><span class="p">,</span>
-                    <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">detail</span><span class="o">=</span><span class="n">dotted_name</span><span class="p">,</span>
                     <span class="n">filter_text</span><span class="o">=</span><span class="n">insert_text</span><span class="p">,</span>
                     <span class="n">text_edit</span><span class="o">=</span><span class="n">TextEdit</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="n">insert_text</span><span class="p">),</span>
                     <span class="n">insert_text_format</span><span class="o">=</span><span class="n">insert_format</span><span class="p">,</span>
