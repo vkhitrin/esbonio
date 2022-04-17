@@ -679,6 +679,20 @@ that returns the options you wish to set.</p>
 </div>
 <p>The following is a list of all the available options.</p>
 </div></div><dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.buildDir-string">
+<span id="confval-sphinx.buildDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.buildDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.buildDir-string" title="Permalink to this definition">#</a></dt>
+<dd><p>By default the language server will choose a cache directory (as determined by
+<a class="reference external" href="https://pypi.org/project/appdirs">appdirs</a>) to put Sphinx’s build output.
+This option can be used to force the language server to use a location
+of your choosing, currently accepted values include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/path/to/src/</span></code> - An absolute path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/docs/src</span></code> - A path relative to the root of your workspace</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs/src</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
+</ul>
+</dd></dl>
+<dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.confDir-string">
 <span id="confval-sphinx.confDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.confDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.confDir-string" title="Permalink to this definition">#</a></dt>
 <dd><p>The language server attempts to automatically find the folder which contains your
@@ -706,18 +720,9 @@ include:</p>
 </ul>
 </dd></dl>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-sphinx.buildDir-string">
-<span id="confval-sphinx.buildDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.buildDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.buildDir-string" title="Permalink to this definition">#</a></dt>
-<dd><p>By default the language server will choose a cache directory (as determined by
-<a class="reference external" href="https://pypi.org/project/appdirs">appdirs</a>) to put Sphinx’s build output.
-This option can be used to force the language server to use a location
-of your choosing, currently accepted values include:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/path/to/src/</span></code> - An absolute path</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/docs/src</span></code> - A path relative to the root of your workspace</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs/src</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
-</ul>
+<dt class="sig sig-object std" id="confval-sphinx.forceFullBuild-boolean">
+<span id="confval-sphinx.forceFullBuild (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.forceFullBuild</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.forceFullBuild-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Flag that indicates if the server should force a full build of the documentation on startup. (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd></dl>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
@@ -1307,19 +1312,19 @@ entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/
 </section>
 <style>
 [data-content] {display: none}
-[data-selected="kate"] ~ div[data-content="kate"] {  display: block 
-}
-[data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
-}
-[data-selected="vscode"] ~ div[data-content="vscode"] {  display: block 
-}
-[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
-}
-[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
-}
 [data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
 }
 [data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
+}
+[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
+}
+[data-selected="vscode"] ~ div[data-content="vscode"] {  display: block 
+}
+[data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
+}
+[data-selected="kate"] ~ div[data-content="kate"] {  display: block 
+}
+[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
 }
 </style>
 <script>
