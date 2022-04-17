@@ -725,6 +725,12 @@ include:</p>
 <dd><p>Flag that indicates if the server should force a full build of the documentation on startup. (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd></dl>
 <dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.numJobs-string-or-integer">
+<span id="confval-sphinx.numJobs (string or integer)"></span><span class="sig-name descname"><span class="pre">sphinx.numJobs</span> <span class="pre">(string</span> <span class="pre">or</span> <span class="pre">integer)</span></span><a class="headerlink" href="#confval-sphinx.numJobs-string-or-integer" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Controls the number of parallel jobs used during a Sphinx build.</p>
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">"auto"</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command. Setting this value to <code class="docutils literal notranslate"><span class="pre">1</span></code> effectively disables parallel builds.</p>
+</dd></dl>
+<dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
 <span id="confval-server.logLevel (string)"></span><span class="sig-name descname"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-server.logLevel-string" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>This can be used to set the level of log messages emitted by the server. This can be set
@@ -1312,19 +1318,19 @@ entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/
 </section>
 <style>
 [data-content] {display: none}
-[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
-}
 [data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
+}
+[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
 }
 [data-selected="vscode"] ~ div[data-content="vscode"] {  display: block 
 }
 [data-selected="kate"] ~ div[data-content="kate"] {  display: block 
 }
-[data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
+[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
+}
+[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
 }
 [data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
-}
-[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
 }
 </style>
 <script>

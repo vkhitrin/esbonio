@@ -247,6 +247,8 @@ constructor.</p></li>
 </dd>
 </dl>
 </dd></dl>
+<section id="rstlanguageserver">
+<h3>RstLanguageServer<a class="headerlink" href="#rstlanguageserver" title="Permalink to this headline">#</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">RstLanguageServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer" title="Permalink to this definition">#</a></dt>
@@ -453,6 +455,168 @@ represents.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.user_config">
 <span class="sig-name descname"><span class="pre">user_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">pydantic.main.BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.user_config" title="Permalink to this definition">#</a></dt>
 <dd><p>The user’s configuration.</p>
+</dd></dl>
+</dd></dl>
+</section>
+<section id="sphinxlanguageserver">
+<h3>SphinxLanguageServer<a class="headerlink" href="#sphinxlanguageserver" title="Permalink to this headline">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buildDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">builderName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceFullBuild</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numJobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Used to represent either the current Sphinx configuration or the config options
+provided by the user at startup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – </p></li>
+<li><p><strong>confDir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – </p></li>
+<li><p><strong>srcDir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – </p></li>
+<li><p><strong>buildDir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – </p></li>
+<li><p><strong>builderName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – </p></li>
+<li><p><strong>forceFullBuild</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – </p></li>
+<li><p><strong>numJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.10)"><em>Literal</em></a><em>[</em><em>'auto'</em><em>]</em><em>, </em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.build_dir">
+<span class="sig-name descname"><span class="pre">build_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.build_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Can be used to override the default location for storing build outputs.</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.builder_name">
+<span class="sig-name descname"><span class="pre">builder_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.builder_name" title="Permalink to this definition">#</a></dt>
+<dd><p>The currently used builder name.</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.conf_dir">
+<span class="sig-name descname"><span class="pre">conf_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.conf_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Can be used to override the default conf.py discovery mechanism.</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.force_full_build">
+<span class="sig-name descname"><span class="pre">force_full_build</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.force_full_build" title="Permalink to this definition">#</a></dt>
+<dd><p>Flag that can be used to force a full build on startup.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.get_sphinx_args">
+<span class="sig-name descname"><span class="pre">get_sphinx_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxConfig.get_sphinx_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.get_sphinx_args" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the arguments for the Sphinx application object corresponding to this
+config.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>root_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The workspace root uri</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#esbonio.lsp.sphinx.MissingConfigError" title="esbonio.lsp.sphinx.MissingConfigError"><strong>MissingConfigError</strong></a> – Raised when a valid conf dir cannot be found.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.num_jobs">
+<span class="sig-name descname"><span class="pre">num_jobs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.num_jobs" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of jobs to use for parallel builds.</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.parallel">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parallel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.parallel" title="Permalink to this definition">#</a></dt>
+<dd><p>The parsed value of the <code class="docutils literal notranslate"><span class="pre">num_jobs</span></code> field.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir">
+<span class="sig-name descname"><span class="pre">resolve_build_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_conf_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxConfig.resolve_build_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the build dir to use based on the user’s config.</p>
+<p>If nothing is specified in the given <code class="docutils literal notranslate"><span class="pre">config</span></code>, this will choose a location
+within the user’s cache dir (as determined by
+<cite>appdirs &lt;https://pypi.org/project/appdirs&gt;</cite>). The directory name will be a hash
+derived from the given <code class="docutils literal notranslate"><span class="pre">conf_dir</span></code> for the project.</p>
+<p>Alternatively the user (or least language client) can override this by setting
+either an absolute path, or a path based on the following “variables”.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code> which expands to the workspace root as provided
+by the language client.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}</span></code> alias for <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder ready for
+multi-root support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${confDir}</span></code> which expands to the configured config dir.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The workspace root uri</p></li>
+<li><p><strong>actual_conf_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The fully resolved conf dir for the project</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)">pathlib.Path</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir">
+<span class="sig-name descname"><span class="pre">resolve_conf_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxConfig.resolve_conf_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the conf dir to use based on the user’s config.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">conf_dir</span></code> is not set, this method will attempt to find it by searching
+within the <code class="docutils literal notranslate"><span class="pre">root_uri</span></code> for a <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file. If multiple files are found, the
+first one found will be chosen.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">conf_dir</span></code> is set the following “variables” are handled by this method</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code> which expands to the workspace root as provided by the
+language client.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}</span></code> alias for <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder ready for
+multi-root support.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>root_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The workspace root uri</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)">pathlib.Path</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir">
+<span class="sig-name descname"><span class="pre">resolve_src_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_conf_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxConfig.resolve_src_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the src dir to use based on the user’s config.</p>
+<p>By default the src dir will be the same as the conf dir, but this can
+be overriden by setting the <code class="docutils literal notranslate"><span class="pre">src_dir</span></code> field.</p>
+<p>There are a number of “variables” that can be included in the path,
+currently we support</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code> which expands to the workspace root as provided
+by the language client.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}</span></code> alias for <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder ready for
+multi-root support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${confDir}</span></code> which expands to the configured config dir.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The workspace root uri</p></li>
+<li><p><strong>actual_conf_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The fully resolved conf dir for the project</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)">pathlib.Path</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.src_dir">
+<span class="sig-name descname"><span class="pre">src_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.src_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Can be used to override the default assumption on where the project’s rst files
+are located.</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxConfig.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxConfig.version" title="Permalink to this definition">#</a></dt>
+<dd><p>Sphinx’s version number.</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
@@ -686,6 +850,12 @@ given role.</p>
 <dd><p>The process hosting the preview server.</p>
 </dd></dl>
 </dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.MissingConfigError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">MissingConfigError</span></span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#MissingConfigError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.MissingConfigError" title="Permalink to this definition">#</a></dt>
+<dd><p>Indicates that we couldn’t locate the project’s ‘conf.py’</p>
+</dd></dl>
+</section>
 </section>
 <section id="language-features">
 <h2>Language Features<a class="headerlink" href="#language-features" title="Permalink to this headline">#</a></h2>
@@ -1276,7 +1446,11 @@ target.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">API Reference</a><ul>
-<li><a class="reference internal" href="#language-servers">Language Servers</a></li>
+<li><a class="reference internal" href="#language-servers">Language Servers</a><ul>
+<li><a class="reference internal" href="#rstlanguageserver">RstLanguageServer</a></li>
+<li><a class="reference internal" href="#sphinxlanguageserver">SphinxLanguageServer</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#language-features">Language Features</a><ul>
 <li><a class="reference internal" href="#directives">Directives</a></li>
 <li><a class="reference internal" href="#roles">Roles</a></li>
