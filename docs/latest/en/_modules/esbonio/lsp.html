@@ -233,6 +233,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">COMPLETION</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">COMPLETION_ITEM_RESOLVE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DEFINITION</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DOCUMENT_LINK</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DOCUMENT_SYMBOL</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZED</span>
@@ -251,6 +252,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidChangeTextDocumentParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidOpenTextDocumentParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidSaveTextDocumentParams</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentLinkParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentSymbolParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">FileOperationFilter</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">FileOperationPattern</span>
@@ -262,6 +264,7 @@
 
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">CompletionContext</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">DefinitionContext</span>
+<span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">DocumentLinkContext</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">SymbolVisitor</span>
@@ -271,6 +274,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"CompletionContext"</span><span class="p">,</span>
     <span class="s2">"DefinitionContext"</span><span class="p">,</span>
+    <span class="s2">"DocumentLinkContext"</span><span class="p">,</span>
     <span class="s2">"LanguageFeature"</span><span class="p">,</span>
     <span class="s2">"RstLanguageServer"</span><span class="p">,</span>
     <span class="s2">"create_language_server"</span><span class="p">,</span>
@@ -479,6 +483,18 @@
                         <span class="n">definitions</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">definition</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">definitions</span>
+
+    <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">DOCUMENT_LINK</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">on_document_link</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DocumentLinkParams</span><span class="p">):</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">DocumentLinkContext</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">capabilities</span><span class="o">=</span><span class="n">ls</span><span class="o">.</span><span class="n">client_capabilities</span><span class="p">)</span>
+
+        <span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ls</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">links</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">document_link</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="n">links</span>
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">DOCUMENT_SYMBOL</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_document_symbol</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DocumentSymbolParams</span><span class="p">):</span>

@@ -248,6 +248,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DeleteFilesParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Diagnostic</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidSaveTextDocumentParams</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentLink</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentSymbol</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializedParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializeParams</span>
@@ -302,7 +303,6 @@
         <span class="sd">"""The position at which the completion request was made."""</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
-        <span class="sd">"""The client's capabilities"""</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span><span class="si">}</span><span class="s2">"</span>
@@ -365,6 +365,24 @@
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="k">return</span> <span class="n">capabilities</span><span class="o">.</span><span class="n">value_set</span></div>
+
+
+<div class="viewcode-block" id="DocumentLinkContext"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.DocumentLinkContext">[docs]</a><span class="k">class</span> <span class="nc">DocumentLinkContext</span><span class="p">:</span>
+    <span class="sd">"""Captures the context within which a document link request has been made."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="sd">"""The document within which the document link request was made."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tooltip_support</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Indicates if the client supports tooltips."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.document_link.tooltip_support"</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DefinitionContext"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.DefinitionContext">[docs]</a><span class="k">class</span> <span class="nc">DefinitionContext</span><span class="p">:</span>
@@ -463,6 +481,10 @@
 <span class="sd">        context:</span>
 <span class="sd">           The context of the definition request.</span>
 <span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="LanguageFeature.document_link"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.document_link">[docs]</a>    <span class="k">def</span> <span class="nf">document_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DocumentLink</span><span class="p">]:</span>
+        <span class="sd">"""Called whenever a ``textDocument/documentLink`` request is received."""</span>
         <span class="k">return</span> <span class="p">[]</span></div></div>
 
 

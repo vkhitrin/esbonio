@@ -265,7 +265,7 @@ constructor.</p></li>
 <dd><p>Register a language feature with the server.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>feature</strong> (<a class="reference internal" href="#esbonio.lsp.rst.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><em>esbonio.lsp.rst.LanguageFeature</em></a>) – </p>
+<dd class="field-odd"><p><strong>feature</strong> (<a class="reference internal" href="#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><em>esbonio.lsp.rst.LanguageFeature</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -860,8 +860,8 @@ given role.</p>
 <section id="language-features">
 <h2>Language Features<a class="headerlink" href="#language-features" title="Permalink to this headline">#</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">LanguageFeature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.</span></span><span class="sig-name descname"><span class="pre">LanguageFeature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class for language features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -869,8 +869,8 @@ given role.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.code_action">
-<span class="sig-name descname"><span class="pre">code_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.code_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.code_action" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.code_action">
+<span class="sig-name descname"><span class="pre">code_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.code_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.code_action" title="Permalink to this definition">#</a></dt>
 <dd><p>Called when code actions should be computed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -882,13 +882,13 @@ given role.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.complete">
-<span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.complete" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.complete">
+<span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.complete" title="Permalink to this definition">#</a></dt>
 <dd><p>Called if any of the given <code class="docutils literal notranslate"><span class="pre">completion_triggers</span></code> match the current line.</p>
 <p>This method should return a list of <code class="docutils literal notranslate"><span class="pre">CompletionItem</span></code> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.rst.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The context of the completion request</p>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The context of the completion request</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.language_features.completion.CompletionItem]</p>
@@ -896,8 +896,8 @@ given role.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.completion_resolve">
-<span class="sig-name descname"><span class="pre">completion_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.completion_resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.completion_resolve" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.completion_resolve">
+<span class="sig-name descname"><span class="pre">completion_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.completion_resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.completion_resolve" title="Permalink to this definition">#</a></dt>
 <dd><p>Called with a completion item the user has selected in the UI,
 allowing for additional details to be provided e.g. documentation.</p>
 <dl class="field-list simple">
@@ -910,20 +910,20 @@ allowing for additional details to be provided e.g. documentation.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.completion_triggers">
-<span class="sig-name descname"><span class="pre">completion_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.completion_triggers" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.completion_triggers">
+<span class="sig-name descname"><span class="pre">completion_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.completion_triggers" title="Permalink to this definition">#</a></dt>
 <dd><p>A list of regular expressions used to determine if the
 :meth`~esbonio.lsp.rst.LanguageFeature.complete` method should be called on the
 current line.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.definition">
-<span class="sig-name descname"><span class="pre">definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.definition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.definition" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.definition">
+<span class="sig-name descname"><span class="pre">definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.definition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.definition" title="Permalink to this definition">#</a></dt>
 <dd><p>Called if any of the given <code class="docutils literal notranslate"><span class="pre">definition_triggers</span></code> match the current line.</p>
 <p>This method should return a list of <code class="docutils literal notranslate"><span class="pre">Location</span></code> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.rst.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>esbonio.lsp.rst.DefinitionContext</em></a>) – The context of the definition request.</p>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>esbonio.lsp.rst.DefinitionContext</em></a>) – The context of the definition request.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.basic_structures.Location]</p>
@@ -931,14 +931,14 @@ current line.</p>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.definition_triggers">
-<span class="sig-name descname"><span class="pre">definition_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.definition_triggers" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.definition_triggers">
+<span class="sig-name descname"><span class="pre">definition_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.definition_triggers" title="Permalink to this definition">#</a></dt>
 <dd><p>A list of regular expressions used to determine if the
-<a class="reference internal" href="#esbonio.lsp.rst.LanguageFeature.definition" title="esbonio.lsp.rst.LanguageFeature.definition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">definition()</span></code></a> method should be called.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">definition()</span></code> method should be called.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.delete_files">
-<span class="sig-name descname"><span class="pre">delete_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.delete_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.delete_files" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.delete_files">
+<span class="sig-name descname"><span class="pre">delete_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.delete_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.delete_files" title="Permalink to this definition">#</a></dt>
 <dd><p>Called each time files are deleted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -950,8 +950,21 @@ current line.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.initialize">
-<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.initialize" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.document_link">
+<span class="sig-name descname"><span class="pre">document_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.document_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.document_link" title="Permalink to this definition">#</a></dt>
+<dd><p>Called whenever a <code class="docutils literal notranslate"><span class="pre">textDocument/documentLink</span></code> request is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>esbonio.lsp.rst.DocumentLinkContext</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.language_features.document_link.DocumentLink]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Called once when the server is first initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -963,8 +976,8 @@ current line.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.initialized">
-<span class="sig-name descname"><span class="pre">initialized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.initialized" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.initialized">
+<span class="sig-name descname"><span class="pre">initialized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.initialized" title="Permalink to this definition">#</a></dt>
 <dd><p>Called once upon receipt of the <cite>initialized</cite> notification from the client.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -976,13 +989,13 @@ current line.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.on_shutdown">
-<span class="sig-name descname"><span class="pre">on_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.on_shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.on_shutdown" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.on_shutdown">
+<span class="sig-name descname"><span class="pre">on_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.on_shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.on_shutdown" title="Permalink to this definition">#</a></dt>
 <dd><p>Called as the server is shutting down.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.LanguageFeature.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.LanguageFeature.save" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.save" title="Permalink to this definition">#</a></dt>
 <dd><p>Called each time a document is saved.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -995,8 +1008,8 @@ current line.</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">CompletionContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capabilities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#CompletionContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.</span></span><span class="sig-name descname"><span class="pre">CompletionContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capabilities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#CompletionContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.CompletionContext" title="Permalink to this definition">#</a></dt>
 <dd><p>Captures the context within which a completion request has been made.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1010,67 +1023,67 @@ current line.</p>
 </dd>
 </dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.commit_characters_support">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">commit_characters_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.commit_characters_support" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.commit_characters_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">commit_characters_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.commit_characters_support" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates if the client supports commit characters.</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.deprecated_support">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deprecated_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.deprecated_support" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.deprecated_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deprecated_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.deprecated_support" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates if the client supports the deprecated field on a
 <code class="docutils literal notranslate"><span class="pre">CompletionItem</span></code>.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.doc">
-<span class="sig-name descname"><span class="pre">doc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pygls.workspace.Document</span></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.doc" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.doc">
+<span class="sig-name descname"><span class="pre">doc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pygls.workspace.Document</span></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.doc" title="Permalink to this definition">#</a></dt>
 <dd><p>The document within which the completion request was made.</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.documentation_formats">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation_formats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pygls.lsp.types.basic_structures.MarkupKind</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.documentation_formats" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.documentation_formats">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation_formats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pygls.lsp.types.basic_structures.MarkupKind</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.documentation_formats" title="Permalink to this definition">#</a></dt>
 <dd><p>The list of documentation formats supported by the client.</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.insert_replace_support">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">insert_replace_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.insert_replace_support" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.insert_replace_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">insert_replace_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.insert_replace_support" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates if the client supports <code class="docutils literal notranslate"><span class="pre">InsertReplaceEdit</span></code>.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.location">
-<span class="sig-name descname"><span class="pre">location</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.location" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.location">
+<span class="sig-name descname"><span class="pre">location</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.location" title="Permalink to this definition">#</a></dt>
 <dd><p>The location type where the request was made.
 See <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="esbonio.lsp.rst.RstLanguageServer.get_location_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_location_type()</span></code></a> for details.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.match">
-<span class="sig-name descname"><span class="pre">match</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">re.Match</span></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.match" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.match">
+<span class="sig-name descname"><span class="pre">match</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">re.Match</span></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.match" title="Permalink to this definition">#</a></dt>
 <dd><p>The match object describing the site of the completion request.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.position">
-<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pygls.lsp.types.basic_structures.Position</span></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.position" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pygls.lsp.types.basic_structures.Position</span></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.position" title="Permalink to this definition">#</a></dt>
 <dd><p>The position at which the completion request was made.</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.preselect_support">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preselect_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.preselect_support" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.preselect_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preselect_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.preselect_support" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates if the client supports the preselect field on a
 <code class="docutils literal notranslate"><span class="pre">CompletionItem</span></code>.</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.snippet_support">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">snippet_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.snippet_support" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.snippet_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">snippet_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.snippet_support" title="Permalink to this definition">#</a></dt>
 <dd><p>Indicates if the client supports snippets</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.CompletionContext.supported_tags">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">supported_tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pygls.lsp.types.language_features.completion.CompletionItemTag</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.rst.CompletionContext.supported_tags" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.CompletionContext.supported_tags">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">supported_tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pygls.lsp.types.language_features.completion.CompletionItemTag</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.CompletionContext.supported_tags" title="Permalink to this definition">#</a></dt>
 <dd><p>The list of <code class="docutils literal notranslate"><span class="pre">CompletionItemTags</span></code> supported by the client.</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.DefinitionContext">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">DefinitionContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#DefinitionContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.DefinitionContext" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.DefinitionContext">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.</span></span><span class="sig-name descname"><span class="pre">DefinitionContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#DefinitionContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.DefinitionContext" title="Permalink to this definition">#</a></dt>
 <dd><p>A class that captures the context within which a definition request has been
 made.</p>
 <dl class="field-list simple">
@@ -1084,25 +1097,48 @@ made.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.DefinitionContext.doc">
-<span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#esbonio.lsp.rst.DefinitionContext.doc" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.DefinitionContext.doc">
+<span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#esbonio.lsp.DefinitionContext.doc" title="Permalink to this definition">#</a></dt>
 <dd><p>The document within which the definition request was made.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.DefinitionContext.location">
-<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#esbonio.lsp.rst.DefinitionContext.location" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.DefinitionContext.location">
+<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#esbonio.lsp.DefinitionContext.location" title="Permalink to this definition">#</a></dt>
 <dd><p>The location type where the request was made.
 See <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="esbonio.lsp.rst.RstLanguageServer.get_location_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_location_type()</span></code></a> for details.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.DefinitionContext.match">
-<span class="sig-name descname"><span class="pre">match</span></span><a class="headerlink" href="#esbonio.lsp.rst.DefinitionContext.match" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.DefinitionContext.match">
+<span class="sig-name descname"><span class="pre">match</span></span><a class="headerlink" href="#esbonio.lsp.DefinitionContext.match" title="Permalink to this definition">#</a></dt>
 <dd><p>The match object describing the site of the definition request.</p>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="esbonio.lsp.rst.DefinitionContext.position">
-<span class="sig-name descname"><span class="pre">position</span></span><a class="headerlink" href="#esbonio.lsp.rst.DefinitionContext.position" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="esbonio.lsp.DefinitionContext.position">
+<span class="sig-name descname"><span class="pre">position</span></span><a class="headerlink" href="#esbonio.lsp.DefinitionContext.position" title="Permalink to this definition">#</a></dt>
 <dd><p>The position at which the definition request was made.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.DocumentLinkContext">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.</span></span><span class="sig-name descname"><span class="pre">DocumentLinkContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capabilities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#DocumentLinkContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.DocumentLinkContext" title="Permalink to this definition">#</a></dt>
+<dd><p>Captures the context within which a document link request has been made.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>pygls.workspace.Document</em>) – </p></li>
+<li><p><strong>capabilities</strong> (<em>pygls.lsp.types.general_messages.ClientCapabilities</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.DocumentLinkContext.doc">
+<span class="sig-name descname"><span class="pre">doc</span></span><a class="headerlink" href="#esbonio.lsp.DocumentLinkContext.doc" title="Permalink to this definition">#</a></dt>
+<dd><p>The document within which the document link request was made.</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="esbonio.lsp.DocumentLinkContext.tooltip_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tooltip_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#esbonio.lsp.DocumentLinkContext.tooltip_support" title="Permalink to this definition">#</a></dt>
+<dd><p>Indicates if the client supports tooltips.</p>
 </dd></dl>
 </dd></dl>
 <section id="directives">
@@ -1147,13 +1183,59 @@ directive.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.rst.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The completion context</p></li>
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The completion context</p></li>
 <li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the domain the directive is a member of</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the domain</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.language_features.completion.CompletionItem]</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentDefinition">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">ArgumentDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentDefinition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentDefinition" title="Permalink to this definition">#</a></dt>
+<dd><p>A definition provider for directive arguments.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentDefinition.find_definitions">
+<span class="sig-name descname"><span class="pre">find_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentDefinition.find_definitions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentDefinition.find_definitions" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a list of locations representing definitions of the given argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>esbonio.lsp.rst.DefinitionContext</em></a>) – The context of the definition request.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The argument to find the definition of.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.basic_structures.Location]</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">ArgumentLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentLink" title="Permalink to this definition">#</a></dt>
+<dd><p>A document link resolver for directive arguments.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentLink.resolve_link">
+<span class="sig-name descname"><span class="pre">resolve_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentLink.resolve_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentLink.resolve_link" title="Permalink to this definition">#</a></dt>
+<dd><p>Resolve a document link request for the given argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>esbonio.lsp.rst.DocumentLinkContext</em></a>) – The context of the document link request.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The argument to resolve the link for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1169,6 +1251,32 @@ directive.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentCompletion" title="esbonio.lsp.directives.ArgumentCompletion"><em>esbonio.lsp.directives.ArgumentCompletion</em></a>) – The provider to register.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.add_argument_definition_provider">
+<span class="sig-name descname"><span class="pre">add_argument_definition_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#Directives.add_argument_definition_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.add_argument_definition_provider" title="Permalink to this definition">#</a></dt>
+<dd><p>Register an <a class="reference internal" href="#esbonio.lsp.directives.ArgumentDefinition" title="esbonio.lsp.directives.ArgumentDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentDefinition</span></code></a> provider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentDefinition" title="esbonio.lsp.directives.ArgumentDefinition"><em>esbonio.lsp.directives.ArgumentDefinition</em></a>) – The provider to register.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.add_argument_link_provider">
+<span class="sig-name descname"><span class="pre">add_argument_link_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#Directives.add_argument_link_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.add_argument_link_provider" title="Permalink to this definition">#</a></dt>
+<dd><p>Register an <a class="reference internal" href="#esbonio.lsp.directives.ArgumentLink" title="esbonio.lsp.directives.ArgumentLink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentLink</span></code></a> provider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentLink" title="esbonio.lsp.directives.ArgumentLink"><em>esbonio.lsp.directives.ArgumentLink</em></a>) – The provider to register.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
@@ -1332,6 +1440,45 @@ plain text or markdown.</p>
 </dd>
 </dl>
 </dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_completion_provider">
+<span class="sig-name descname"><span class="pre">add_target_completion_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/roles.html#Roles.add_target_completion_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_completion_provider" title="Permalink to this definition">#</a></dt>
+<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion" title="esbonio.lsp.roles.TargetCompletion"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetCompletion</span></code></a> provider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion" title="esbonio.lsp.roles.TargetCompletion"><em>esbonio.lsp.roles.TargetCompletion</em></a>) – The provider to register</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_definition_provider">
+<span class="sig-name descname"><span class="pre">add_target_definition_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/roles.html#Roles.add_target_definition_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_definition_provider" title="Permalink to this definition">#</a></dt>
+<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition" title="esbonio.lsp.roles.TargetDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetDefinition</span></code></a> provider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition" title="esbonio.lsp.roles.TargetDefinition"><em>esbonio.lsp.roles.TargetDefinition</em></a>) – The provider to register</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_link_provider">
+<span class="sig-name descname"><span class="pre">add_target_link_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/roles.html#Roles.add_target_link_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_link_provider" title="Permalink to this definition">#</a></dt>
+<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetLink" title="esbonio.lsp.roles.TargetLink"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetLink</span></code></a> provider.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetLink" title="esbonio.lsp.roles.TargetLink"><em>esbonio.lsp.roles.TargetLink</em></a>) – The provider to register</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.roles.TargetCompletion">
@@ -1345,7 +1492,7 @@ role.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.rst.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The completion context</p></li>
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>esbonio.lsp.rst.CompletionContext</em></a>) – The completion context</p></li>
 <li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The name of the domain the role is a member of</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the role to generate completion suggestions for.</p></li>
 </ul>
@@ -1372,11 +1519,34 @@ target.</p>
 <li><p><strong>match</strong> – The match object that triggered the definition request</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the role</p></li>
 <li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The domain the role is part of, if applicable.</p></li>
-<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.rst.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>esbonio.lsp.rst.DefinitionContext</em></a>) – </p></li>
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>esbonio.lsp.rst.DefinitionContext</em></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[pygls.lsp.types.basic_structures.Location]</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetLink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">TargetLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/roles.html#TargetLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetLink" title="Permalink to this definition">#</a></dt>
+<dd><p>A document link provider for role targets</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetLink.resolve_link">
+<span class="sig-name descname"><span class="pre">resolve_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/roles.html#TargetLink.resolve_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetLink.resolve_link" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a link corresponding to the given target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>esbonio.lsp.rst.DocumentLinkContext</em></a>) – The document link context</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The name (if applicable) of the domain the role is a member of</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the role to generate completion suggestions for.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The label of the target to provide the link for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
