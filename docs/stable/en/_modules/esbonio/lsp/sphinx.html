@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>esbonio.lsp.sphinx - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
 
@@ -38,10 +38,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -213,7 +215,9 @@
         <article role="main">
           <h1>Source code for esbonio.lsp.sphinx</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -227,6 +231,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">appdirs</span>
 <span class="kn">import</span> <span class="nn">pygls.uris</span> <span class="k">as</span> <span class="nn">Uri</span>
@@ -251,6 +256,7 @@
 <span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">console</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">SphinxLogRecord</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">WarningLogRecordTranslator</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span> <span class="nn">esbonio.cli</span> <span class="kn">import</span> <span class="n">setup_cli</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">LspHandler</span>
@@ -293,13 +299,14 @@
 <span class="n">PATH_VAR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^\${(\w+)}/?.*"</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">MissingConfigError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">"""Indicates that we couldn't locate the project's 'conf.py'"""</span>
+<div class="viewcode-block" id="MissingConfigError"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.MissingConfigError">[docs]</a><span class="k">class</span> <span class="nc">MissingConfigError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">"""Indicates that we couldn't locate the project's 'conf.py'"""</span></div>
 
 
-<span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="SphinxConfig"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig">[docs]</a><span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">"""Used to represent either the current Sphinx configuration or the config options</span>
-<span class="sd">    provided by the user at startup."""</span>
+<span class="sd">    provided by the user at startup.</span>
+<span class="sd">    """</span>
 
     <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="sd">"""Sphinx's version number."""</span>
@@ -316,6 +323,204 @@
 
     <span class="n">builder_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">"html"</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">"builderName"</span><span class="p">)</span>
     <span class="sd">"""The currently used builder name."""</span>
+
+    <span class="n">force_full_build</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">"forceFullBuild"</span><span class="p">)</span>
+    <span class="sd">"""Flag that can be used to force a full build on startup."""</span>
+
+    <span class="n">num_jobs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">"numJobs"</span><span class="p">)</span>
+    <span class="sd">"""The number of jobs to use for parallel builds."""</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">"""The parsed value of the ``num_jobs`` field."""</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_jobs</span> <span class="o">==</span> <span class="s2">"auto"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_jobs</span>
+
+<div class="viewcode-block" id="SphinxConfig.get_sphinx_args"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.get_sphinx_args">[docs]</a>    <span class="k">def</span> <span class="nf">get_sphinx_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">"""Get the arguments for the Sphinx application object corresponding to this</span>
+<span class="sd">        config.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_uri</span>
+<span class="sd">           The workspace root uri</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        MissingConfigError</span>
+<span class="sd">           Raised when a valid conf dir cannot be found.</span>
+<span class="sd">        """</span>
+
+        <span class="n">conf_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_conf_dir</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">conf_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingConfigError</span><span class="p">()</span>
+
+        <span class="n">builder_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder_name</span>
+        <span class="n">src_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_src_dir</span><span class="p">(</span><span class="n">root_uri</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">))</span>
+        <span class="n">build_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_build_dir</span><span class="p">(</span><span class="n">root_uri</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">))</span>
+        <span class="n">doctree_dir</span> <span class="o">=</span> <span class="n">build_dir</span> <span class="o">/</span> <span class="s2">"doctrees"</span>
+        <span class="n">build_dir</span> <span class="o">/=</span> <span class="n">builder_name</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"buildername"</span><span class="p">:</span> <span class="n">builder_name</span><span class="p">,</span>
+            <span class="s2">"confdir"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">),</span>
+            <span class="s2">"doctreedir"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">doctree_dir</span><span class="p">),</span>
+            <span class="s2">"freshenv"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_full_build</span><span class="p">,</span>
+            <span class="s2">"outdir"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">build_dir</span><span class="p">),</span>
+            <span class="s2">"parallel"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel</span><span class="p">,</span>
+            <span class="s2">"srcdir"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">src_dir</span><span class="p">),</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"warning"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="SphinxConfig.resolve_build_dir"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_build_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+        <span class="sd">"""Get the build dir to use based on the user's config.</span>
+
+<span class="sd">        If nothing is specified in the given ``config``, this will choose a location</span>
+<span class="sd">        within the user's cache dir (as determined by</span>
+<span class="sd">        `appdirs &lt;https://pypi.org/project/appdirs&gt;`). The directory name will be a hash</span>
+<span class="sd">        derived from the given ``conf_dir`` for the project.</span>
+
+<span class="sd">        Alternatively the user (or least language client) can override this by setting</span>
+<span class="sd">        either an absolute path, or a path based on the following "variables".</span>
+
+<span class="sd">        - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
+<span class="sd">          by the language client.</span>
+
+<span class="sd">        - ``${workspaceFolder}`` alias for ``${workspaceRoot}``, placeholder ready for</span>
+<span class="sd">          multi-root support.</span>
+
+<span class="sd">        - ``${confDir}`` which expands to the configured config dir.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_uri</span>
+<span class="sd">           The workspace root uri</span>
+
+<span class="sd">        actual_conf_dir:</span>
+<span class="sd">           The fully resolved conf dir for the project</span>
+<span class="sd">        """</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_dir</span><span class="p">:</span>
+            <span class="c1"># Try to pick a sensible dir based on the project's location</span>
+            <span class="n">cache</span> <span class="o">=</span> <span class="n">appdirs</span><span class="o">.</span><span class="n">user_cache_dir</span><span class="p">(</span><span class="s2">"esbonio"</span><span class="p">,</span> <span class="s2">"swyddfa"</span><span class="p">)</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">actual_conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span>
+
+        <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
+            <span class="n">build</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">build</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"confDir"</span><span class="p">:</span>
+            <span class="n">build</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">actual_conf_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">build</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+        <span class="c1"># Convert path to/from uri so that any path quirks from windows are</span>
+        <span class="c1"># automatically handled</span>
+        <span class="n">build_uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span>
+        <span class="n">build_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">build_uri</span><span class="p">)</span>
+
+        <span class="c1"># But make sure paths starting with '~' are not corrupted</span>
+        <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">):</span>
+            <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
+
+        <span class="c1"># But make sure (windows) paths starting with '~' are not corrupted</span>
+        <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">):</span>
+            <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SphinxConfig.resolve_conf_dir"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_conf_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]:</span>
+        <span class="sd">"""Get the conf dir to use based on the user's config.</span>
+
+<span class="sd">        If ``conf_dir`` is not set, this method will attempt to find it by searching</span>
+<span class="sd">        within the ``root_uri`` for a ``conf.py`` file. If multiple files are found, the</span>
+<span class="sd">        first one found will be chosen.</span>
+
+<span class="sd">        If ``conf_dir`` is set the following "variables" are handled by this method</span>
+
+<span class="sd">        - ``${workspaceRoot}`` which expands to the workspace root as provided by the</span>
+<span class="sd">          language client.</span>
+
+<span class="sd">        - ``${workspaceFolder}`` alias for ``${workspaceRoot}``, placeholder ready for</span>
+<span class="sd">          multi-root support.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_uri</span>
+<span class="sd">            The workspace root uri</span>
+<span class="sd">        """</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">:</span>
+            <span class="n">ignore_paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".tox"</span><span class="p">,</span> <span class="s2">"site-packages"</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"**/conf.py"</span><span class="p">):</span>
+                <span class="c1"># Skip any files that obviously aren't part of the project</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">path</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">ignore_paths</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="k">return</span> <span class="n">candidate</span><span class="o">.</span><span class="n">parent</span>
+
+            <span class="c1"># Nothing found</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span> <span class="ow">or</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
+
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="o">*</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SphinxConfig.resolve_src_dir"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_src_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+        <span class="sd">"""Get the src dir to use based on the user's config.</span>
+
+<span class="sd">        By default the src dir will be the same as the conf dir, but this can</span>
+<span class="sd">        be overriden by setting the ``src_dir`` field.</span>
+
+<span class="sd">        There are a number of "variables" that can be included in the path,</span>
+<span class="sd">        currently we support</span>
+
+<span class="sd">        - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
+<span class="sd">          by the language client.</span>
+
+<span class="sd">        - ``${workspaceFolder}`` alias for ``${workspaceRoot}``, placeholder ready for</span>
+<span class="sd">          multi-root support.</span>
+
+<span class="sd">        - ``${confDir}`` which expands to the configured config dir.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_uri</span>
+<span class="sd">           The workspace root uri</span>
+
+<span class="sd">        actual_conf_dir</span>
+<span class="sd">           The fully resolved conf dir for the project</span>
+<span class="sd">        """</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_dir</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">actual_conf_dir</span><span class="p">)</span>
+
+        <span class="n">src_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_dir</span>
+        <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
+
+        <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"confDir"</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">actual_conf_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">SphinxServerConfig</span><span class="p">(</span><span class="n">ServerConfig</span><span class="p">):</span>
@@ -526,8 +731,8 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">config</span> <span class="o">=</span> <span class="n">SphinxConfig</span><span class="p">()</span>
 
-                <span class="n">conf_dir</span> <span class="o">=</span> <span class="n">find_conf_dir</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">,</span> <span class="n">config</span>
+                <span class="n">conf_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">resolve_conf_dir</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span>
                 <span class="p">)</span> <span class="ow">or</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span> <span class="o">/</span> <span class="s2">"conf.py"</span><span class="p">)</span> <span class="o">==</span> <span class="n">filepath</span><span class="p">:</span>
@@ -591,39 +796,17 @@
         <span class="n">sphinx</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">sphinx</span>
         <span class="n">server</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">server</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Workspace root </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Sphinx Config </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Workspace root '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"User Config </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
-        <span class="n">conf_dir</span> <span class="o">=</span> <span class="n">find_conf_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">,</span> <span class="n">sphinx</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">conf_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">MissingConfigError</span><span class="p">()</span>
-
-        <span class="n">builder_name</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">builder_name</span>
-        <span class="n">src_dir</span> <span class="o">=</span> <span class="n">get_src_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">,</span> <span class="n">sphinx</span><span class="p">)</span>
-        <span class="n">build_dir</span> <span class="o">=</span> <span class="n">get_build_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">,</span> <span class="n">sphinx</span><span class="p">)</span>
-        <span class="n">doctree_dir</span> <span class="o">=</span> <span class="n">build_dir</span> <span class="o">/</span> <span class="s2">"doctrees"</span>
-        <span class="n">build_dir</span> <span class="o">/=</span> <span class="n">builder_name</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Config dir </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Src dir </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">src_dir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Build dir </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Doctree dir </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">doctree_dir</span><span class="p">)</span>
+        <span class="n">sphinx_args</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">get_sphinx_args</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">root_uri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Sphinx Args </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sphinx_args</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
         <span class="c1"># Disable color escape codes in Sphinx's log messages</span>
         <span class="n">console</span><span class="o">.</span><span class="n">nocolor</span><span class="p">()</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">Sphinx</span><span class="p">(</span><span class="o">**</span><span class="n">sphinx_args</span><span class="p">)</span>
 
-        <span class="n">app</span> <span class="o">=</span> <span class="n">Sphinx</span><span class="p">(</span>
-            <span class="n">srcdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">src_dir</span><span class="p">),</span>
-            <span class="n">confdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">),</span>
-            <span class="n">outdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">build_dir</span><span class="p">),</span>
-            <span class="n">doctreedir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">doctree_dir</span><span class="p">),</span>
-            <span class="n">buildername</span><span class="o">=</span><span class="n">builder_name</span><span class="p">,</span>
-            <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
-            <span class="n">warning</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
-            <span class="n">freshenv</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Have Sphinx reload everything on first build.</span>
-        <span class="p">)</span>
-
-        <span class="c1"># This has to happen after app creation otherwise our handler</span>
+        <span class="c1"># This has to happen after app creation otherwise our logging handler</span>
         <span class="c1"># will get cleared by Sphinx's setup.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">server</span><span class="o">.</span><span class="n">hide_sphinx_output</span><span class="p">:</span>
             <span class="n">sphinx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"sphinx"</span><span class="p">)</span>
@@ -1030,161 +1213,6 @@
                 <span class="n">targets</span><span class="p">[</span><span class="n">target_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="n">std_domain</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">targets</span></div></div>
-
-
-<span class="k">def</span> <span class="nf">find_conf_dir</span><span class="p">(</span><span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SphinxConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]:</span>
-    <span class="sd">"""Attempt to find Sphinx's configuration file within the given workspace."""</span>
-
-    <span class="n">root</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">expand_conf_dir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">)</span>
-
-    <span class="n">ignore_paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".tox"</span><span class="p">,</span> <span class="s2">"site-packages"</span><span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"**/conf.py"</span><span class="p">):</span>
-        <span class="c1"># Skip any files that obviously aren't part of the project</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">path</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">ignore_paths</span><span class="p">):</span>
-            <span class="k">continue</span>
-
-        <span class="k">return</span> <span class="n">candidate</span><span class="o">.</span><span class="n">parent</span>
-
-    <span class="k">return</span> <span class="kc">None</span>
-
-
-<span class="k">def</span> <span class="nf">expand_conf_dir</span><span class="p">(</span><span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
-    <span class="sd">"""Expand the user provided conf_dir into a real path.</span>
-
-<span class="sd">    Here is where we handle "variables" that can be included in the path, currently</span>
-<span class="sd">    we support</span>
-
-<span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided by the</span>
-<span class="sd">      language client.</span>
-<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
-<span class="sd">    multi-root support.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    root_dir:</span>
-<span class="sd">       The workspace root path</span>
-<span class="sd">    conf_dir:</span>
-<span class="sd">       The user provided path</span>
-<span class="sd">    """</span>
-
-    <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span> <span class="ow">or</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
-
-    <span class="n">conf</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">get_src_dir</span><span class="p">(</span>
-    <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SphinxConfig</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
-    <span class="sd">"""Get the src dir to use based on the given conifg.</span>
-
-<span class="sd">    By default the src dir will be the same as the conf dir, but this can</span>
-<span class="sd">    be overriden by the given conifg.</span>
-
-<span class="sd">    There are a number of "variables" that can be included in the path,</span>
-<span class="sd">    currently we support</span>
-
-<span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
-<span class="sd">      by the language client.</span>
-<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
-<span class="sd">      multi-root support.</span>
-<span class="sd">    - ``${confDir}`` which expands to the configured config dir.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    root_uri:</span>
-<span class="sd">       The workspace root uri</span>
-<span class="sd">    conf_dir:</span>
-<span class="sd">       The project's conf dir</span>
-<span class="sd">    config:</span>
-<span class="sd">       The user's configuration.</span>
-<span class="sd">    """</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">src_dir</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">conf_dir</span>
-
-    <span class="n">src_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">src_dir</span>
-    <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
-
-    <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"confDir"</span><span class="p">:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-
-    <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">get_build_dir</span><span class="p">(</span>
-    <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">conf_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">SphinxConfig</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
-    <span class="sd">"""Get the build dir to use based on the given conifg.</span>
-
-<span class="sd">    If nothing is specified in the given ``config``, this will choose a location within</span>
-<span class="sd">    the user's cache dir (as determined by `appdirs &lt;https://pypi.org/project/appdirs&gt;`).</span>
-<span class="sd">    The directory name will be a hash derived from the given ``conf_dir`` for the</span>
-<span class="sd">    project.</span>
-
-<span class="sd">    Alternatively the user (or least language client) can override this by setting</span>
-<span class="sd">    either an absolute path, or a path based on the following "variables".</span>
-
-<span class="sd">    - ``${workspaceRoot}`` which expands to the workspace root as provided</span>
-<span class="sd">      by the language client.</span>
-<span class="sd">    - ``${workspaceFolder}`` alias for ``${workspaceRoot}, placeholder ready for</span>
-<span class="sd">      multi-root support.</span>
-<span class="sd">    - ``${confDir}`` which expands to the configured config dir.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    root_uri:</span>
-<span class="sd">       The workspace root uri</span>
-<span class="sd">    conf_dir:</span>
-<span class="sd">       The project's conf dir</span>
-<span class="sd">    config:</span>
-<span class="sd">       The user's configuration.</span>
-<span class="sd">    """</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">:</span>
-        <span class="c1"># Try to pick a sensible dir based on the project's location</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">appdirs</span><span class="o">.</span><span class="n">user_cache_dir</span><span class="p">(</span><span class="s2">"esbonio"</span><span class="p">,</span> <span class="s2">"swyddfa"</span><span class="p">)</span>
-        <span class="n">project</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span>
-
-    <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">root_uri</span><span class="p">)</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="n">PATH_VAR_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"workspaceRoot"</span><span class="p">,</span> <span class="s2">"workspaceFolder"</span><span class="p">}:</span>
-        <span class="n">build</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">build</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"confDir"</span><span class="p">:</span>
-        <span class="n">build</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">conf_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">build</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-
-    <span class="c1"># Convert path to/from uri so that any path quirks from windows are</span>
-    <span class="c1"># automatically handled</span>
-    <span class="n">build_uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">build_dir</span><span class="p">)</span>
-    <span class="n">build_dir</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">build_uri</span><span class="p">)</span>
-
-    <span class="c1"># But make sure paths starting with '~' are not corrupted</span>
-    <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">):</span>
-        <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
-
-    <span class="c1"># But make sure paths starting with '~' are not corrupted</span>
-    <span class="k">if</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">):</span>
-        <span class="n">build_dir</span> <span class="o">=</span> <span class="n">build_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">~"</span><span class="p">,</span> <span class="s2">"~"</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">exception_to_diagnostic</span><span class="p">(</span><span class="n">exc</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">):</span>
