@@ -168,11 +168,15 @@
 <li class="toctree-l2"><a class="reference internal" href="api-reference.html">API Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to/get-debug-info.html">How To: Get Debug Information</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -278,7 +282,7 @@ Instead a language server acts a container for all the active language features 
 </ul>
 </dd>
 <dt id="term-Language-Feature">Language Feature<a class="headerlink" href="#term-Language-Feature" title="Permalink to this term">#</a></dt><dd><p>Language features are subclasses of <a class="reference internal" href="api-reference.html#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageFeature</span></code></a>.
-They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="api-reference.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>) or Sphinx (e.g. :class:``  responsible for providing</p>
+They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="api-reference.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>).</p>
 <p>Language Features (where it makes sense) should be server agnostic, that way the same features can be reused across different envrionments.</p>
 </dd>
 <dt id="term-Engine">Engine<a class="headerlink" href="#term-Engine" title="Permalink to this term">#</a></dt><dd><p>For lack of a better name… an “engine” is responsible for mapping messages from the LSP Protocol into function calls within the language server.
@@ -331,7 +335,7 @@ As an example, here is how it handles <code class="docutils literal notranslate"
 </div>
 <p>There is nothing in Esbonio that would prevent you from writing your own if you so desired.</p>
 </dd>
-<dt id="term-Module">Module<a class="headerlink" href="#term-Module" title="Permalink to this term">#</a></dt><dd><p>Ordinary Python modules are used to group related functionality together.
+<dt id="term-Extension-Module">Extension Module<a class="headerlink" href="#term-Extension-Module" title="Permalink to this term">#</a></dt><dd><p>Ordinary Python modules are used to group related functionality together.
 Taking inspiration from how Sphinx is architected, language servers are assembled by passing the list of modules to load to the <a class="reference internal" href="api-reference.html#esbonio.lsp.create_language_server" title="esbonio.lsp.create_language_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_language_server()</span></code></a>.
 This assembly process calls any functions with the name <code class="docutils literal notranslate"><span class="pre">esbonio_setup</span></code> allowing for <code class="docutils literal notranslate"><span class="pre">LanguageFeatures</span></code> to be configured and loaded into the server.</p>
 <p>Here is an example of such a setup function.</p>
