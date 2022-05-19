@@ -9,8 +9,9 @@
         <title>Getting Started - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -685,7 +686,7 @@ that returns the options you wish to set.</p>
 </div></div><dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.buildDir-string">
 <span id="confval-sphinx.buildDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.buildDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.buildDir-string" title="Permalink to this definition">#</a></dt>
-<dd><p>By default the language server will choose a cache directory (as determined by <a class="reference external" href="https://pypi.org/project/appdirs">appdirs</a>) to put Sphinx’s build output.
+<dd><p>By default the language server will choose a cache directory (as determined by <a class="reference external" href="https://pypi.org/project/appdirs">appdirs</a>) to place Sphinx’s build output.
 This option can be used to force the language server to use a location of your choosing, currently accepted values include:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">/path/to/src/</span></code> - An absolute path</p></li>
@@ -693,6 +694,16 @@ This option can be used to force the language server to use a location of your c
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs/src</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
 </ul>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.builderName-string">
+<span id="confval-sphinx.builderName (string)"></span><span class="sig-name descname"><span class="pre">sphinx.builderName</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.builderName-string" title="Permalink to this definition">#</a></dt>
+<dd><p>By default the language server will use the <code class="docutils literal notranslate"><span class="pre">html</span></code> builder.
+This option allows you to specify the builder you wish to use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some features (such as previews) are currently only available for the <code class="docutils literal notranslate"><span class="pre">html</span></code> builder.</p>
+</div>
 </dd></dl>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.confDir-string">
@@ -705,6 +716,81 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/docs</span></code> - A path relative to the root of your workspace.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
 </ul>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.configOverrides-object">
+<span id="confval-sphinx.configOverrides (object)"></span><span class="sig-name descname"><span class="pre">sphinx.configOverrides</span> <span class="pre">(object)</span></span><a class="headerlink" href="#confval-sphinx.configOverrides-object" title="Permalink to this definition">#</a></dt>
+<dd><p>This option can be used to override values set in the project’s <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file.
+This covers both the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-D" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-D</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-A" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-A</span></code></a> cli options.</p>
+<p>For example the cli argument <code class="docutils literal notranslate"><span class="pre">-Dlanguage=cy</span></code> overrides a project’s language, the equivalent setting using the <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> setting would be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+   "sphinx.configOverrides": {
+      "language": "cy"
+   }
+}
+</pre></div>
+</div>
+<p>Simiarly the argument <code class="docutils literal notranslate"><span class="pre">-Adocstitle=ProjectName</span></code> overrides the value of the <code class="docutils literal notranslate"><span class="pre">docstitle</span></code> variable inside HTML templates, the equivalent setting using <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> would be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+   "sphinx.configOverrides": {
+      "docstitle": "ProjectName"
+   }
+}
+</pre></div>
+</div>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.doctreeDir-string">
+<span id="confval-sphinx.doctreeDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.doctreeDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.doctreeDir-string" title="Permalink to this definition">#</a></dt>
+<dd><p>This option can be used to specify the directory into which the language server will write the project’s doctree cache.
+Currently accepted values include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/path/to/docs</span></code> - An absolute path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/doctrees</span></code> - A path relative to the root of your workspace.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/doctrees</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../doctrees</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${buildDir}/.doctrees</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">buildDir</span></code></p></li>
+</ul>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.forceFullBuild-boolean">
+<span id="confval-sphinx.forceFullBuild (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.forceFullBuild</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.forceFullBuild-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Flag that indicates if the server should force a full build of the documentation on startup.
+(Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.keepGoing-boolean">
+<span id="confval-sphinx.keepGoing (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.keepGoing</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.keepGoing-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Continue building even when errors (from warnings) are encountered.
+(Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.makeMode-boolean">
+<span id="confval-sphinx.makeMode (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.makeMode</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.makeMode-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-M" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-M</span></code></a> argument.
+If <code class="docutils literal notranslate"><span class="pre">false</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-b" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-b</span></code></a> argument.
+(Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.numJobs-string-or-integer">
+<span id="confval-sphinx.numJobs (string or integer)"></span><span class="sig-name descname"><span class="pre">sphinx.numJobs</span> <span class="pre">(string</span> <span class="pre">or</span> <span class="pre">integer)</span></span><a class="headerlink" href="#confval-sphinx.numJobs-string-or-integer" title="Permalink to this definition">#</a></dt>
+<dd><p>Controls the number of parallel jobs used during a Sphinx build.</p>
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">"auto"</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
+Setting this value to <code class="docutils literal notranslate"><span class="pre">1</span></code> effectively disables parallel builds.</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.quiet-boolean">
+<span id="confval-sphinx.quiet (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.quiet-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Hides all standard Sphinx output messages.
+Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-q" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-q</span></code></a> cli option.
+(Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.silent-boolean">
+<span id="confval-sphinx.silent (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.silent-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Hides all Sphinx output.
+Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-Q" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-Q</span></code></a> cli option.
+(Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.srcDir-string">
@@ -720,16 +806,21 @@ Currently accepted values include:</p>
 </ul>
 </dd></dl>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-sphinx.forceFullBuild-boolean">
-<span id="confval-sphinx.forceFullBuild (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.forceFullBuild</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.forceFullBuild-boolean" title="Permalink to this definition">#</a></dt>
-<dd><p>Flag that indicates if the server should force a full build of the documentation on startup. (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
+<dt class="sig sig-object std" id="confval-sphinx.tags-string">
+<span id="confval-sphinx.tags (string[])"></span><span class="sig-name descname"><span class="pre">sphinx.tags</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-sphinx.tags-string" title="Permalink to this definition">#</a></dt>
+<dd><p>A list of tags to enable.
+See the documentation on the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-t" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-t</span></code></a> cli option for more details.
+(Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>)</p>
 </dd></dl>
 <dl class="std confval">
-<dt class="sig sig-object std" id="confval-sphinx.numJobs-string-or-integer">
-<span id="confval-sphinx.numJobs (string or integer)"></span><span class="sig-name descname"><span class="pre">sphinx.numJobs</span> <span class="pre">(string</span> <span class="pre">or</span> <span class="pre">integer)</span></span><a class="headerlink" href="#confval-sphinx.numJobs-string-or-integer" title="Permalink to this definition">#</a></dt>
-<dd><p>Controls the number of parallel jobs used during a Sphinx build.</p>
-<p>The default value of <code class="docutils literal notranslate"><span class="pre">"auto"</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
-Setting this value to <code class="docutils literal notranslate"><span class="pre">1</span></code> effectively disables parallel builds.</p>
+<dt class="sig sig-object std" id="confval-sphinx.verbosity-integer">
+<span id="confval-sphinx.verbosity (integer)"></span><span class="sig-name descname"><span class="pre">sphinx.verbosity</span> <span class="pre">(integer)</span></span><a class="headerlink" href="#confval-sphinx.verbosity-integer" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the verbosity level of Sphinx’s output. (Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p>
+</dd></dl>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-sphinx.warningIsError-boolean">
+<span id="confval-sphinx.warningIsError (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.warningIsError</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.warningIsError-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Treat warnings as errors. (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
@@ -751,7 +842,11 @@ This option can be used to restrict the log output to be only those named.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.hideSphinxOutput-boolean">
 <span id="confval-server.hideSphinxOutput (boolean)"></span><span class="sig-name descname"><span class="pre">server.hideSphinxOutput</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.hideSphinxOutput-boolean" title="Permalink to this definition">#</a></dt>
-<dd><p>Normally any build output from Sphinx will be forwarded to the client as log messages.
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.12.0: </span>The <code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.quiet</span></code> and <code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.silent</span></code> options should be used instead.
+This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>.</p>
+</div>
+<p>Normally any build output from Sphinx will be forwarded to the client as log messages.
 If you prefer this flag can be used to exclude any Sphinx output from the log.</p>
 </dd></dl>
 </section>
@@ -1336,19 +1431,19 @@ entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/
 </section>
 <style>
 [data-content] {display: none}
-[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
+[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
 }
 [data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
 }
-[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
-}
-[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
-}
-[data-selected="vscode-(esbonio)"] ~ div[data-content="vscode-(esbonio)"] {  display: block 
+[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
 }
 [data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
 }
+[data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
+}
 [data-selected="kate"] ~ div[data-content="kate"] {  display: block 
+}
+[data-selected="vscode-(esbonio)"] ~ div[data-content="vscode-(esbonio)"] {  display: block 
 }
 </style>
 <script>

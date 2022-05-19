@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href="_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/><title>Indecs - Esbonio</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -223,7 +224,7 @@
           
 <section class="genindex-section">
   <h1 id="index">Indecs</h1>
-  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a> | <a href="#V"><strong>V</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#K"><strong>K</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#Q"><strong>Q</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a></div>
 </section>
 <section id="A" class="genindex-section">
   <h2>A</h2>
@@ -301,6 +302,8 @@
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.conf_dir">conf_dir (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.config_overrides">config_overrides (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.configuration">configuration (esbonio.lsp.rst.RstLanguageServer property)</a>
 
         <ul>
@@ -329,13 +332,33 @@
 </li>
           <li><a href="lsp/getting-started.html#confval-sphinx.buildDir-string">sphinx.buildDir (string)</a>
 </li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.builderName-string">sphinx.builderName (string)</a>
+</li>
           <li><a href="lsp/getting-started.html#confval-sphinx.confDir-string">sphinx.confDir (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.configOverrides-object">sphinx.configOverrides (object)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.doctreeDir-string">sphinx.doctreeDir (string)</a>
 </li>
           <li><a href="lsp/getting-started.html#confval-sphinx.forceFullBuild-boolean">sphinx.forceFullBuild (boolean)</a>
 </li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.keepGoing-boolean">sphinx.keepGoing (boolean)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.makeMode-boolean">sphinx.makeMode (boolean)</a>
+</li>
           <li><a href="lsp/getting-started.html#confval-sphinx.numJobs-string-or-integer">sphinx.numJobs (string or integer)</a>
 </li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.quiet-boolean">sphinx.quiet (boolean)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.silent-boolean">sphinx.silent (boolean)</a>
+</li>
           <li><a href="lsp/getting-started.html#confval-sphinx.srcDir-string">sphinx.srcDir (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.tags-string">sphinx.tags (string[])</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.verbosity-integer">sphinx.verbosity (integer)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-sphinx.warningIsError-boolean">sphinx.warningIsError (boolean)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -366,10 +389,10 @@
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.directives.DIRECTIVE">DIRECTIVE (in module esbonio.lsp.directives)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.directives.DIRECTIVE_OPTION">DIRECTIVE_OPTION (in module esbonio.lsp.directives)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.directives.Directives">Directives (class in esbonio.lsp.directives)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.doc">doc (esbonio.lsp.CompletionContext attribute)</a>
@@ -380,6 +403,8 @@
           <li><a href="lsp/api-reference.html#esbonio.lsp.DocumentLinkContext.doc">(esbonio.lsp.DocumentLinkContext attribute)</a>
 </li>
         </ul></li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.doctree_dir">doctree_dir (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.LanguageFeature.document_link">document_link() (esbonio.lsp.LanguageFeature method)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.documentation_formats">documentation_formats (esbonio.lsp.CompletionContext property)</a>
@@ -495,6 +520,8 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.force_full_build">force_full_build (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.from_arguments">from_arguments() (esbonio.lsp.sphinx.SphinxConfig class method)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -545,8 +572,6 @@
           <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles">(esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
         </ul></li>
-        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.get_sphinx_args">get_sphinx_args() (esbonio.lsp.sphinx.SphinxConfig method)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -558,6 +583,10 @@
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets">has_intersphinx_targets() (esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
     </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxServerConfig.hide_sphinx_output">hide_sphinx_output (esbonio.lsp.sphinx.SphinxServerConfig attribute)</a>
+</li>
+    </ul></td>
   </tr></table>
 </section>
 
@@ -565,13 +594,29 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="lsp/api-reference.html#esbonio.lsp.LanguageFeature.initialize">initialize() (esbonio.lsp.LanguageFeature method)</a>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.rst.InitializationOptions">InitializationOptions (class in esbonio.lsp.rst)</a>
+
+        <ul>
+          <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.InitializationOptions">(class in esbonio.lsp.sphinx)</a>
 </li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.LanguageFeature.initialize">initialize() (esbonio.lsp.LanguageFeature method)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.LanguageFeature.initialized">initialized() (esbonio.lsp.LanguageFeature method)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.insert_replace_support">insert_replace_support (esbonio.lsp.CompletionContext property)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="K" class="genindex-section">
+  <h2>K</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.keep_going">keep_going (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -589,16 +634,20 @@
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.line_at_position">line_at_position() (esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.line_to_position">line_to_position() (esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.location">location (esbonio.lsp.CompletionContext attribute)</a>
 
         <ul>
           <li><a href="lsp/api-reference.html#esbonio.lsp.DefinitionContext.location">(esbonio.lsp.DefinitionContext attribute)</a>
 </li>
         </ul></li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.rst.ServerConfig.log_filter">log_filter (esbonio.lsp.rst.ServerConfig attribute)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.rst.ServerConfig.log_level">log_level (esbonio.lsp.rst.ServerConfig attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.logger">logger (esbonio.lsp.rst.RstLanguageServer attribute)</a>
 </li>
     </ul></td>
@@ -609,6 +658,8 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.make_mode">make_mode (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.match">match (esbonio.lsp.CompletionContext attribute)</a>
 
         <ul>
@@ -675,6 +726,16 @@
   </tr></table>
 </section>
 
+<section id="Q" class="genindex-section">
+  <h2>Q</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.quiet">quiet (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="R" class="genindex-section">
   <h2>R</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
@@ -682,6 +743,8 @@
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir">resolve_build_dir() (esbonio.lsp.sphinx.SphinxConfig method)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir">resolve_conf_dir() (esbonio.lsp.sphinx.SphinxConfig method)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_doctree_dir">resolve_doctree_dir() (esbonio.lsp.sphinx.SphinxConfig method)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.directives.ArgumentLink.resolve_link">resolve_link() (esbonio.lsp.directives.ArgumentLink method)</a>
 
@@ -709,6 +772,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.LanguageFeature.save">save() (esbonio.lsp.LanguageFeature method)</a>
 </li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.rst.InitializationOptions.server">server (esbonio.lsp.rst.InitializationOptions attribute)</a>
+
+        <ul>
+          <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.InitializationOptions.server">(esbonio.lsp.sphinx.InitializationOptions attribute)</a>
+</li>
+        </ul></li>
         <li>
     server.hideSphinxOutput (boolean)
 
@@ -730,17 +799,30 @@
           <li><a href="lsp/getting-started.html#confval-server.logLevel-string">configuration value</a>
 </li>
         </ul></li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.rst.ServerConfig">ServerConfig (class in esbonio.lsp.rst)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.set_diagnostics">set_diagnostics() (esbonio.lsp.rst.RstLanguageServer method)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.silent">silent (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.CompletionContext.snippet_support">snippet_support (esbonio.lsp.CompletionContext property)</a>
 </li>
         <li><a href="extensions/tutorial.html#directive-solution">solution (directive)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.InitializationOptions.sphinx">sphinx (esbonio.lsp.sphinx.InitializationOptions attribute)</a>
 </li>
         <li>
     sphinx.buildDir (string)
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-sphinx.buildDir-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.builderName (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.builderName-string">configuration value</a>
 </li>
         </ul></li>
         <li>
@@ -751,10 +833,38 @@
 </li>
         </ul></li>
         <li>
+    sphinx.configOverrides (object)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.configOverrides-object">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.doctreeDir (string)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.doctreeDir-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
     sphinx.forceFullBuild (boolean)
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-sphinx.forceFullBuild-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.keepGoing (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.keepGoing-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.makeMode (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.makeMode-boolean">configuration value</a>
 </li>
         </ul></li>
     </ul></td>
@@ -767,15 +877,56 @@
 </li>
         </ul></li>
         <li>
+    sphinx.quiet (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.quiet-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.silent (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.silent-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
     sphinx.srcDir (string)
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-sphinx.srcDir-string">configuration value</a>
 </li>
         </ul></li>
+        <li>
+    sphinx.tags (string[])
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.tags-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.verbosity (integer)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.verbosity-integer">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    sphinx.warningIsError (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-sphinx.warningIsError-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.sphinx_args">sphinx_args (esbonio.lsp.sphinx.SphinxLanguageServer attribute)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.sphinx_log">sphinx_log (esbonio.lsp.sphinx.SphinxLanguageServer attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig">SphinxConfig (class in esbonio.lsp.sphinx)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer">SphinxLanguageServer (class in esbonio.lsp.sphinx)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxServerConfig">SphinxServerConfig (class in esbonio.lsp.sphinx)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.src_dir">src_dir (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
@@ -810,15 +961,21 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.tags">tags (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion">TargetCompletion (class in esbonio.lsp.roles)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition">TargetDefinition (class in esbonio.lsp.roles)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.roles.TargetLink">TargetLink (class in esbonio.lsp.roles)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.text_to_position">text_to_position() (esbonio.lsp.rst.RstLanguageServer method)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_application_args">to_application_args() (esbonio.lsp.sphinx.SphinxConfig method)</a>
+</li>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_cli_args">to_cli_args() (esbonio.lsp.sphinx.SphinxConfig method)</a>
 </li>
         <li><a href="lsp/api-reference.html#esbonio.lsp.DocumentLinkContext.tooltip_support">tooltip_support (esbonio.lsp.DocumentLinkContext property)</a>
 </li>
@@ -840,7 +997,17 @@
   <h2>V</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.version">version (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.verbosity">verbosity (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.warning_is_error">warning_is_error (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
     </ul></td>
   </tr></table>
