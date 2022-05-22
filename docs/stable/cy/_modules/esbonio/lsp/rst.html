@@ -8,8 +8,9 @@
         <title>esbonio.lsp.rst - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -223,6 +224,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
@@ -231,10 +233,8 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">docutils.parsers.rst.directives</span> <span class="k">as</span> <span class="nn">directives</span>  <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">docutils.parsers.rst.directives</span> <span class="k">as</span> <span class="nn">directives</span>
 <span class="kn">import</span> <span class="nn">pygls.uris</span> <span class="k">as</span> <span class="nn">Uri</span>
-<span class="kn">from</span> <span class="nn">docutils</span> <span class="kn">import</span> <span class="n">nodes</span>
-<span class="kn">from</span> <span class="nn">docutils.nodes</span> <span class="kn">import</span> <span class="n">NodeVisitor</span>
 <span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">Directive</span>
 <span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">roles</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
@@ -249,17 +249,15 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Diagnostic</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DidSaveTextDocumentParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentLink</span>
-<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentSymbol</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializedParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializeParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Location</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">MarkupKind</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Position</span>
-<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
-<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">SymbolKind</span>
 <span class="kn">from</span> <span class="nn">pygls.server</span> <span class="kn">import</span> <span class="n">LanguageServer</span>
 <span class="kn">from</span> <span class="nn">pygls.workspace</span> <span class="kn">import</span> <span class="n">Document</span>
 
+<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">read_initial_doctree</span>
 <span class="kn">from</span> <span class="nn">esbonio.cli</span> <span class="kn">import</span> <span class="n">setup_cli</span>
 
 
@@ -516,21 +514,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">ServerConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="ServerConfig"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.ServerConfig">[docs]</a><span class="k">class</span> <span class="nc">ServerConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">"""Configuration options for the server."""</span>
 
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">"logLevel"</span><span class="p">)</span>
     <span class="sd">"""The logging level of server messages to display."""</span>
 
     <span class="n">log_filter</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">"logFilter"</span><span class="p">)</span>
-    <span class="sd">"""A list of logger names to restrict output to."""</span>
+    <span class="sd">"""A list of logger names to restrict output to."""</span></div>
 
 
-<span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="InitializationOptions"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.InitializationOptions">[docs]</a><span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">"""The initialization options we can expect to receive from a client."""</span>
 
     <span class="n">server</span><span class="p">:</span> <span class="n">ServerConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ServerConfig</span><span class="p">)</span>
-    <span class="sd">"""The ``esbonio.server.*`` namespace of options."""</span>
+    <span class="sd">"""The ``esbonio.server.*`` namespace of options."""</span></div>
 
 
 <div class="viewcode-block" id="RstLanguageServer"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer">[docs]</a><span class="k">class</span> <span class="nc">RstLanguageServer</span><span class="p">(</span><span class="n">LanguageServer</span><span class="p">):</span>
@@ -598,7 +596,31 @@
     <span class="k">def</span> <span class="nf">get_doctree</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">docname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="c1"># Not currently implemented for vanilla docutils projects.</span>
         <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="RstLanguageServer.get_initial_doctree"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_initial_doctree">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial_doctree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">"""Return the initial doctree corresponding to the specified document.</span>
+
+<span class="sd">        An "initial" doctree can be thought of as the abstract syntax tree of a</span>
+<span class="sd">        reStructuredText document. This method disables all role and directives</span>
+<span class="sd">        from being executed, instead they are replaced with nodes that simply</span>
+<span class="sd">        represent that they exist.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        uri</span>
+<span class="sd">           Returns the doctree that corresponds with the given uri.</span>
+<span class="sd">        """</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">read_initial_doctree</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="RstLanguageServer.get_directives"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_directives">[docs]</a>    <span class="k">def</span> <span class="nf">get_directives</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Directive</span><span class="p">]:</span>
         <span class="sd">"""Return a dictionary of the known directives"""</span>
@@ -802,93 +824,6 @@
         <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">"[</span><span class="si">%(name)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">lsp_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
         <span class="n">lsp_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">lsp_handler</span><span class="p">)</span></div>
-
-
-<span class="k">class</span> <span class="nc">SymbolVisitor</span><span class="p">(</span><span class="n">NodeVisitor</span><span class="p">):</span>
-    <span class="sd">"""A visitor used to build the hierarchy we return from a</span>
-<span class="sd">    ``textDocument/documentSymbol`` request.</span>
-
-<span class="sd">    Currently this only looks at sections.</span>
-<span class="sd">    """</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rst</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">rst</span><span class="o">.</span><span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_stack</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">current_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DocumentSymbol</span><span class="p">]:</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_stack</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol_stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">push_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">symbol</span> <span class="o">=</span> <span class="n">DocumentSymbol</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
-            <span class="n">kind</span><span class="o">=</span><span class="n">SymbolKind</span><span class="o">.</span><span class="n">String</span><span class="p">,</span>
-            <span class="nb">range</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span>
-                <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-                <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-            <span class="p">),</span>
-            <span class="n">selection_range</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span>
-                <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-                <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-            <span class="p">),</span>
-            <span class="n">children</span><span class="o">=</span><span class="p">[],</span>
-        <span class="p">)</span>
-        <span class="n">current_symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">current_symbol</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">current_symbol</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">pop_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">visit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">push_symbol</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">depart_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pop_symbol</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">visit_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-
-        <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_symbol</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">symbol</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Missing expected current symbol"</span><span class="p">)</span>
-
-        <span class="n">name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">()</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">line</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-
-        <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">range</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">range</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">range</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">character</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">selection_range</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">selection_range</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">selection_range</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">character</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">def</span> <span class="nf">depart_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">visit_Text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">depart_Text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">unknown_visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">unknown_departure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">pass</span>
 
 
 <span class="n">LOG_LEVELS</span> <span class="o">=</span> <span class="p">{</span>

@@ -8,8 +8,9 @@
         <title>esbonio.lsp.directives - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -246,6 +247,8 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx</span> <span class="kn">import</span> <span class="n">SphinxLanguageServer</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE_OPTION</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
@@ -253,60 +256,6 @@
     <span class="c1"># Protocol is only available in Python 3.8+</span>
     <span class="k">class</span> <span class="nc">Protocol</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
         <span class="o">...</span>
-
-
-<span class="n">DIRECTIVE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">    (\s*)                             # directives can be indented</span>
-<span class="sd">    (?P&lt;directive&gt;</span>
-<span class="sd">      \.\.                            # directives start with a comment</span>
-<span class="sd">      [ ]?                            # followed by a space</span>
-<span class="sd">      ((?P&lt;domain&gt;[\w]+):(?!:))?      # directives may include a domain</span>
-<span class="sd">      (?P&lt;name&gt;([\w-]|:(?!:))+)?      # directives have a name</span>
-<span class="sd">      (::)?                           # directives end with '::'</span>
-<span class="sd">    )</span>
-<span class="sd">    ([\s]+(?P&lt;argument&gt;.*?)\s*$)?     # directives may take an argument</span>
-<span class="sd">    """</span><span class="p">,</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="sd">"""A regular expression to detect and parse partial and complete directives.</span>
-
-<span class="sd">This does **not** include any options or content that may be included underneath</span>
-<span class="sd">the initial declaration. The language server breaks a directive down into a number</span>
-<span class="sd">of parts::</span>
-
-<span class="sd">                   vvvvvv argument</span>
-<span class="sd">   .. c:function:: malloc</span>
-<span class="sd">   ^^^^^^^^^^^^^^^ directive</span>
-<span class="sd">        ^^^^^^^^ name</span>
-<span class="sd">      ^ domain (optional)</span>
-<span class="sd">"""</span>
-
-
-<span class="n">DIRECTIVE_OPTION</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">    (?P&lt;indent&gt;\s+)       # directive options must be indented</span>
-<span class="sd">    (?P&lt;option&gt;</span>
-<span class="sd">      :                   # options start with a ':'</span>
-<span class="sd">      (?P&lt;name&gt;[\w-]+)?   # options have a name</span>
-<span class="sd">      :?                  # options end with a ':'</span>
-<span class="sd">    )</span>
-<span class="sd">    (\s*</span>
-<span class="sd">      (?P&lt;value&gt;.*)       # options can have a value</span>
-<span class="sd">    )?</span>
-<span class="sd">    """</span><span class="p">,</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="sd">"""A regular expression used to detect and parse partial and complete directive options.</span>
-
-<span class="sd">The language server breaks an option down into a number of parts::</span>
-
-<span class="sd">               vvvvvv value</span>
-<span class="sd">   |   :align: center</span>
-<span class="sd">       ^^^^^^^ option</span>
-<span class="sd">        ^^^^^ name</span>
-<span class="sd">    ^^^ indent</span>
-<span class="sd">"""</span>
 
 
 <div class="viewcode-block" id="ArgumentCompletion"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentCompletion">[docs]</a><span class="k">class</span> <span class="nc">ArgumentCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
@@ -891,7 +840,6 @@
 
 <span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>
     <span class="sd">"""Configure and reigster the directives feature with the server."""</span>
-
     <span class="n">directives</span> <span class="o">=</span> <span class="n">Directives</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
     <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">directives</span><span class="p">)</span>
 
