@@ -301,6 +301,20 @@ diagnostics from the given source are cleared.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_initial_doctree">
+<span class="sig-name descname"><span class="pre">get_initial_doctree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_initial_doctree"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_initial_doctree" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Return the initial doctree corresponding to the specified document.</p>
+<p>An "initial" doctree can be thought of as the abstract syntax tree of a
+reStructuredText document. This method disables all role and directives
+from being executed, instead they are replaced with nodes that simply
+represent that they exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramedrau</dt>
+<dd class="field-odd"><p><strong>uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- Returns the doctree that corresponds with the given uri.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_location_type">
 <span class="sig-name descname"><span class="pre">get_location_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_location_type"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Given a document and a position, return the kind of location that
@@ -479,7 +493,7 @@ represents.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree">
 <span class="sig-name descname"><span class="pre">get_doctree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_doctree"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>Return the doctree that corresponds with the specified document.</p>
+<dd><p>Return the initial doctree corresponding to the specified document.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">docname</span></code> of a document is its path relative to the project's <code class="docutils literal notranslate"><span class="pre">srcdir</span></code>
 minus the extension e.g. the docname of the file <code class="docutils literal notranslate"><span class="pre">docs/lsp/features.rst</span></code>
 would be <code class="docutils literal notranslate"><span class="pre">lsp/features</span></code>.</p>
@@ -953,6 +967,14 @@ allowing for additional details to be provided e.g. documentation.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.hover">
+<span class="sig-name descname"><span class="pre">hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.hover"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.hover" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Called when request textDocument/hover is sent.</p>
+<p>This method shall return the contents value of textDocument/hover response.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.initialize">
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialize"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.initialize" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Called once when the server is first initialized.</p>
@@ -1108,30 +1130,12 @@ See <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer.get_l
 <dl class="py data">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.DIRECTIVE">
 <span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">DIRECTIVE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.directives.DIRECTIVE" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>A regular expression to detect and parse partial and complete directives.</p>
-<p>This does <strong>not</strong> include any options or content that may be included underneath
-the initial declaration. The language server breaks a directive down into a number
-of parts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">vvvvvv</span> <span class="n">argument</span>
-<span class="o">..</span> <span class="n">c</span><span class="p">:</span><span class="n">function</span><span class="p">::</span> <span class="n">malloc</span>
-<span class="o">^^^^^^^^^^^^^^^</span> <span class="n">directive</span>
-     <span class="o">^^^^^^^^</span> <span class="n">name</span>
-   <span class="o">^</span> <span class="n">domain</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
-</pre></div>
-</div>
+<dd><p>Compiled regular expression object.</p>
 </dd></dl>
 <dl class="py data">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.DIRECTIVE_OPTION">
 <span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">DIRECTIVE_OPTION</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.directives.DIRECTIVE_OPTION" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>A regular expression used to detect and parse partial and complete directive options.</p>
-<p>The language server breaks an option down into a number of parts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">vvvvvv</span> <span class="n">value</span>
-<span class="o">|</span>   <span class="p">:</span><span class="n">align</span><span class="p">:</span> <span class="n">center</span>
-    <span class="o">^^^^^^^</span> <span class="n">option</span>
-     <span class="o">^^^^^</span> <span class="n">name</span>
- <span class="o">^^^</span> <span class="n">indent</span>
-</pre></div>
-</div>
+<dd><p>Compiled regular expression object.</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentCompletion">
@@ -1290,40 +1294,12 @@ are written in plain text or markdown.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="esbonio.lsp.roles.ROLE">
 <span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">ROLE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.roles.ROLE" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>A regular expression to detect and parse parial and complete roles.</p>
-<p>I'm not sure if there are offical names for the components of a role, but the
-language server breaks a role down into a number of parts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              vvvvvv label
-             v modifier(optional)
-            vvvvvvvv target
-:c:function:`!malloc`
-^^^^^^^^^^^^ role
-   ^^^^^^^^ name
- ^ domain (optional)
-</pre></div>
-</div>
-<p>The language server sometimes refers to the above as a "plain" role, in that the
-role's target contains just the label of the object it is linking to. However it's
-also possible to define "aliased" roles, where the link text in the final document
-is overriden, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             vvvvvvvvvvvvvvvvvvvvvvvv alias
-                                       vvvvvv label
-                                      v modifier (optional)
-            vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv target
-:c:function:`used to allocate memory &lt;~malloc&gt;`
-^^^^^^^^^^^^ role
-   ^^^^^^^^ name
- ^ domain (optional)
-</pre></div>
-</div>
-<p>See <code class="xref py py-func docutils literal notranslate"><span class="pre">tests.test_roles.test_role_regex()</span></code> for a list of example strings this pattern
-is expected to match.</p>
+<dd><p>Compiled regular expression object.</p>
 </dd></dl>
 <dl class="py data">
 <dt class="sig sig-object py" id="esbonio.lsp.roles.DEFAULT_ROLE">
 <span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_ROLE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.roles.DEFAULT_ROLE" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>A regular expression to detect and parse parial and complete "default" roles.</p>
-<p>A "default" role is the target part of a normal role - but without the <code class="docutils literal notranslate"><span class="pre">:name:</span></code> part.</p>
+<dd><p>Compiled regular expression object.</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.roles.Roles">

@@ -225,7 +225,6 @@
           <h1>Source code for esbonio.lsp.roles</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Role support."""</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
@@ -245,85 +244,15 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">TextEdit</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="kn">from</span> <span class="nn">esbonio.lsp.directives</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">CompletionContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">DefinitionContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">DocumentLinkContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx</span> <span class="kn">import</span> <span class="n">SphinxLanguageServer</span>
-
-
-<span class="n">ROLE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">    ([^\w:]|^\s*)                     # roles cannot be preceeded by letter chars</span>
-<span class="sd">    (?P&lt;role&gt;</span>
-<span class="sd">      :                               # roles begin with a ':' character</span>
-<span class="sd">      (?!:)                           # the next character cannot be a ':'</span>
-<span class="sd">      ((?P&lt;domain&gt;[\w]+):(?=\w))?     # roles may include a domain (that must be followed by a word character)</span>
-<span class="sd">      ((?P&lt;name&gt;[\w-]+):?)?           # roles have a name</span>
-<span class="sd">    )</span>
-<span class="sd">    (?P&lt;target&gt;</span>
-<span class="sd">      `                               # targets begin with a '`' character</span>
-<span class="sd">      ((?P&lt;alias&gt;[^&lt;`&gt;]*?)&lt;)?         # targets may specify an alias</span>
-<span class="sd">      (?P&lt;modifier&gt;[!~])?             # targets may have a modifier</span>
-<span class="sd">      (?P&lt;label&gt;[^&lt;`&gt;]*)?             # targets contain a label</span>
-<span class="sd">      &gt;?                              # labels end with a '&gt;' when there's an alias</span>
-<span class="sd">      `?                              # targets end with a '`' character</span>
-<span class="sd">    )?</span>
-<span class="sd">    """</span><span class="p">,</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="sd">"""A regular expression to detect and parse parial and complete roles.</span>
-
-<span class="sd">I'm not sure if there are offical names for the components of a role, but the</span>
-<span class="sd">language server breaks a role down into a number of parts::</span>
-
-<span class="sd">                 vvvvvv label</span>
-<span class="sd">                v modifier(optional)</span>
-<span class="sd">               vvvvvvvv target</span>
-<span class="sd">   :c:function:`!malloc`</span>
-<span class="sd">   ^^^^^^^^^^^^ role</span>
-<span class="sd">      ^^^^^^^^ name</span>
-<span class="sd">    ^ domain (optional)</span>
-
-<span class="sd">The language server sometimes refers to the above as a "plain" role, in that the</span>
-<span class="sd">role's target contains just the label of the object it is linking to. However it's</span>
-<span class="sd">also possible to define "aliased" roles, where the link text in the final document</span>
-<span class="sd">is overriden, for example::</span>
-
-<span class="sd">                vvvvvvvvvvvvvvvvvvvvvvvv alias</span>
-<span class="sd">                                          vvvvvv label</span>
-<span class="sd">                                         v modifier (optional)</span>
-<span class="sd">               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv target</span>
-<span class="sd">   :c:function:`used to allocate memory &lt;~malloc&gt;`</span>
-<span class="sd">   ^^^^^^^^^^^^ role</span>
-<span class="sd">      ^^^^^^^^ name</span>
-<span class="sd">    ^ domain (optional)</span>
-
-<span class="sd">See :func:`tests.test_roles.test_role_regex` for a list of example strings this pattern</span>
-<span class="sd">is expected to match.</span>
-<span class="sd">"""</span>
-
-
-<span class="n">DEFAULT_ROLE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="sd">"""</span>
-<span class="sd">    (?&lt;![:`])</span>
-<span class="sd">    (?P&lt;target&gt;</span>
-<span class="sd">      `                               # targets begin with a '`' character</span>
-<span class="sd">      ((?P&lt;alias&gt;[^&lt;`&gt;]*?)&lt;)?         # targets may specify an alias</span>
-<span class="sd">      (?P&lt;modifier&gt;[!~])?             # targets may have a modifier</span>
-<span class="sd">      (?P&lt;label&gt;[^&lt;`&gt;]*)?             # targets contain a label</span>
-<span class="sd">      &gt;?                              # labels end with a '&gt;' when there's an alias</span>
-<span class="sd">      `?                              # targets end with a '`' character</span>
-<span class="sd">    )</span>
-<span class="sd">    """</span><span class="p">,</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="sd">"""A regular expression to detect and parse parial and complete "default" roles.</span>
-
-<span class="sd">A "default" role is the target part of a normal role - but without the ``:name:`` part.</span>
-<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DEFAULT_ROLE</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">ROLE</span>
 
 
 <div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
@@ -810,6 +739,7 @@
 
 
 <span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>
+
     <span class="n">roles</span> <span class="o">=</span> <span class="n">Roles</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
     <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
 
