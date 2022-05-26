@@ -224,7 +224,7 @@
         </div>
         <article role="main">
           <section id="advanced-usage">
-<h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">#</a></h1>
+<span id="lsp-advanced"></span><h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">#</a></h1>
 <p>The <a class="reference internal" href="getting-started.html"><span class="doc">Getting Started</span></a> guide should contain all you need to get up and running with your
 editor of choice. However there may come a time when you will want to enable/disable certain
 functionality or use a different server entirely.</p>
@@ -319,18 +319,36 @@ a <a class="reference external" href="https://microsoft.github.io/language-serve
 <div data-content="esbonio"><dl>
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.configuration</span></code></dt><dd><p>Returns the server’s current configuration.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"sphinx"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.4.0"</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"confDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs"</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"srcDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs"</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"buildDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs/_build/html"</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"builderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"html"</span><span class="w"></span>
+<span class="w">  </span><span class="nt">"config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"sphinx"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"buildDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs/_build/html"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"builderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"html"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"confDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"configOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"doctreeDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs/_build/doctrees"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"forceFullBuild"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"keepGoing"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"makeMode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"numJobs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"quiet"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"silent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"srcDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/.../docs"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"verbosity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"warningIsError"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">         </span><span class="s2">"sphinx-build"</span><span class="p">,</span><span class="w"> </span><span class="s2">"-M"</span><span class="p">,</span><span class="w"> </span><span class="s2">"html"</span><span class="p">,</span><span class="w"> </span><span class="s2">"./docs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"./docs/_build"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.4.0"</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"server"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"logLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"logFilter"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">"hideSphinxOutput"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"server"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"log_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"log_filter"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">     </span><span class="nt">"hide_sphinx_output"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">"warnings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -358,9 +376,9 @@ it can set <code class="docutils literal notranslate"><span class="pre">show</sp
 <dt><code class="docutils literal notranslate"><span class="pre">esbonio.server.configuration</span></code></dt><dd><p>Returns the server’s current configuration.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">"server"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"log_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"log_filter"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"hide_sphinx_output"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"logLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"logFilter"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"hideSphinxOutput"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
