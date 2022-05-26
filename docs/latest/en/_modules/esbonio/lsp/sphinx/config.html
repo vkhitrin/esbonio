@@ -856,10 +856,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Reporting diagnostic at </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">msg</span> <span class="o">%</span> <span class="n">record</span><span class="o">.</span><span class="n">args</span>
+            <span class="c1"># Not every message contains a string...</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">msg</span>
+
+            <span class="c1"># Only attempt to format args if there are args to format</span>
+            <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="o">%</span> <span class="n">record</span><span class="o">.</span><span class="n">args</span>
+
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">msg</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="s2">"Unable to format diagnostic message: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
             <span class="p">)</span>
 
