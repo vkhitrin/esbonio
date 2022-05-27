@@ -411,6 +411,37 @@
         <span class="p">)</span></div>
 
 
+<span class="k">class</span> <span class="nc">HoverContext</span><span class="p">:</span>
+    <span class="sd">"""A class that captures the context within a hover request has been made."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">match</span><span class="p">:</span> <span class="s2">"re.Match"</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span>
+        <span class="n">capabilities</span><span class="p">:</span> <span class="n">ClientCapabilities</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">match</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"HoverContext&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s2">) -- </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2">&gt;"</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">content_formats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">MarkupKind</span><span class="p">]:</span>
+        <span class="sd">"""The list of content formats supported by the client."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_capabilities</span><span class="o">.</span><span class="n">get_capability</span><span class="p">(</span>
+            <span class="s2">"text_document.hover.content_format"</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="p">)</span>
+
+
 <div class="viewcode-block" id="LanguageFeature"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature">[docs]</a><span class="k">class</span> <span class="nc">LanguageFeature</span><span class="p">:</span>
     <span class="sd">"""Base class for language features."""</span>
 
@@ -436,6 +467,16 @@
 <div class="viewcode-block" id="LanguageFeature.code_action"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.code_action">[docs]</a>    <span class="k">def</span> <span class="nf">code_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">CodeActionParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CodeAction</span><span class="p">]:</span>
         <span class="sd">"""Called when code actions should be computed."""</span>
         <span class="k">return</span> <span class="p">[]</span></div>
+
+    <span class="n">hover_triggers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">"re.Pattern"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="LanguageFeature.hover"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.hover">[docs]</a>    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">"""Called when request textDocument/hover is sent.</span>
+
+<span class="sd">        This method shall return the contents value of textDocument/hover response.</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s2">""</span></div>
 
     <span class="n">completion_triggers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">"re.Pattern"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="sd">"""A list of regular expressions used to determine if the</span>

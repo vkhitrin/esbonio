@@ -246,6 +246,7 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">DocumentLinkContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">HoverContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx</span> <span class="kn">import</span> <span class="n">SphinxLanguageServer</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE_OPTION</span>
@@ -745,6 +746,49 @@
                 <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">links</span>
+
+    <span class="n">hover_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"rst"</span><span class="p">,</span> <span class="s2">"docstring"</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="s2">""</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"domain"</span><span class="p">)</span>
+
+        <span class="c1"># Determine if the hover is on the .. directive::  itself, or within the argument</span>
+        <span class="c1"># Be sure to include enough chars for the length of '::'!</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span> <span class="o">-</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[:</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">"::"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_directive</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Add extension points for directive arguments and options.</span>
+        <span class="k">return</span> <span class="s2">""</span>
+
+    <span class="k">def</span> <span class="nf">hover_directive</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Calculating hover for directive '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="n">directive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_directives</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">directive</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">""</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">directive</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="n">documentation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_documentation</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dotted_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">documentation</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">""</span>
+
+        <span class="k">return</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_surrounding_directive</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span>

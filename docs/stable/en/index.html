@@ -288,9 +288,21 @@
   input#document-symbols:checked ~ div[data-label="document-symbols"] {
     border-left: solid 5px #81d3ee;
   }
+
+  input#hover:not(:checked) ~ div[data-content="hover"] {
+    display: none;
+  }
+
+  input#hover:not(:checked) ~ div[data-label="hover"] {
+    border-left: solid 5px #white;
+  }
+
+  input#hover:checked ~ div[data-label="hover"] {
+    border-left: solid 5px #81d3ee;
+  }
 </style>
 <div class="full-width" style="display: flex">
-<div id="9ade36ae-a8e9-40d3-9c34-53f936d6194c" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+<div id="32811f93-82b6-472a-ae53-48356caba199" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
 <label for="completion" style="margin-bottom:0; margin-left: 5px">
     Completion
@@ -314,6 +326,11 @@
 <div data-label="document-symbols" style="margin-right: 5px; border-left: solid 2px white ">
 <label for="document-symbols" style="margin-bottom:0; margin-left: 5px">
     Document Symbols
+  </label>
+</div>
+<div data-label="hover" style="margin-right: 5px; border-left: solid 2px white ">
+<label for="hover" style="margin-bottom:0; margin-left: 5px">
+    Hover
   </label>
 </div>
 </div>
@@ -358,6 +375,13 @@ powers features like the “Outline” view in VSCode.</p>
 <a class="reference external image-reference" href="/_images/document-symbols-demo.png"><img alt="_images/document-symbols-demo.png" src="_images/document-symbols-demo.png"/></a>
 </figure>
 </div>
+<input id="hover" name="features" style="display: none" type="radio"/>
+<div data-content="hover">
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png"/></a>
+</figure>
+</div>
 </div>
 </div>
 <script>
@@ -384,7 +408,7 @@ powers features like the “Outline” view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('9ade36ae-a8e9-40d3-9c34-53f936d6194c')
+  const container = document.getElementById('32811f93-82b6-472a-ae53-48356caba199')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)
@@ -393,6 +417,9 @@ powers features like the “Outline” view in VSCode.</p>
 <ul class="simple">
 <li><p>See the <a class="reference internal" href="lsp/getting-started.html#lsp-getting-started"><span class="std std-ref">Getting Started</span></a> guide for details on how to get up and
 running.</p></li>
+<li><p>For further details on more advanced use cases, see the <a class="reference internal" href="lsp/advanced-usage.html#lsp-advanced"><span class="std std-ref">Advanced Usage</span></a> section.</p></li>
+<li><p>Interested in adding support for your own Sphinx extensions?
+See the section on <a class="reference internal" href="lsp/extending.html#lsp-extending"><span class="std std-ref">Extending</span></a> for more information.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>

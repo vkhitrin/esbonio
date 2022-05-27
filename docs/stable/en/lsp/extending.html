@@ -220,7 +220,7 @@
         </div>
         <article role="main">
           <section id="extending">
-<h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">#</a></h1>
+<span id="lsp-extending"></span><h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">#</a></h1>
 <p>In order to support the extensible nature of reStructuredText and Sphinx, Esbonio itself is structured so that it can be easily extended.
 This section of the documentation outlines the server’s architecture and how you can write your own extensions.</p>
 <div class="toctree-wrapper compound">
@@ -294,7 +294,7 @@ As an example, here is how it handles <code class="docutils literal notranslate"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span>
     <span class="n">COMPLETION</span><span class="p">,</span>
     <span class="n">CompletionOptions</span><span class="p">(</span>
-        <span class="n">trigger_characters</span><span class="o">=</span><span class="p">[</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="s2">"`"</span><span class="p">,</span> <span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">],</span> <span class="n">resolve_provider</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">trigger_characters</span><span class="o">=</span><span class="p">[</span><span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"."</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="s2">"`"</span><span class="p">,</span> <span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">],</span> <span class="n">resolve_provider</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">),</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">on_completion</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">CompletionParams</span><span class="p">):</span>
