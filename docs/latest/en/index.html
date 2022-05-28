@@ -306,7 +306,7 @@
   }
 </style>
 <div class="full-width" style="display: flex">
-<div id="9d2581d9-678d-4fac-9e13-7fb89b2c8c21" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+<div id="23b7b6d6-dd6f-49ff-97a8-1c2ea7094f02" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
 <label for="completion" style="margin-bottom:0; margin-left: 5px">
     Completion
@@ -341,7 +341,7 @@
 <div>
 <input checked="" id="completion" name="features" style="display: none" type="radio"/>
 <div data-content="completion">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_completion">textDocument/completion</a> and can
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_completion">textDocument/completion</a> and can
 offer suggestions in a variety of contexts.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/completion-demo.gif"><img alt="_images/completion-demo.gif" src="_images/completion-demo.gif"/></a>
@@ -349,7 +349,7 @@ offer suggestions in a variety of contexts.</p>
 </div>
 <input id="definition" name="features" style="display: none" type="radio"/>
 <div data-content="definition">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_definition">textDocument/definition</a> to provide the
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_definition">textDocument/definition</a> to provide the
 location of items referenced by certain roles. Currently only the <code class="docutils literal notranslate"><span class="pre">:ref:</span></code>
 and <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> roles are supported.</p>
 <figure class="align-center">
@@ -358,7 +358,7 @@ and <code class="docutils literal notranslate"><span class="pre">:doc:</span></c
 </div>
 <input id="diagnostics" name="features" style="display: none" type="radio"/>
 <div data-content="diagnostics">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_publishDiagnostics">textDocument/publishDiagnostics</a> to
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics">textDocument/publishDiagnostics</a> to
 report errors/warnings enountered during a build.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/diagnostic-sphinx-errors-demo.png"><img alt="_images/diagnostic-sphinx-errors-demo.png" src="_images/diagnostic-sphinx-errors-demo.png"/></a>
@@ -366,14 +366,14 @@ report errors/warnings enountered during a build.</p>
 </div>
 <input id="document-links" name="features" style="display: none" type="radio"/>
 <div data-content="document-links">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_documentLink">textDocument/documentLink</a> to make references to other files “Ctrl + Clickable”</p>
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentLink">textDocument/documentLink</a> to make references to other files “Ctrl + Clickable”</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/document-links-demo.png"><img alt="_images/document-links-demo.png" src="_images/document-links-demo.png"/></a>
 </figure>
 </div>
 <input id="document-symbols" name="features" style="display: none" type="radio"/>
 <div data-content="document-symbols">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_documentSymbol">textDocument/documentSymbol</a> which
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentSymbol">textDocument/documentSymbol</a> which
 powers features like the “Outline” view in VSCode.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/document-symbols-demo.png"><img alt="_images/document-symbols-demo.png" src="_images/document-symbols-demo.png"/></a>
@@ -381,7 +381,7 @@ powers features like the “Outline” view in VSCode.</p>
 </div>
 <input id="hover" name="features" style="display: none" type="radio"/>
 <div data-content="hover">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png"/></a>
 </figure>
@@ -412,7 +412,7 @@ powers features like the “Outline” view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('9d2581d9-678d-4fac-9e13-7fb89b2c8c21')
+  const container = document.getElementById('23b7b6d6-dd6f-49ff-97a8-1c2ea7094f02')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)
