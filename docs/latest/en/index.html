@@ -10,8 +10,8 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -181,6 +181,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="extensions/relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/hello-world.html">Hello World</a></li>
@@ -306,7 +307,7 @@
   }
 </style>
 <div class="full-width" style="display: flex">
-<div id="23b7b6d6-dd6f-49ff-97a8-1c2ea7094f02" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+<div id="bceabf2d-fd57-4ead-8e52-caa33db5415e" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
 <label for="completion" style="margin-bottom:0; margin-left: 5px">
     Completion
@@ -412,7 +413,7 @@ powers features like the “Outline” view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('23b7b6d6-dd6f-49ff-97a8-1c2ea7094f02')
+  const container = document.getElementById('bceabf2d-fd57-4ead-8e52-caa33db5415e')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)
@@ -433,6 +434,7 @@ See the section on <a class="reference internal" href="lsp/extending.html#lsp-ex
 <p>In addition to the language server, the Esbonio project provides a number of
 Sphinx extensions.</p>
 <ul class="simple">
+<li><p><a class="reference internal" href="extensions/relevant_to.html"><span class="doc">Relevent To</span></a>: Swap out sections of an article based on a chosen subject.</p></li>
 <li><p><a class="reference internal" href="extensions/tutorial.html"><span class="doc">Tutorial</span></a>: Export tutorial articles as <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
