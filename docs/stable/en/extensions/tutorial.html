@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Changelog" href="../changelog.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Tutorial - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -205,7 +205,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,7 +237,7 @@ online versions of your tutorials allowing the user to just try things out bypas
 <p>Ensure the extension is enabled by including <code class="code docutils literal notranslate"><span class="pre">esbonio.tutorial</span></code> in
 your <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list inside your project’s <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
-   <span class="s2">"esbonio.tutorial"</span><span class="p">,</span>
+   <span class="s2">&quot;esbonio.tutorial&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -249,7 +250,7 @@ documentation. Here is a simple “Hello, World!” Python tutorial.</p>
 
 Here is how you print the string <span class="s">``Hello, World!``</span> in Python::
 
-   print("Hello, World!")
+   print(&quot;Hello, World!&quot;)
 </pre></div>
 </div>
 <p>Note the only thing specific to this extension is the <code class="docutils literal notranslate"><span class="pre">:tutorial:</span> <span class="pre">notebook</span></code>
@@ -290,6 +291,7 @@ the <a class="reference internal" href="#directive-solution" title="solution dir
 </pre></div>
 </div>
 </dd></dl>
+
 </section>
 <section id="translations">
 <h3>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">#</a></h3>
@@ -311,7 +313,7 @@ translation workflow, be sure to check the <a class="reference external" href="h
 </div>
 </li>
 <li><p>Update your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> to specify where to store your translation strings</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">locale_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"locale/"</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">locale_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;locale/&quot;</span><span class="p">]</span>
 <span class="n">gettext_compact</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># optional.</span>
 </pre></div>
 </div>
@@ -331,16 +333,16 @@ you specified containing <code class="docutils literal notranslate"><span class=
 folder for your language. A <code class="docutils literal notranslate"><span class="pre">*.po</span></code> file is a long sequence of <code class="docutils literal notranslate"><span class="pre">msgid</span></code>, <code class="docutils literal notranslate"><span class="pre">msgstr</span></code>
 pairs.</p>
 <div class="highlight-po notranslate"><div class="highlight"><pre><span></span><span class="kd">#: ../../extensions/tutorial/hello-world.rst:4</span>
-<span class="nv">msgid</span> <span class="s">"Hello World"</span>
-<span class="nv">msgstr</span> <span class="s">""</span>
+<span class="nv">msgid</span> <span class="s">&quot;Hello World&quot;</span>
+<span class="nv">msgstr</span> <span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
 <p>Each <code class="docutils literal notranslate"><span class="pre">msgid</span></code> corresponds with the text to be translated, to provide a
 translation “simply” replace the empty string next to <code class="docutils literal notranslate"><span class="pre">msgstr</span></code> with the
 translation for the string above and save the file</p>
 <div class="highlight-po notranslate"><div class="highlight"><pre><span></span><span class="kd">#: ../../extensions/tutorial/hello-world.rst:4</span>
-<span class="nv">msgid</span> <span class="s">"Hello World"</span>
-<span class="nv">msgstr</span> <span class="s">"Shwmae i gyd"</span>
+<span class="nv">msgid</span> <span class="s">&quot;Hello World&quot;</span>
+<span class="nv">msgstr</span> <span class="s">&quot;Shwmae i gyd&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -368,8 +370,8 @@ a <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stabl
 <section id="packaging">
 <h4>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">#</a></h4>
 <div class="tabbed-set docutils">
-<input checked="checked" id="bacd3a3d-6217-4cc7-9049-99014ea09b4e" name="a2ff064b-36c4-43f9-82f5-af6817585d82" type="radio"/>
-<label class="tabbed-label" for="bacd3a3d-6217-4cc7-9049-99014ea09b4e">
+<input checked="checked" id="9527d32d-3193-4b84-ad8c-a311ecbc7def" name="9a32b65d-6d74-4a36-8139-24a9637edd48" type="radio">
+</input><label class="tabbed-label" for="9527d32d-3193-4b84-ad8c-a311ecbc7def">
 setuptools</label><div class="tabbed-content docutils">
 <p>The exported tutorial can be bundled in your Python package using the
 <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">Data Files</a> support built into setuptools. This requires you to add the
@@ -389,21 +391,21 @@ package as an example, you would add the following line</p>
 build output when you run</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python setup.py sdist bdist_wheel
 <span class="go">...</span>
-<span class="go">adding 'esbonio/tutorial/__init__.py'</span>
-<span class="go">adding 'esbonio/tutorial/__main__.py'</span>
-<span class="go">adding 'esbonio/tutorial/commands.py'</span>
-<span class="hll"><span class="go">adding 'esbonio/tutorial/demo/extensions/tutorial/formatting-example.ipynb'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/extensions/tutorial/hello-world.ipynb'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/extensions/tutorial/solution-example.ipynb'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/resources/extensions/tutorial/formatting-example/vscode-screenshot.png'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-01.py'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-02.py'</span>
-</span><span class="hll"><span class="go">adding 'esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-03.py'</span>
-</span><span class="go">adding 'esbonio_extensions-0.0.2.dist-info/LICENSE'</span>
-<span class="go">adding 'esbonio_extensions-0.0.2.dist-info/METADATA'</span>
-<span class="go">adding 'esbonio_extensions-0.0.2.dist-info/WHEEL'</span>
-<span class="go">adding 'esbonio_extensions-0.0.2.dist-info/top_level.txt'</span>
-<span class="go">adding 'esbonio_extensions-0.0.2.dist-info/RECORD'</span>
+<span class="go">adding &#39;esbonio/tutorial/__init__.py&#39;</span>
+<span class="go">adding &#39;esbonio/tutorial/__main__.py&#39;</span>
+<span class="go">adding &#39;esbonio/tutorial/commands.py&#39;</span>
+<span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/extensions/tutorial/formatting-example.ipynb&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/extensions/tutorial/hello-world.ipynb&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/extensions/tutorial/solution-example.ipynb&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/resources/extensions/tutorial/formatting-example/vscode-screenshot.png&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-01.py&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-02.py&#39;</span>
+</span><span class="hll"><span class="go">adding &#39;esbonio/tutorial/demo/resources/extensions/tutorial/solution-example/solution-example-soln-03.py&#39;</span>
+</span><span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/LICENSE&#39;</span>
+<span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/METADATA&#39;</span>
+<span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/WHEEL&#39;</span>
+<span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/top_level.txt&#39;</span>
+<span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/RECORD&#39;</span>
 </pre></div>
 </div>
 </div>

@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Indecs" href="../../../genindex.html" /><link rel="search" title="Chwilio" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>esbonio.lsp.roles - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -204,7 +204,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -219,7 +220,7 @@
         </div>
         <article role="main">
           <h1>Cod ffynhonnell ar gyfer esbonio.lsp.roles</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Role support."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Role support.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
@@ -253,12 +254,12 @@
 
 
 <div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">"""A definition provider for role targets"""</span>
+    <span class="sd">&quot;&quot;&quot;A definition provider for role targets&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TargetDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
-        <span class="sd">"""Return a list of locations representing the definition of the given role</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of locations representing the definition of the given role</span>
 <span class="sd">        target.</span>
 
 <span class="sd">        Parameters</span>
@@ -271,16 +272,16 @@
 <span class="sd">           The name of the role</span>
 <span class="sd">        domain:</span>
 <span class="sd">           The domain the role is part of, if applicable.</span>
-<span class="sd">        """</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="TargetCompletion"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion">[docs]</a><span class="k">class</span> <span class="nc">TargetCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">"""A completion provider for role targets"""</span>
+    <span class="sd">&quot;&quot;&quot;A completion provider for role targets&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TargetCompletion.complete_targets"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
-        <span class="sd">"""Return a list of completion items representing valid targets for the given</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of completion items representing valid targets for the given</span>
 <span class="sd">        role.</span>
 
 <span class="sd">        Parameters</span>
@@ -291,16 +292,16 @@
 <span class="sd">           The name of the domain the role is a member of</span>
 <span class="sd">        name:</span>
 <span class="sd">           The name of the role to generate completion suggestions for.</span>
-<span class="sd">        """</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="TargetLink"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetLink">[docs]</a><span class="k">class</span> <span class="nc">TargetLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">"""A document link provider for role targets"""</span>
+    <span class="sd">&quot;&quot;&quot;A document link provider for role targets&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="TargetLink.resolve_link"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-        <span class="sd">"""Return a link corresponding to the given target.</span>
+        <span class="sd">&quot;&quot;&quot;Return a link corresponding to the given target.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -315,83 +316,83 @@
 
 <span class="sd">        label</span>
 <span class="sd">           The label of the target to provide the link for</span>
-<span class="sd">        """</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="Roles"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles">[docs]</a><span class="k">class</span> <span class="nc">Roles</span><span class="p">(</span><span class="n">LanguageFeature</span><span class="p">):</span>
-    <span class="sd">"""Role support for the language server."""</span>
+    <span class="sd">&quot;&quot;&quot;Role support for the language server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">"""Cache for documentation."""</span>
+        <span class="sd">&quot;&quot;&quot;Cache for documentation.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetDefinition</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">"""A list of providers that locate the definition for the given role target."""</span>
+        <span class="sd">&quot;&quot;&quot;A list of providers that locate the definition for the given role target.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetLink</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">"""A list of providers that resolve document links for role targets."""</span>
+        <span class="sd">&quot;&quot;&quot;A list of providers that resolve document links for role targets.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetCompletion</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">"""A list of providers that give completion suggestions for role target</span>
-<span class="sd">        objects."""</span>
+        <span class="sd">&quot;&quot;&quot;A list of providers that give completion suggestions for role target</span>
+<span class="sd">        objects.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Roles.add_target_definition_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Register a :class:`~esbonio.lsp.roles.TargetDefinition` provider.</span>
+        <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetDefinition` provider.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Roles.add_target_link_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Register a :class:`~esbonio.lsp.roles.TargetLink` provider.</span>
+        <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetLink` provider.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Roles.add_target_completion_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Register a :class:`~esbonio.lsp.roles.TargetCompletion` provider.</span>
+        <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetCompletion` provider.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Roles.add_documentation"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Register role documentation.</span>
+        <span class="sd">&quot;&quot;&quot;Register role documentation.</span>
 
 <span class="sd">        ``documentation`` should be a dictionary of the form ::</span>
 
 <span class="sd">           documentation = {</span>
-<span class="sd">               "raw(docutils.parsers.rst.roles.raw_role)": {</span>
-<span class="sd">                   "is_markdown": true,</span>
-<span class="sd">                   "license": "https://...",</span>
-<span class="sd">                   "source": "https://...",</span>
-<span class="sd">                   "description": [</span>
-<span class="sd">                       "# :raw:",</span>
-<span class="sd">                       "The raw role is used for...",</span>
+<span class="sd">               &quot;raw(docutils.parsers.rst.roles.raw_role)&quot;: {</span>
+<span class="sd">                   &quot;is_markdown&quot;: true,</span>
+<span class="sd">                   &quot;license&quot;: &quot;https://...&quot;,</span>
+<span class="sd">                   &quot;source&quot;: &quot;https://...&quot;,</span>
+<span class="sd">                   &quot;description&quot;: [</span>
+<span class="sd">                       &quot;# :raw:&quot;,</span>
+<span class="sd">                       &quot;The raw role is used for...&quot;,</span>
 <span class="sd">                       ...</span>
 <span class="sd">                   ]</span>
 <span class="sd">               }</span>
 <span class="sd">           }</span>
 
-<span class="sd">        where the key is of the form `name(dotted_name)`. There are cases where a role's</span>
+<span class="sd">        where the key is of the form `name(dotted_name)`. There are cases where a role&#39;s</span>
 <span class="sd">        implementation is not sufficient to uniquely identify it as multiple roles can</span>
 <span class="sd">        be provided by a single class.</span>
 
 <span class="sd">        This means the key has to be a combination of the ``name`` the user writes in</span>
 <span class="sd">        an reStructuredText document and ``dotted_name`` is the fully qualified name of</span>
-<span class="sd">        the role's implementation.</span>
+<span class="sd">        the role&#39;s implementation.</span>
 
 <span class="sd">        .. note::</span>
 
@@ -402,38 +403,38 @@
 <span class="sd">        fields.</span>
 
 <span class="sd">        ``description``</span>
-<span class="sd">           A list of strings for the role's usage.</span>
+<span class="sd">           A list of strings for the role&#39;s usage.</span>
 
 <span class="sd">        ``is_markdown``</span>
 <span class="sd">           A boolean flag used to indicate whether the ``description`` is written in</span>
 <span class="sd">           plain text or markdown.</span>
 
 <span class="sd">        ``source``</span>
-<span class="sd">           The url to the documentation's source.</span>
+<span class="sd">           The url to the documentation&#39;s source.</span>
 
 <span class="sd">        ``license``</span>
-<span class="sd">           The url to the documentation's license.</span>
+<span class="sd">           The url to the documentation&#39;s license.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        documentation:</span>
 <span class="sd">           The documentation to register.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documentation</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">description</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">description</span><span class="p">:</span>
                 <span class="k">continue</span>
 
-            <span class="n">source</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">source</span><span class="p">:</span>
-                <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[Source](</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+                <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[Source](</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-            <span class="n">license</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"license"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="n">license</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">license</span><span class="p">:</span>
-                <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">[License](</span><span class="si">{</span><span class="n">license</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+                <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[License](</span><span class="si">{</span><span class="n">license</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-            <span class="n">doc</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+            <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span></div>
 
     <span class="n">completion_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">ROLE</span><span class="p">,</span> <span class="n">DEFAULT_ROLE</span><span class="p">]</span>
@@ -442,8 +443,8 @@
 
     <span class="k">def</span> <span class="nf">definition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
 
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"domain"</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
         <span class="n">definitions</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -458,14 +459,14 @@
 
         <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">lines</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ROLE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-                <span class="n">label</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
 
                 <span class="c1"># Be sure to only match complete roles</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"`"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;`&quot;</span><span class="p">):</span>
                     <span class="k">continue</span>
 
-                <span class="n">domain</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"domain"</span><span class="p">)</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
+                <span class="n">domain</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
                 <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">tooltip</span> <span class="o">=</span> <span class="kc">None</span>
@@ -497,7 +498,7 @@
         <span class="k">return</span> <span class="n">links</span>
 
     <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
-        <span class="sd">"""Generate completion suggestions relevant to the current context.</span>
+        <span class="sd">&quot;&quot;&quot;Generate completion suggestions relevant to the current context.</span>
 
 <span class="sd">        This function is a little intense, but its sole purpose is to determine the</span>
 <span class="sd">        context in which the completion request is being made and either return</span>
@@ -508,14 +509,14 @@
 <span class="sd">        ----------</span>
 <span class="sd">        context:</span>
 <span class="sd">           The context of the completion request.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Do not suggest completions within the middle of Python code.</span>
-        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="o">==</span> <span class="s2">"py"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;py&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="n">groups</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
-        <span class="n">target</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
 
         <span class="c1"># All text matched by the regex</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -529,9 +530,9 @@
             <span class="k">if</span> <span class="n">target_index</span> <span class="o">&lt;=</span> <span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">complete_targets</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
-        <span class="c1"># If there's no indent, then this can only be a role definition</span>
+        <span class="c1"># If there&#39;s no indent, then this can only be a role definition</span>
         <span class="n">indent</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">indent</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">indent</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">complete_roles</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
         <span class="c1"># Otherwise, search backwards until we find a blank line or an unindent</span>
@@ -547,7 +548,7 @@
             <span class="n">linum</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">linum</span><span class="p">]</span>
 
-        <span class="c1"># Unless we are within a directive's options block, we should offer role</span>
+        <span class="c1"># Unless we are within a directive&#39;s options block, we should offer role</span>
         <span class="c1"># suggestions</span>
         <span class="k">if</span> <span class="n">DIRECTIVE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[]</span>
@@ -561,9 +562,9 @@
             <span class="k">return</span> <span class="n">item</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">ctype</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"completion_type"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">ctype</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;completion_type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="s2">"role"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="s2">&quot;role&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">completion_resolve_role</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">item</span>
@@ -572,12 +573,12 @@
 
         <span class="n">match</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"domain"</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;domain&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="c1"># Insert text starting from the starting ':' character of the role.</span>
-        <span class="n">start</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
-        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">"role"</span><span class="p">])</span>
+        <span class="c1"># Insert text starting from the starting &#39;:&#39; character of the role.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">&quot;role&quot;</span><span class="p">])</span>
 
         <span class="n">range_</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span>
             <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">start</span><span class="p">),</span>
@@ -590,18 +591,18 @@
                 <span class="k">continue</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+                <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
 
-            <span class="n">insert_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">":</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:"</span>
+            <span class="n">insert_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span>
             <span class="n">item</span> <span class="o">=</span> <span class="n">CompletionItem</span><span class="p">(</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">kind</span><span class="o">=</span><span class="n">CompletionItemKind</span><span class="o">.</span><span class="n">Function</span><span class="p">,</span>
-                <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dotted_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dotted_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">filter_text</span><span class="o">=</span><span class="n">insert_text</span><span class="p">,</span>
                 <span class="n">text_edit</span><span class="o">=</span><span class="n">TextEdit</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="n">insert_text</span><span class="p">),</span>
-                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"completion_type"</span><span class="p">:</span> <span class="s2">"role"</span><span class="p">},</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;completion_type&quot;</span><span class="p">:</span> <span class="s2">&quot;role&quot;</span><span class="p">},</span>
             <span class="p">)</span>
 
             <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -610,7 +611,7 @@
 
     <span class="k">def</span> <span class="nf">completion_resolve_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">CompletionItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletionItem</span><span class="p">:</span>
 
-        <span class="c1"># We need the detail field set to the role implementation's fully qualified name</span>
+        <span class="c1"># We need the detail field set to the role implementation&#39;s fully qualified name</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">detail</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">item</span>
 
@@ -618,44 +619,44 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">documentation</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">item</span>
 
-        <span class="n">description</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
-        <span class="n">is_markdown</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"is_markdown"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">is_markdown</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;is_markdown&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">kind</span> <span class="o">=</span> <span class="n">MarkupKind</span><span class="o">.</span><span class="n">Markdown</span> <span class="k">if</span> <span class="n">is_markdown</span> <span class="k">else</span> <span class="n">MarkupKind</span><span class="o">.</span><span class="n">PlainText</span>
 
         <span class="n">item</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">MarkupContent</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">item</span>
 
     <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
-        <span class="sd">"""Generate the list of role target completion suggestions."""</span>
+        <span class="sd">&quot;&quot;&quot;Generate the list of role target completion suggestions.&quot;&quot;&quot;</span>
 
         <span class="n">groups</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
 
         <span class="c1"># Handle the default role case.</span>
-        <span class="k">if</span> <span class="s2">"role"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;role&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
             <span class="n">domain</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_default_role</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
                 <span class="k">return</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
-            <span class="n">domain</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"domain"</span><span class="p">]</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;domain&quot;</span><span class="p">]</span>
 
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span> <span class="ow">or</span> <span class="s2">""</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">""</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="c1"># Only generate suggestions for "aliased" targets if the request comes from</span>
+        <span class="c1"># Only generate suggestions for &quot;aliased&quot; targets if the request comes from</span>
         <span class="c1"># within the &lt;&gt; chars.</span>
-        <span class="k">if</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"alias"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;alias&quot;</span><span class="p">]:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">start</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">"alias"</span><span class="p">])</span>
-            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">"alias"</span><span class="p">])</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">&quot;alias&quot;</span><span class="p">])</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="s2">&quot;alias&quot;</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">:</span>
                 <span class="k">return</span> <span class="p">[]</span>
 
         <span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">startchar</span> <span class="o">=</span> <span class="s2">"&lt;"</span> <span class="k">if</span> <span class="s2">"&lt;"</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"`"</span>
-        <span class="n">endchars</span> <span class="o">=</span> <span class="s2">"&gt;`"</span> <span class="k">if</span> <span class="s2">"&lt;"</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"`"</span>
+        <span class="n">startchar</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span> <span class="k">if</span> <span class="s2">&quot;&lt;&quot;</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;`&quot;</span>
+        <span class="n">endchars</span> <span class="o">=</span> <span class="s2">&quot;&gt;`&quot;</span> <span class="k">if</span> <span class="s2">&quot;&lt;&quot;</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;`&quot;</span>
 
         <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
         <span class="n">start</span> <span class="o">+=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">startchar</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -664,25 +665,25 @@
             <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">end</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">start</span><span class="p">:]</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"modifier"</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;modifier&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">provide</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="p">:</span>
             <span class="n">candidates</span> <span class="o">=</span> <span class="n">provide</span><span class="o">.</span><span class="n">complete_targets</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
 
             <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
 
-                <span class="c1"># Don't interfere with items that already carry a `text_edit`, allowing</span>
+                <span class="c1"># Don&#39;t interfere with items that already carry a `text_edit`, allowing</span>
                 <span class="c1"># some providers (like filepaths) to do something special.</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="p">:</span>
                     <span class="n">new_text</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="ow">or</span> <span class="n">candidate</span><span class="o">.</span><span class="n">label</span>
 
                     <span class="c1"># This is rather annoying, but `filter_text` needs to start with</span>
-                    <span class="c1"># the text we are going to replace, otherwise VSCode won't show our</span>
+                    <span class="c1"># the text we are going to replace, otherwise VSCode won&#39;t show our</span>
                     <span class="c1"># suggestions!</span>
-                    <span class="n">candidate</span><span class="o">.</span><span class="n">filter_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="n">candidate</span><span class="o">.</span><span class="n">filter_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
 
                     <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span> <span class="o">=</span> <span class="n">TextEdit</span><span class="p">(</span>
-                        <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">modifier</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modifier</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
                     <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -695,17 +696,17 @@
 
     <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 
-        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"rst"</span><span class="p">,</span> <span class="s2">"docstring"</span><span class="p">}:</span>
-            <span class="k">return</span> <span class="s2">""</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;docstring&quot;</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"domain"</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
 
         <span class="c1"># Determine if the hover is on the :role: itself, or within the `target`.</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span> <span class="o">-</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[:</span><span class="n">idx</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="s2">"`"</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;`&quot;</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_target</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_role</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
@@ -714,35 +715,35 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 
-        <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span>
         <span class="n">role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_roles</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">role</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">""</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+            <span class="n">dotted_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">role</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="n">documentation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_documentation</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dotted_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">documentation</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">""</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">hover_target</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="c1"># TODO: Add extension point for providers to contribute hovers for a target.</span>
-        <span class="k">return</span> <span class="s2">""</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_documentation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">implementation</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="sd">"""Return the documentation for the given role, if available.</span>
+        <span class="sd">&quot;&quot;&quot;Return the documentation for the given role, if available.</span>
 
 <span class="sd">        If documentation for the given ``label`` cannot be found, this function will also</span>
-<span class="sd">        look for the label under the project's :confval:`sphinx:primary_domain` followed</span>
+<span class="sd">        look for the label under the project&#39;s :confval:`sphinx:primary_domain` followed</span>
 <span class="sd">        by the ``std`` domain.</span>
 
 <span class="sd">        Parameters</span>
@@ -750,10 +751,10 @@
 <span class="sd">        label:</span>
 <span class="sd">           The name of the role, as the user would type in an reStructuredText file.</span>
 <span class="sd">        implementation:</span>
-<span class="sd">           The full dotted name of the role's implementation.</span>
-<span class="sd">        """</span>
+<span class="sd">           The full dotted name of the role&#39;s implementation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)&quot;</span>
         <span class="n">documentation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">documentation</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">documentation</span>
@@ -763,14 +764,14 @@
 
         <span class="c1"># Nothing found, try the primary domain</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">primary_domain</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)&quot;</span>
 
         <span class="n">documentation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">documentation</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">documentation</span>
 
         <span class="c1"># Still nothing, try the standard domain</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"std:</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;std:</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">implementation</span><span class="si">}</span><span class="s2">)&quot;</span>
 
         <span class="n">documentation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">documentation</span><span class="p">:</span>
@@ -784,12 +785,12 @@
     <span class="n">roles</span> <span class="o">=</span> <span class="n">Roles</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
     <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
 
-    <span class="n">docutils_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">"esbonio.lsp.rst"</span><span class="p">,</span> <span class="s2">"roles.json"</span><span class="p">)</span>
-    <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">docutils_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf8"</span><span class="p">)))</span>
+    <span class="n">docutils_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp.rst&quot;</span><span class="p">,</span> <span class="s2">&quot;roles.json&quot;</span><span class="p">)</span>
+    <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">docutils_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)))</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rst</span><span class="p">,</span> <span class="n">SphinxLanguageServer</span><span class="p">):</span>
-        <span class="n">sphinx_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">"esbonio.lsp.sphinx"</span><span class="p">,</span> <span class="s2">"roles.json"</span><span class="p">)</span>
-        <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sphinx_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf8"</span><span class="p">)))</span>
+        <span class="n">sphinx_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp.sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;roles.json&quot;</span><span class="p">)</span>
+        <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sphinx_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)))</span>
 </pre></div>
         </article>
       </div>

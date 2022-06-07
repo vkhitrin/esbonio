@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Advanced Usage" href="advanced-usage.html" /><link rel="prev" title="Esbonio" href="../index.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Getting Started - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -205,7 +205,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -223,37 +224,38 @@
 <span id="lsp-getting-started"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink i'r pennawd hwn">#</a></h1>
 <p>This section contains notes on how to use the Language Server with your text
 editor of choice.</p>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="vscode-(esbonio)"><figure class="align-center" id="id125">
-<a class="reference external image-reference" href="/_images/vscode-screenshot.png"><img alt="../_images/vscode-screenshot.png" src="../_images/vscode-screenshot.png"/></a>
+<a class="reference external image-reference" href="/_images/vscode-screenshot.png"><img alt="../_images/vscode-screenshot.png" src="../_images/vscode-screenshot.png" /></a>
 <figcaption>
 <p><span class="caption-text">The Esbonio VSCode extension.</span><a class="headerlink" href="#id125" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
 </figure>
 </div><div data-content="emacs-(eglot)"><figure class="align-center" id="id126">
-<a class="reference external image-reference" href="/_images/emacs-eglot-extended.png"><img alt="../_images/emacs-eglot-extended.png" src="../_images/emacs-eglot-extended.png"/></a>
+<a class="reference external image-reference" href="/_images/emacs-eglot-extended.png"><img alt="../_images/emacs-eglot-extended.png" src="../_images/emacs-eglot-extended.png" /></a>
 <figcaption>
 <p><span class="caption-text">Emacs, Esbonio and the <code class="docutils literal notranslate"><span class="pre">eglot-extended.el</span></code> configuration</span><a class="headerlink" href="#id126" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
 </figure>
 </div><div data-content="emacs-(lsp-mode)"><figure class="align-center" id="id127">
-<a class="reference external image-reference" href="/_images/emacs-lsp-mode-extended.png"><img alt="../_images/emacs-lsp-mode-extended.png" src="../_images/emacs-lsp-mode-extended.png"/></a>
+<a class="reference external image-reference" href="/_images/emacs-lsp-mode-extended.png"><img alt="../_images/emacs-lsp-mode-extended.png" src="../_images/emacs-lsp-mode-extended.png" /></a>
 <figcaption>
 <p><span class="caption-text">Emacs, Esbonio and the <code class="docutils literal notranslate"><span class="pre">lsp-mode-extended.el</span></code> configuration</span><a class="headerlink" href="#id127" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
 </figure>
 </div><div data-content="kate"><figure class="align-center" id="id128">
-<a class="reference external image-reference" href="/_images/kate-screenshot.png"><img alt="../_images/kate-screenshot.png" src="../_images/kate-screenshot.png"/></a>
+<a class="reference external image-reference" href="/_images/kate-screenshot.png"><img alt="../_images/kate-screenshot.png" src="../_images/kate-screenshot.png" /></a>
 <figcaption>
 <p><span class="caption-text">Using the Esbonio language server within Kate.</span><a class="headerlink" href="#id128" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
@@ -261,19 +263,19 @@ editor of choice.</p>
 <p><a class="reference external" href="https://kate-editor.org/en-gb/">Kate</a> is a text editor from the KDE project
 and comes with LSP support.</p>
 </div><div data-content="neovim-(lspconfig)"><figure class="align-center" id="id129">
-<a class="reference external image-reference" href="/_images/nvim-lspconfig.png"><img alt="../_images/nvim-lspconfig.png" src="../_images/nvim-lspconfig.png"/></a>
+<a class="reference external image-reference" href="/_images/nvim-lspconfig.png"><img alt="../_images/nvim-lspconfig.png" src="../_images/nvim-lspconfig.png" /></a>
 <figcaption>
 <p><span class="caption-text">Using Esbonio with Neovim's built-in language client.</span><a class="headerlink" href="#id129" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
 </figure>
 </div><div data-content="vim-(coc.nvim)"><figure class="align-center" id="id130">
-<a class="reference external image-reference" href="/_images/nvim-coc.png"><img alt="../_images/nvim-coc.png" src="../_images/nvim-coc.png"/></a>
+<a class="reference external image-reference" href="/_images/nvim-coc.png"><img alt="../_images/nvim-coc.png" src="../_images/nvim-coc.png" /></a>
 <figcaption>
 <p><span class="caption-text">Using Esbonio in Neovim via <code class="docutils literal notranslate"><span class="pre">coc.nvim</span></code> and the <code class="docutils literal notranslate"><span class="pre">coc-esbonio</span></code> extension.</span><a class="headerlink" href="#id130" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
 </figure>
 </div><div data-content="vim-(vim-lsp)"><figure class="align-center" id="id131">
-<a class="reference external image-reference" href="/_images/nvim-vim-lsp.png"><img alt="../_images/nvim-vim-lsp.png" src="../_images/nvim-vim-lsp.png"/></a>
+<a class="reference external image-reference" href="/_images/nvim-vim-lsp.png"><img alt="../_images/nvim-vim-lsp.png" src="../_images/nvim-vim-lsp.png" /></a>
 <figcaption>
 <p><span class="caption-text">Using Esbonio and Neovim with <code class="docutils literal notranslate"><span class="pre">vim-lsp</span></code></span><a class="headerlink" href="#id131" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
@@ -298,40 +300,41 @@ building your documentation e.g.</p>
 </pre></div>
 </div>
 <p>Otherwise the language server will fail to properly understand your project.</p>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="vscode-(esbonio)"><p>Integration with <a class="reference external" href="https://code.visualstudio.com/">VSCode</a> is provided by the <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=swyddfa.esbonio">Esbonio</a> extension.</p>
 </div><div data-content="emacs-(eglot)"><p>Configuring <code class="docutils literal notranslate"><span class="pre">eglot</span></code> can be as straightforward as updating the <code class="docutils literal notranslate"><span class="pre">eglot-server-programs</span></code> list
 to register the language server and how to start it, and running <code class="docutils literal notranslate"><span class="pre">eglot-ensure</span></code> whenever we
 open an <code class="docutils literal notranslate"><span class="pre">*.rst</span></code> file.</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'eglot</span><span class="p">)</span><span class="w"></span>
-<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'eglot-server-programs</span><span class="w"></span>
-<span class="w">             </span><span class="o">`</span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">"python3"</span><span class="p">)</span><span class="w"> </span><span class="s">"-m"</span><span class="w"> </span><span class="s">"esbonio"</span><span class="p">)))</span><span class="w"></span>
-<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">'rst-mode-hook</span><span class="w"> </span><span class="ss">'eglot-ensure</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;eglot</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;eglot-server-programs</span><span class="w"></span>
+<span class="w">             </span><span class="o">`</span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;python3&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;-m&quot;</span><span class="w"> </span><span class="s">&quot;esbonio&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;rst-mode-hook</span><span class="w"> </span><span class="ss">&#39;eglot-ensure</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </div><div data-content="emacs-(lsp-mode)"><p><code class="docutils literal notranslate"><span class="pre">lsp-mode</span></code> requires that the server be registered so that is knows how and
 when to start the server.</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'lsp-mode</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">&#39;lsp-mode</span><span class="p">)</span><span class="w"></span>
 
-<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'lsp-language-id-configuration</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"rst"</span><span class="p">))</span><span class="w"></span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;lsp-language-id-configuration</span><span class="w"> </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;rst&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="p">(</span><span class="nv">lsp-register-client</span><span class="w"></span>
 <span class="w"> </span><span class="p">(</span><span class="nv">make-lsp-client</span><span class="w"> </span><span class="nb">:new-connection</span><span class="w"></span>
 <span class="w">		  </span><span class="p">(</span><span class="nv">lsp-stdio-connection</span><span class="w"></span>
-<span class="w">                   </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">"python3"</span><span class="p">)</span><span class="w"> </span><span class="s">"-m"</span><span class="w"> </span><span class="s">"esbonio"</span><span class="p">))</span><span class="w"></span>
-<span class="w">                  </span><span class="nb">:activation-fn</span><span class="w"> </span><span class="p">(</span><span class="nv">lsp-activate-on</span><span class="w"> </span><span class="s">"rst"</span><span class="p">)</span><span class="w"></span>
-<span class="w">                  </span><span class="nb">:server-id</span><span class="w"> </span><span class="ss">'esbonio</span><span class="p">))</span><span class="w"></span>
+<span class="w">                   </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;python3&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;-m&quot;</span><span class="w"> </span><span class="s">&quot;esbonio&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">                  </span><span class="nb">:activation-fn</span><span class="w"> </span><span class="p">(</span><span class="nv">lsp-activate-on</span><span class="w"> </span><span class="s">&quot;rst&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                  </span><span class="nb">:server-id</span><span class="w"> </span><span class="ss">&#39;esbonio</span><span class="p">))</span><span class="w"></span>
 
-<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">'rst-mode-hook</span><span class="w"> </span><span class="ss">'lsp</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">&#39;rst-mode-hook</span><span class="w"> </span><span class="ss">&#39;lsp</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </div><div data-content="kate"><p>Kate's LSP client is provided via a plugin that needs to be enabled if you're using
@@ -342,7 +345,7 @@ or with the <kbd class="kbd compound docutils literal notranslate"><kbd class="k
 <li><p>Select the <span class="guilabel">Plugins</span> section on the left hand side find the
 <span class="guilabel">LSP Client</span> plugin and ensure that it's checked.</p>
 <figure class="align-center" id="id132">
-<a class="reference internal image-reference" href="../_images/kate-plugin-settings.png"><img alt="../_images/kate-plugin-settings.png" src="../_images/kate-plugin-settings.png" style="width: 80%;"/></a>
+<a class="reference internal image-reference" href="../_images/kate-plugin-settings.png"><img alt="../_images/kate-plugin-settings.png" src="../_images/kate-plugin-settings.png" style="width: 80%;" /></a>
 <figcaption>
 <p><span class="caption-text">Kate's <span class="guilabel">Plugins</span> settings.</span><a class="headerlink" href="#id132" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
@@ -353,18 +356,18 @@ list. Open it and select the <span class="guilabel">User Server Settings</span> 
 <li><p>This should open up a text box where you can enter some JSON to tell Kate how and
 when to start the language server.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"rst"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">,</span><span class="w"> </span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"esbonio"</span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"initializationOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">"sphinx"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">"srcDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="nt">"confDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;rst&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;esbonio&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;initializationOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;sphinx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;srcDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;confDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="nt">"server"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 <span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"rootIndicationFileNames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"conf.py"</span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"highlightingModeRegex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^reStructuredText$"</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;rootIndicationFileNames&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;conf.py&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;highlightingModeRegex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^reStructuredText$&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -376,7 +379,7 @@ documentation.</p>
 <li><p>Once you're happy with your configuration be sure to hit the <span class="guilabel">Apply</span> button for
 it to take effect!</p>
 <figure class="align-center" id="id133">
-<a class="reference internal image-reference" href="../_images/kate-lsp-settings.png"><img alt="../_images/kate-lsp-settings.png" src="../_images/kate-lsp-settings.png" style="width: 80%;"/></a>
+<a class="reference internal image-reference" href="../_images/kate-lsp-settings.png"><img alt="../_images/kate-lsp-settings.png" src="../_images/kate-lsp-settings.png" style="width: 80%;" /></a>
 <figcaption>
 <p><span class="caption-text">Kate's <span class="guilabel">LSP Client</span> settings with an example Esbonio config.</span><a class="headerlink" href="#id133" title="Permalink i'r ddelwedd hon">#</a></p>
 </figcaption>
@@ -406,19 +409,19 @@ correct Python, or</p></li>
 <span class="k">set</span> <span class="nb">softtabstop</span><span class="p">=</span><span class="m">3</span>
 <span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">3</span>
 
-<span class="k">let</span> mapleader<span class="p">=</span><span class="s1">'&lt;space&gt;'</span>
+<span class="k">let</span> mapleader<span class="p">=</span><span class="s1">&#39;&lt;space&gt;&#39;</span>
 
-<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'./plugged'</span><span class="p">)</span>
+<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">&#39;./plugged&#39;</span><span class="p">)</span>
 
-Plug <span class="s1">'neovim/nvim-lspconfig'</span>
+Plug <span class="s1">&#39;neovim/nvim-lspconfig&#39;</span>
 
 <span class="k">call</span> plug#<span class="k">end</span><span class="p">()</span>
 
 <span class="k">lua</span> <span class="p">&lt;&lt;</span> EOF
-local lspconfig <span class="p">=</span> require<span class="p">(</span><span class="s1">'lspconfig'</span><span class="p">)</span>
+local lspconfig <span class="p">=</span> require<span class="p">(</span><span class="s1">&#39;lspconfig&#39;</span><span class="p">)</span>
 
 lspconfig.esbonio.setup {
-  <span class="p">--</span> The following <span class="k">is</span> based <span class="k">on</span> the example `on_attach` <span class="k">function</span> found <span class="k">in</span> nvim<span class="p">-</span>lspconfig's README
+  <span class="p">--</span> The following <span class="k">is</span> based <span class="k">on</span> the example `on_attach` <span class="k">function</span> found <span class="k">in</span> nvim<span class="p">-</span>lspconfig&#39;s README
   <span class="p">--</span> https:<span class="sr">//</span>github.<span class="k">com</span><span class="sr">/neovim/</span>nvim<span class="p">-</span>lspconfig/#keybindings<span class="p">-</span>and<span class="p">-</span>completion
   <span class="p">--</span>
   <span class="p">--</span> Only the methods currently supported by the <span class="k">language</span> server are bound.
@@ -427,17 +430,17 @@ lspconfig.esbonio.setup {
     local <span class="k">function</span> buf_set_option<span class="p">(</span>...<span class="p">)</span> <span class="k">vim</span>.api.nvim_buf_set_option<span class="p">(</span>bufnr<span class="p">,</span> ...<span class="p">)</span> <span class="k">end</span>
 
     <span class="p">--</span> Enable completion triggered by <span class="p">&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">x</span><span class="p">&gt;&lt;</span><span class="k">c</span><span class="p">-</span><span class="k">o</span><span class="p">&gt;</span>
-    buf_set_option<span class="p">(</span><span class="s1">'omnifunc'</span><span class="p">,</span> <span class="s1">'v:lua.vim.lsp.omnifunc'</span><span class="p">)</span>
+    buf_set_option<span class="p">(</span><span class="s1">&#39;omnifunc&#39;</span><span class="p">,</span> <span class="s1">&#39;v:lua.vim.lsp.omnifunc&#39;</span><span class="p">)</span>
 
     <span class="p">--</span> Mappings.
     local opts <span class="p">=</span> { <span class="nb">noremap</span><span class="p">=</span>true<span class="p">,</span> <span class="k">silent</span><span class="p">=</span>true }
 
     <span class="p">--</span> See `:help <span class="k">vim</span>.<span class="nb">lsp</span>.*` <span class="k">for</span> documentation <span class="k">on</span> any of the <span class="k">below</span> functions
-    buf_set_keymap<span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'gd'</span><span class="p">,</span> <span class="s1">'&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;'</span><span class="p">,</span> opts<span class="p">)</span>
-    buf_set_keymap<span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;space&gt;e'</span><span class="p">,</span> <span class="s1">'&lt;cmd&gt;lua vim.lsp.diagnostic.show_line_diagnostics()&lt;CR&gt;'</span><span class="p">,</span> opts<span class="p">)</span>
-    buf_set_keymap<span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'[d'</span><span class="p">,</span> <span class="s1">'&lt;cmd&gt;lua vim.lsp.diagnostic.goto_prev()&lt;CR&gt;'</span><span class="p">,</span> opts<span class="p">)</span>
-    buf_set_keymap<span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">']d'</span><span class="p">,</span> <span class="s1">'&lt;cmd&gt;lua vim.lsp.diagnostic.goto_next()&lt;CR&gt;'</span><span class="p">,</span> opts<span class="p">)</span>
-    buf_set_keymap<span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'&lt;space&gt;q'</span><span class="p">,</span> <span class="s1">'&lt;cmd&gt;lua vim.lsp.diagnostic.set_loclist()&lt;CR&gt;'</span><span class="p">,</span> opts<span class="p">)</span>
+    buf_set_keymap<span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;gd&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;&#39;</span><span class="p">,</span> opts<span class="p">)</span>
+    buf_set_keymap<span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;space&gt;e&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;cmd&gt;lua vim.lsp.diagnostic.show_line_diagnostics()&lt;CR&gt;&#39;</span><span class="p">,</span> opts<span class="p">)</span>
+    buf_set_keymap<span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;[d&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;cmd&gt;lua vim.lsp.diagnostic.goto_prev()&lt;CR&gt;&#39;</span><span class="p">,</span> opts<span class="p">)</span>
+    buf_set_keymap<span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;]d&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;cmd&gt;lua vim.lsp.diagnostic.goto_next()&lt;CR&gt;&#39;</span><span class="p">,</span> opts<span class="p">)</span>
+    buf_set_keymap<span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;space&gt;q&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;cmd&gt;lua vim.lsp.diagnostic.set_loclist()&lt;CR&gt;&#39;</span><span class="p">,</span> opts<span class="p">)</span>
 
   <span class="k">end</span>
 }
@@ -455,7 +458,7 @@ before launching <code class="docutils literal notranslate"><span class="pre">nv
 <p>Alternatively, you can change the default command to launch the language sever with a particular
 interpreter</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">lspconfig</span><span class="p">.</span><span class="n">esbonio</span><span class="p">.</span><span class="n">setup</span> <span class="p">{</span>
-  <span class="n">cmd</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'/path/to/virtualenv/bin/python'</span><span class="p">,</span> <span class="s1">'-m'</span><span class="p">,</span> <span class="s1">'esbonio'</span> <span class="p">}</span>
+  <span class="n">cmd</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;/path/to/virtualenv/bin/python&#39;</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;esbonio&#39;</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -466,16 +469,16 @@ the <a class="reference external" href="https://github.com/yaegassy/coc-esbonio"
 <span class="k">set</span> <span class="nb">softtabstop</span><span class="p">=</span><span class="m">3</span>
 <span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">3</span>
 
-<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'./plugins'</span><span class="p">)</span>
+<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">&#39;./plugins&#39;</span><span class="p">)</span>
 
-Plug <span class="s1">'neoclide/coc.nvim'</span><span class="p">,</span> {<span class="s1">'branch'</span>: <span class="s1">'release'</span>}
+Plug <span class="s1">&#39;neoclide/coc.nvim&#39;</span><span class="p">,</span> {<span class="s1">&#39;branch&#39;</span>: <span class="s1">&#39;release&#39;</span>}
 
 <span class="k">call</span> plug#<span class="k">end</span><span class="p">()</span>
 
-<span class="c">" The following is based on snippets found in coc.nvim's README</span>
-<span class="c">" https://github.com/neoclide/coc.nvim</span>
-<span class="c">"</span>
-<span class="c">" Only methods currently supported by the language server are bound.</span>
+<span class="c">&quot; The following is based on snippets found in coc.nvim&#39;s README</span>
+<span class="c">&quot; https://github.com/neoclide/coc.nvim</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Only methods currently supported by the language server are bound.</span>
 nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> [<span class="k">g</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>diagnostic<span class="p">-</span><span class="k">prev</span><span class="p">)</span>
 nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> ]<span class="k">g</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>coc<span class="p">-</span>diagnostic<span class="p">-</span>next<span class="p">)</span>
 
@@ -490,21 +493,21 @@ nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt
 <span class="k">set</span> <span class="nb">softtabstop</span><span class="p">=</span><span class="m">3</span>
 <span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">3</span>
 
-<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'./plugins'</span><span class="p">)</span>
+<span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">&#39;./plugins&#39;</span><span class="p">)</span>
 
-Plug <span class="s1">'prabirshrestha/vim-lsp'</span>
-Plug <span class="s1">'mattn/vim-lsp-settings'</span>
+Plug <span class="s1">&#39;prabirshrestha/vim-lsp&#39;</span>
+Plug <span class="s1">&#39;mattn/vim-lsp-settings&#39;</span>
 
 <span class="k">call</span> plug#<span class="k">end</span><span class="p">()</span>
 
-<span class="c">" The following is based on the example setup found in vim-lsp's README</span>
-<span class="c">" https://github.com/prabirshrestha/vim-lsp</span>
-<span class="c">"</span>
-<span class="c">" Only the methods currently supported by the language server are bound.</span>
+<span class="c">&quot; The following is based on the example setup found in vim-lsp&#39;s README</span>
+<span class="c">&quot; https://github.com/prabirshrestha/vim-lsp</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Only the methods currently supported by the language server are bound.</span>
 <span class="k">function</span><span class="p">!</span> s:on_lsp_buffer_enabled<span class="p">()</span> abort
     <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span><span class="nb">lsp</span>#<span class="nb">complete</span>
     <span class="k">setlocal</span> signcolumn<span class="p">=</span>yes
-    <span class="k">if</span> exists<span class="p">(</span><span class="s1">'+tagfunc'</span><span class="p">)</span> <span class="p">|</span> <span class="k">setlocal</span> tagfunc<span class="p">=</span><span class="nb">lsp</span>#tagfunc <span class="p">|</span> <span class="k">endif</span>
+    <span class="k">if</span> exists<span class="p">(</span><span class="s1">&#39;+tagfunc&#39;</span><span class="p">)</span> <span class="p">|</span> <span class="k">setlocal</span> tagfunc<span class="p">=</span><span class="nb">lsp</span>#tagfunc <span class="p">|</span> <span class="k">endif</span>
     nmap <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="nb">gd</span> <span class="p">&lt;</span>plug<span class="p">&gt;(</span><span class="nb">lsp</span><span class="p">-</span>definition<span class="p">)</span>
     nmap <span class="p">&lt;</span>buffer<span class="p">&gt;</span> gs <span class="p">&lt;</span>plug<span class="p">&gt;(</span><span class="nb">lsp</span><span class="p">-</span>document<span class="p">-</span>symbol<span class="p">-</span>search<span class="p">)</span>
     nmap <span class="p">&lt;</span>buffer<span class="p">&gt;</span> [<span class="k">g</span> <span class="p">&lt;</span>plug<span class="p">&gt;(</span><span class="nb">lsp</span><span class="p">-</span><span class="k">previous</span><span class="p">-</span>diagnostic<span class="p">)</span>
@@ -513,7 +516,7 @@ Plug <span class="s1">'mattn/vim-lsp-settings'</span>
 
 augroup lsp_install
     <span class="k">au</span><span class="p">!</span>
-<span class="c">    " call s:on_lsp_buffer_enabled only for languages that has the server registered.</span>
+<span class="c">    &quot; call s:on_lsp_buffer_enabled only for languages that has the server registered.</span>
     autocmd <span class="nb">User</span> lsp_buffer_enabled <span class="k">call</span> s:on_lsp_buffer_enabled<span class="p">()</span>
 augroup END
 </pre></div>
@@ -521,17 +524,18 @@ augroup END
 </div></div></section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink i'r pennawd hwn">#</a></h2>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="vscode-(esbonio)"><p>Configuration is handled using VSCode's settings system.
 The following options are available.</p>
 <dl class="std confval">
@@ -539,6 +543,7 @@ The following options are available.</p>
 <span id="confval-esbonio.server.enabled (boolean)"></span><span class="sig-name descname"><span class="pre">esbonio.server.enabled</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-esbonio.server.enabled-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A flag that can be used to completely disable the language server, if required.</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-esbonio.server.pythonPath-string">
 <span id="confval-esbonio.server.pythonPath (string)"></span><span class="sig-name descname"><span class="pre">esbonio.server.pythonPath</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-esbonio.server.pythonPath-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -550,8 +555,10 @@ option can be set to tell the extension which environment to use.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">/path/to/python/</span></code> - An absolute path</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceRoot}/../venv/bin/python</span></code> - A path relative to the root of your workspace</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/../venv/bin/python</span></code> -  Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-esbonio.server.installBehavior-string">
 <span id="confval-esbonio.server.installBehavior (string)"></span><span class="sig-name descname"><span class="pre">esbonio.server.installBehavior</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-esbonio.server.installBehavior-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -566,6 +573,7 @@ behavior you can use this option to change it, the following values are valid</p
 automatically in new environments</p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-esbonio.server.updateFrequency-string">
 <span id="confval-esbonio.server.updateFrequency (string)"></span><span class="sig-name descname"><span class="pre">esbonio.server.updateFrequency</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-esbonio.server.updateFrequency-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -580,6 +588,7 @@ manually if you wish.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">daily</span></code> - Check for updates once a day</p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-esbonio.server.updateBehavior-string">
 <span id="confval-esbonio.server.updateBehavior (string)"></span><span class="sig-name descname"><span class="pre">esbonio.server.updateBehavior</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-esbonio.server.updateBehavior-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -594,17 +603,18 @@ installed automatically</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">automatic</span></code> - Never ask for confirmation, updates will always be installed.</p></li>
 </ul>
 </dd></dl>
+
 <p>The VSCode extension also exposes the following server configuration options under an
 <code class="docutils literal notranslate"><span class="pre">esbonio.*</span></code> prefix.</p>
 </div><div data-content="neovim-(lspconfig)"><p>The language server's configuration options are passed as <code class="docutils literal notranslate"><span class="pre">init_options</span></code> during the server's setup e.g.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">lspconfig</span><span class="p">.</span><span class="n">esbonio</span><span class="p">.</span><span class="n">setup</span> <span class="p">{</span>
   <span class="n">init_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">server</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">logLevel</span> <span class="o">=</span> <span class="s2">"debug"</span>
+      <span class="n">logLevel</span> <span class="o">=</span> <span class="s2">&quot;debug&quot;</span>
     <span class="p">},</span>
     <span class="n">sphinx</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">confDir</span> <span class="o">=</span> <span class="s2">"/path/to/docs"</span><span class="p">,</span>
-      <span class="n">srcDir</span> <span class="o">=</span> <span class="s2">"${confDir}/../docs-src"</span>
+      <span class="n">confDir</span> <span class="o">=</span> <span class="s2">&quot;/path/to/docs&quot;</span><span class="p">,</span>
+      <span class="n">srcDir</span> <span class="o">=</span> <span class="s2">&quot;${confDir}/../docs-src&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -614,8 +624,8 @@ installed automatically</p></li>
 values which can be set in coc.nvim's <code class="docutils literal notranslate"><span class="pre">coc-settings.json</span></code> configuration file, for
 example</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"esbonio.sphinx.confDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${workspaceRoot}/docs"</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"esbonio.sphinx.srcDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${confDir}/../src"</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;esbonio.sphinx.confDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceRoot}/docs&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;esbonio.sphinx.srcDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${confDir}/../src&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -627,14 +637,14 @@ require an <code class="docutils literal notranslate"><span class="pre">esbonio.
 server's setup. These can be set on a per-project basis by creating a <code class="docutils literal notranslate"><span class="pre">.vim-lsp-settings/settings.json</span></code>
 file in the root of your project</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">"esbonio"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"initialization_options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"server"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">"logLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;esbonio&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;initialization_options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;logLevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;debug&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">"sphinx"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">"confDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/docs"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">"srcDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${confDir}/../docs-src"</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sphinx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;confDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/docs&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;srcDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${confDir}/../docs-src&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
@@ -647,21 +657,21 @@ options which are passed as <code class="docutils literal notranslate"><span cla
 by subclassing <code class="docutils literal notranslate"><span class="pre">eglot-lsp-server</span></code> and implementing the <code class="docutils literal notranslate"><span class="pre">eglot-initialization-options</span></code>
 method to return them.</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">defclass</span><span class="w"> </span><span class="nv">eglot-esbonio</span><span class="w"> </span><span class="p">(</span><span class="nv">eglot-lsp-server</span><span class="p">)</span><span class="w"> </span><span class="p">()</span><span class="w"></span>
-<span class="w">  </span><span class="nb">:documentation</span><span class="w"> </span><span class="s">"Esbonio Language Server."</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="nb">:documentation</span><span class="w"> </span><span class="s">&quot;Esbonio Language Server.&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="p">(</span><span class="nv">cl-defmethod</span><span class="w"> </span><span class="nv">eglot-initialization-options</span><span class="w"> </span><span class="p">((</span><span class="nv">server</span><span class="w"> </span><span class="nv">eglot-esbonio</span><span class="p">))</span><span class="w"></span>
-<span class="w">  </span><span class="s">"Passes the initializationOptions required to run the server."</span><span class="w"></span>
-<span class="w">  </span><span class="o">`</span><span class="p">(</span><span class="nb">:sphinx</span><span class="w"> </span><span class="p">(</span><span class="nb">:confDir</span><span class="w"> </span><span class="s">"${workspaceRoot}"</span><span class="w"></span>
-<span class="w">             </span><span class="nb">:srcDir</span><span class="w"> </span><span class="s">"${confDir}"</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nb">:server</span><span class="w"> </span><span class="p">(</span><span class="nb">:logLevel</span><span class="w"> </span><span class="s">"debug"</span><span class="p">)))</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;Passes the initializationOptions required to run the server.&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="o">`</span><span class="p">(</span><span class="nb">:sphinx</span><span class="w"> </span><span class="p">(</span><span class="nb">:confDir</span><span class="w"> </span><span class="s">&quot;${workspaceRoot}&quot;</span><span class="w"></span>
+<span class="w">             </span><span class="nb">:srcDir</span><span class="w"> </span><span class="s">&quot;${confDir}&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nb">:server</span><span class="w"> </span><span class="p">(</span><span class="nb">:logLevel</span><span class="w"> </span><span class="s">&quot;debug&quot;</span><span class="p">)))</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Then when it comes to adding the entry to <code class="docutils literal notranslate"><span class="pre">eglot-server-programs</span></code> the <code class="docutils literal notranslate"><span class="pre">eglot-esbonio</span></code>
 class needs to be prepended to the list specifying the server start command.</p>
-<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'eglot-server-programs</span><span class="w"></span>
+<div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">&#39;eglot-server-programs</span><span class="w"></span>
 <span class="w">             </span><span class="o">`</span><span class="p">(</span><span class="nv">rst-mode</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">(</span><span class="nv">eglot-esbonio</span><span class="w"></span>
-<span class="w">                           </span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">"python3"</span><span class="p">)</span><span class="w"></span>
-<span class="w">                           </span><span class="s">"-m"</span><span class="w"> </span><span class="s">"esbonio"</span><span class="p">))))</span><span class="w"></span>
+<span class="w">                           </span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;python3&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                           </span><span class="s">&quot;-m&quot;</span><span class="w"> </span><span class="s">&quot;esbonio&quot;</span><span class="p">))))</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The following is a list of all the available options</p>
@@ -670,12 +680,12 @@ to it during startup. To set these values you need to pass a function to <code c
 that returns the options you wish to set.</p>
 <div class="highlight-elisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">make-lsp-client</span><span class="w"> </span><span class="nb">:new-connection</span><span class="w"></span>
 <span class="w">   </span><span class="p">(</span><span class="nv">lsp-stdio-connection</span><span class="w"></span>
-<span class="w">                  </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">"python3"</span><span class="p">)</span><span class="w"> </span><span class="s">"-m"</span><span class="w"> </span><span class="s">"esbonio"</span><span class="p">))</span><span class="w"></span>
-<span class="w">                 </span><span class="nb">:activation-fn</span><span class="w"> </span><span class="p">(</span><span class="nv">lsp-activate-on</span><span class="w"> </span><span class="s">"rst"</span><span class="p">)</span><span class="w"></span>
-<span class="w">                 </span><span class="nb">:initialization-options</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">`</span><span class="p">((</span><span class="nv">sphinx</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">((</span><span class="nv">confDir</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"${workspaceRoot}"</span><span class="p">)</span><span class="w"></span>
-<span class="w">                                                                 </span><span class="p">(</span><span class="nv">srcDir</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"${confDir}"</span><span class="p">)))</span><span class="w"></span>
-<span class="w">                                                      </span><span class="p">(</span><span class="nv">server</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">((</span><span class="nv">logLevel</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"debug"</span><span class="p">)))))</span><span class="w"></span>
-<span class="w">                 </span><span class="nb">:server-id</span><span class="w"> </span><span class="ss">'esbonio</span><span class="p">)))</span><span class="w"></span>
+<span class="w">                  </span><span class="o">`</span><span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">executable-find</span><span class="w"> </span><span class="s">&quot;python3&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;-m&quot;</span><span class="w"> </span><span class="s">&quot;esbonio&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">                 </span><span class="nb">:activation-fn</span><span class="w"> </span><span class="p">(</span><span class="nv">lsp-activate-on</span><span class="w"> </span><span class="s">&quot;rst&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                 </span><span class="nb">:initialization-options</span><span class="w"> </span><span class="p">(</span><span class="nb">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">`</span><span class="p">((</span><span class="nv">sphinx</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">((</span><span class="nv">confDir</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;${workspaceRoot}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                                                                 </span><span class="p">(</span><span class="nv">srcDir</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;${confDir}&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">                                                      </span><span class="p">(</span><span class="nv">server</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">((</span><span class="nv">logLevel</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">&quot;debug&quot;</span><span class="p">)))))</span><span class="w"></span>
+<span class="w">                 </span><span class="nb">:server-id</span><span class="w"> </span><span class="ss">&#39;esbonio</span><span class="p">)))</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The following is a list of all the available options.</p>
@@ -691,6 +701,7 @@ This option can be used to force the language server to use a location of your c
 <li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project's <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.builderName-string">
 <span id="confval-sphinx.builderName (string)"></span><span class="sig-name descname"><span class="pre">sphinx.builderName</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.builderName-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -701,6 +712,7 @@ This option allows you to specify the builder you wish to use.</p>
 <p>Some features (such as previews) are currently only available for the <code class="docutils literal notranslate"><span class="pre">html</span></code> builder.</p>
 </div>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.confDir-string">
 <span id="confval-sphinx.confDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.confDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.confDir-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -713,6 +725,7 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.configOverrides-object">
 <span id="confval-sphinx.configOverrides (object)"></span><span class="sig-name descname"><span class="pre">sphinx.configOverrides</span> <span class="pre">(object)</span></span><a class="headerlink" href="#confval-sphinx.configOverrides-object" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -720,21 +733,22 @@ Currently accepted values include:</p>
 This covers both the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-D" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-D</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-A" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-A</span></code></a> cli options.</p>
 <p>For example the cli argument <code class="docutils literal notranslate"><span class="pre">-Dlanguage=cy</span></code> overrides a project's language, the equivalent setting using the <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> setting would be:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
-   "sphinx.configOverrides": {
-      "language": "cy"
+   &quot;sphinx.configOverrides&quot;: {
+      &quot;language&quot;: &quot;cy&quot;
    }
 }
 </pre></div>
 </div>
 <p>Simiarly the argument <code class="docutils literal notranslate"><span class="pre">-Adocstitle=ProjectName</span></code> overrides the value of the <code class="docutils literal notranslate"><span class="pre">docstitle</span></code> variable inside HTML templates, the equivalent setting using <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> would be:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
-   "sphinx.configOverrides": {
-      "docstitle": "ProjectName"
+   &quot;sphinx.configOverrides&quot;: {
+      &quot;docstitle&quot;: &quot;ProjectName&quot;
    }
 }
 </pre></div>
 </div>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.doctreeDir-string">
 <span id="confval-sphinx.doctreeDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.doctreeDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.doctreeDir-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -748,18 +762,21 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${buildDir}/.doctrees</span></code> - A path relative to your project's <code class="docutils literal notranslate"><span class="pre">buildDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.forceFullBuild-boolean">
 <span id="confval-sphinx.forceFullBuild (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.forceFullBuild</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.forceFullBuild-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Flag that indicates if the server should force a full build of the documentation on startup.
 (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.keepGoing-boolean">
 <span id="confval-sphinx.keepGoing (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.keepGoing</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.keepGoing-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Continue building even when errors (from warnings) are encountered.
 (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.makeMode-boolean">
 <span id="confval-sphinx.makeMode (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.makeMode</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.makeMode-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -767,13 +784,15 @@ Currently accepted values include:</p>
 If <code class="docutils literal notranslate"><span class="pre">false</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-b" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-b</span></code></a> argument.
 (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.numJobs-string-or-integer">
 <span id="confval-sphinx.numJobs (string or integer)"></span><span class="sig-name descname"><span class="pre">sphinx.numJobs</span> <span class="pre">(string</span> <span class="pre">or</span> <span class="pre">integer)</span></span><a class="headerlink" href="#confval-sphinx.numJobs-string-or-integer" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Controls the number of parallel jobs used during a Sphinx build.</p>
-<p>The default value of <code class="docutils literal notranslate"><span class="pre">"auto"</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
 Setting this value to <code class="docutils literal notranslate"><span class="pre">1</span></code> effectively disables parallel builds.</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.quiet-boolean">
 <span id="confval-sphinx.quiet (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.quiet-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -781,6 +800,7 @@ Setting this value to <code class="docutils literal notranslate"><span class="pr
 Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-q" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.silent-boolean">
 <span id="confval-sphinx.silent (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.silent-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -788,6 +808,7 @@ Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org
 Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-Q" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-Q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.srcDir-string">
 <span id="confval-sphinx.srcDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.srcDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.srcDir-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -801,6 +822,7 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project's <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.tags-string">
 <span id="confval-sphinx.tags (string[])"></span><span class="sig-name descname"><span class="pre">sphinx.tags</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-sphinx.tags-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -808,16 +830,19 @@ Currently accepted values include:</p>
 See the documentation on the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-t" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-t</span></code></a> cli option for more details.
 (Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.verbosity-integer">
 <span id="confval-sphinx.verbosity (integer)"></span><span class="sig-name descname"><span class="pre">sphinx.verbosity</span> <span class="pre">(integer)</span></span><a class="headerlink" href="#confval-sphinx.verbosity-integer" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Set the verbosity level of Sphinx's output. (Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.warningIsError-boolean">
 <span id="confval-sphinx.warningIsError (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.warningIsError</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.warningIsError-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Treat warnings as errors. (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
 <span id="confval-server.logLevel (string)"></span><span class="sig-name descname"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-server.logLevel-string" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -829,12 +854,14 @@ This can be set to one of the following values.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logFilter-string">
 <span id="confval-server.logFilter (string[])"></span><span class="sig-name descname"><span class="pre">server.logFilter</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-server.logFilter-string" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>The language server will typically include log output from all of its components.
 This option can be used to restrict the log output to be only those named.</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.hideSphinxOutput-boolean">
 <span id="confval-server.hideSphinxOutput (boolean)"></span><span class="sig-name descname"><span class="pre">server.hideSphinxOutput</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.hideSphinxOutput-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -845,22 +872,24 @@ This will be removed in <code class="docutils literal notranslate"><span class="
 <p>Normally any build output from Sphinx will be forwarded to the client as log messages.
 If you prefer this flag can be used to exclude any Sphinx output from the log.</p>
 </dd></dl>
+
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink i'r pennawd hwn">#</a></h2>
 <p>For some editors where the setup is more manual, we do provide some example configurations
 to help get you started.</p>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="neovim-(lspconfig)"><p>To try the example configuration on your machine.</p>
 <ol class="arabic">
 <li><p>Download <a class="reference download internal" download="" href="../_downloads/e2edbeb5c1f5006de653e931f049ba23/init.vim"><code class="xref download docutils literal notranslate"><span class="pre">init.vim</span></code></a> to a folder
@@ -975,20 +1004,21 @@ usual configuration:</p>
 <section id="debugging">
 <h2>Debugging<a class="headerlink" href="#debugging" title="Permalink i'r pennawd hwn">#</a></h2>
 <p>In the event that something does not work as expected, you can increase the logging level of the server by setting the <a class="reference internal" href="#confval-server.logLevel-string"><code class="xref std std-confval docutils literal notranslate"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></code></a> option to <code class="docutils literal notranslate"><span class="pre">debug</span></code>.</p>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="neovim-(lspconfig)"><p>You will also have to increase the LSP logging level in Neovim itself.</p>
 <div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="k">lua</span> <span class="p">&lt;&lt;</span> EOF
-<span class="k">vim</span>.<span class="nb">lsp</span>.set_log_level<span class="p">(</span><span class="s2">"debug"</span><span class="p">)</span>
+<span class="k">vim</span>.<span class="nb">lsp</span>.set_log_level<span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
 EOF
 </pre></div>
 </div>
@@ -999,23 +1029,24 @@ output from Esbonio.</p>
 <p>See coc.nvim's <a class="reference external" href="https://github.com/neoclide/coc.nvim#trouble-shooting">readme</a> and
 <a class="reference external" href="https://github.com/neoclide/coc.nvim/wiki/Debug-language-server">wiki</a> for more details.</p>
 </div><div data-content="vim-(vim-lsp)"><div class="highlight-vim notranslate"><div class="highlight"><pre><span></span><span class="k">let</span> <span class="k">g</span>:lsp_log_verbose <span class="p">=</span> <span class="m">1</span>
-<span class="k">let</span> <span class="k">g</span>:lsp_log_file <span class="p">=</span> expand<span class="p">(</span><span class="s1">'~/vim-lsp.log'</span><span class="p">)</span>
+<span class="k">let</span> <span class="k">g</span>:lsp_log_file <span class="p">=</span> expand<span class="p">(</span><span class="s1">&#39;~/vim-lsp.log&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></div></section>
 <section id="additional-details">
 <h2>Additional Details<a class="headerlink" href="#additional-details" title="Permalink i'r pennawd hwn">#</a></h2>
+
 <div class="admonition" style="font-size: var(--font-size--normal)">
-<p class="admonition-title" style="font-size: var(--font-size--normal)">
-<label>Editor:</label>
-<select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
+ <p class="admonition-title" style="font-size: var(--font-size--normal)">
+   <label>Editor:</label>
+   <select data-category="editor" data-kind="relevant-to"><option value="emacs-(eglot)">Emacs (eglot)</option>
 <option value="emacs-(lsp-mode)">Emacs (lsp-mode)</option>
 <option value="kate">Kate</option>
 <option value="neovim-(lspconfig)">Neovim (lspconfig)</option>
 <option value="vim-(coc.nvim)">Vim (coc.nvim)</option>
 <option value="vim-(vim-lsp)">Vim (vim-lsp)</option>
 <option value="vscode-(esbonio)">VSCode (Esbonio)</option></select>
-</p>
+ </p>
 <div data-content="vscode-(esbonio)"><section id="commands">
 <h3>Commands<a class="headerlink" href="#commands" title="Permalink i'r pennawd hwn">#</a></h3>
 <p>The Esbonio VSCode extension also provides a number of commands accessible through VSCode's command
@@ -1088,7 +1119,7 @@ It will be removed when the server reaches <code class="docutils literal notrans
 <section id="id6">
 <h5>Misc<a class="headerlink" href="#id6" title="Permalink i'r pennawd hwn">#</a></h5>
 <ul class="simple">
-<li><p>Switch from <code class="docutils literal notranslate"><span class="pre">vscode-test</span></code> to <code class="docutils literal notranslate"><span class="pre">@vscode/test-electron</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/372">#372</a>)</p></li>
+<li><p>Switch from <code class="docutils literal notranslate"><span class="pre">vscode-test</span></code> to <code class="docutils literal notranslate"><span class="pre">&#64;vscode/test-electron</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/372">#372</a>)</p></li>
 </ul>
 </section>
 </section>
@@ -1465,19 +1496,19 @@ entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/
 </section>
 <style>
 [data-content] {display: none}
-[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
-}
-[data-selected="kate"] ~ div[data-content="kate"] {  display: block 
+[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
 }
 [data-selected="vim-(vim-lsp)"] ~ div[data-content="vim-(vim-lsp)"] {  display: block 
 }
 [data-selected="emacs-(eglot)"] ~ div[data-content="emacs-(eglot)"] {  display: block 
 }
-[data-selected="neovim-(lspconfig)"] ~ div[data-content="neovim-(lspconfig)"] {  display: block 
+[data-selected="vscode-(esbonio)"] ~ div[data-content="vscode-(esbonio)"] {  display: block 
 }
 [data-selected="emacs-(lsp-mode)"] ~ div[data-content="emacs-(lsp-mode)"] {  display: block 
 }
-[data-selected="vscode-(esbonio)"] ~ div[data-content="vscode-(esbonio)"] {  display: block 
+[data-selected="vim-(coc.nvim)"] ~ div[data-content="vim-(coc.nvim)"] {  display: block 
+}
+[data-selected="kate"] ~ div[data-content="kate"] {  display: block 
 }
 </style>
 <script>
