@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Getting Started" href="lsp/getting-started.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Esbonio</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -210,7 +210,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -306,88 +307,97 @@
     border-left: solid 5px #81d3ee;
   }
 </style>
+
 <div class="full-width" style="display: flex">
-<div id="5c651b55-ce98-4489-a9db-895746a22c60" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+  <div id="61bbc7ef-0751-4e0b-a018-ffcd26827fca" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+    
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="completion" style="margin-bottom:0; margin-left: 5px">
+  <label for="completion" style="margin-bottom:0; margin-left: 5px">
     Completion
   </label>
 </div>
+
 <div data-label="definition" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="definition" style="margin-bottom:0; margin-left: 5px">
+  <label for="definition" style="margin-bottom:0; margin-left: 5px">
     Definition
   </label>
 </div>
+
 <div data-label="diagnostics" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="diagnostics" style="margin-bottom:0; margin-left: 5px">
+  <label for="diagnostics" style="margin-bottom:0; margin-left: 5px">
     Diagnostics
   </label>
 </div>
+
 <div data-label="document-links" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="document-links" style="margin-bottom:0; margin-left: 5px">
+  <label for="document-links" style="margin-bottom:0; margin-left: 5px">
     Document Links
   </label>
 </div>
+
 <div data-label="document-symbols" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="document-symbols" style="margin-bottom:0; margin-left: 5px">
+  <label for="document-symbols" style="margin-bottom:0; margin-left: 5px">
     Document Symbols
   </label>
 </div>
+
 <div data-label="hover" style="margin-right: 5px; border-left: solid 2px white ">
-<label for="hover" style="margin-bottom:0; margin-left: 5px">
+  <label for="hover" style="margin-bottom:0; margin-left: 5px">
     Hover
   </label>
 </div>
-</div>
-<div>
-<input checked="" id="completion" name="features" style="display: none" type="radio"/>
+
+  </div>
+  <div>
+
+<input type="radio" checked name="features" style="display: none" id="completion" />
 <div data-content="completion">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_completion">textDocument/completion</a> and can
 offer suggestions in a variety of contexts.</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/completion-demo.gif"><img alt="_images/completion-demo.gif" src="_images/completion-demo.gif"/></a>
+<a class="reference external image-reference" href="/_images/completion-demo.gif"><img alt="_images/completion-demo.gif" src="_images/completion-demo.gif" /></a>
 </figure>
 </div>
-<input id="definition" name="features" style="display: none" type="radio"/>
+<input type="radio"  name="features" style="display: none" id="definition" />
 <div data-content="definition">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_definition">textDocument/definition</a> to provide the
 location of items referenced by certain roles. Currently only the <code class="docutils literal notranslate"><span class="pre">:ref:</span></code>
 and <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> roles are supported.</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/definition-demo.gif"><img alt="_images/definition-demo.gif" src="_images/definition-demo.gif"/></a>
+<a class="reference external image-reference" href="/_images/definition-demo.gif"><img alt="_images/definition-demo.gif" src="_images/definition-demo.gif" /></a>
 </figure>
 </div>
-<input id="diagnostics" name="features" style="display: none" type="radio"/>
+<input type="radio"  name="features" style="display: none" id="diagnostics" />
 <div data-content="diagnostics">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics">textDocument/publishDiagnostics</a> to
 report errors/warnings enountered during a build.</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/diagnostic-sphinx-errors-demo.png"><img alt="_images/diagnostic-sphinx-errors-demo.png" src="_images/diagnostic-sphinx-errors-demo.png"/></a>
+<a class="reference external image-reference" href="/_images/diagnostic-sphinx-errors-demo.png"><img alt="_images/diagnostic-sphinx-errors-demo.png" src="_images/diagnostic-sphinx-errors-demo.png" /></a>
 </figure>
 </div>
-<input id="document-links" name="features" style="display: none" type="radio"/>
+<input type="radio"  name="features" style="display: none" id="document-links" />
 <div data-content="document-links">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentLink">textDocument/documentLink</a> to make references to other files “Ctrl + Clickable”</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/document-links-demo.png"><img alt="_images/document-links-demo.png" src="_images/document-links-demo.png"/></a>
+<a class="reference external image-reference" href="/_images/document-links-demo.png"><img alt="_images/document-links-demo.png" src="_images/document-links-demo.png" /></a>
 </figure>
 </div>
-<input id="document-symbols" name="features" style="display: none" type="radio"/>
+<input type="radio"  name="features" style="display: none" id="document-symbols" />
 <div data-content="document-symbols">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentSymbol">textDocument/documentSymbol</a> which
 powers features like the “Outline” view in VSCode.</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/document-symbols-demo.png"><img alt="_images/document-symbols-demo.png" src="_images/document-symbols-demo.png"/></a>
+<a class="reference external image-reference" href="/_images/document-symbols-demo.png"><img alt="_images/document-symbols-demo.png" src="_images/document-symbols-demo.png" /></a>
 </figure>
 </div>
-<input id="hover" name="features" style="display: none" type="radio"/>
+<input type="radio"  name="features" style="display: none" id="hover" />
 <div data-content="hover">
 <p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
 <figure class="align-center">
-<a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png"/></a>
+<a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png" /></a>
 </figure>
 </div>
-</div>
+  </div>
 </div>
 <script>
 
@@ -413,7 +423,7 @@ powers features like the “Outline” view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('5c651b55-ce98-4489-a9db-895746a22c60')
+  const container = document.getElementById('61bbc7ef-0751-4e0b-a018-ffcd26827fca')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)

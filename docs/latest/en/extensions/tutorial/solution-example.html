@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Development Environments" href="../../contributing/devenvs.html" /><link rel="prev" title="Hello World" href="hello-world.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Solution Example - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -210,7 +210,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,7 +238,7 @@
 </pre></div>
 </div>
 <p>Of course this function can be used to sort more than just numbers:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fruit</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"cherry"</span><span class="p">,</span> <span class="s2">"apple"</span><span class="p">,</span> <span class="s2">"kiwi"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">,</span> <span class="s2">"strawberry"</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fruit</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cherry&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;kiwi&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;strawberry&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">]</span>
 <span class="nb">sorted</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -273,7 +274,7 @@ function to set the sort criteria.</p>
 <code class="docutils literal notranslate"><span class="pre">[c</span> <span class="pre">for</span> <span class="pre">c</span> <span class="pre">in</span> <span class="pre">'string'</span> <span class="pre">if</span> <span class="pre">c</span> <span class="pre">in</span> <span class="pre">'aeiou']</span></code>. From there we can use <code class="docutils literal notranslate"><span class="pre">len</span></code> to count
 them and we get our solution:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">num_vowels</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="s1">'aeiou'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="s1">&#39;aeiou&#39;</span><span class="p">])</span>
 
 <span class="nb">sorted</span><span class="p">(</span><span class="n">fruit</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">num_vowels</span><span class="p">)</span>
 </pre></div>
@@ -284,7 +285,7 @@ them and we get our solution:</p>
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">#</a></h3>
 <p>Given the following list of tuples, representing fruit and their corresponding
 cost, sort them from most to least expensive:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fruit</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"cherry"</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"apple"</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"kiwi"</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="p">(</span><span class="s2">"orange"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"strawberry"</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="s2">"banana"</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">)]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fruit</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;cherry&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;kiwi&quot;</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;strawberry&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">)]</span>
 </pre></div>
 </div>
 <details class="admonition note">

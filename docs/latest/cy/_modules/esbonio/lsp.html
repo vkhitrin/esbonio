@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Indecs" href="../../genindex.html" /><link rel="search" title="Chwilio" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>esbonio.lsp - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -209,7 +209,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -281,27 +282,27 @@
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">.symbols</span> <span class="kn">import</span> <span class="n">SymbolVisitor</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">"0.13.0"</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.13.0&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"CompletionContext"</span><span class="p">,</span>
-    <span class="s2">"DefinitionContext"</span><span class="p">,</span>
-    <span class="s2">"DocumentLinkContext"</span><span class="p">,</span>
-    <span class="s2">"LanguageFeature"</span><span class="p">,</span>
-    <span class="s2">"RstLanguageServer"</span><span class="p">,</span>
-    <span class="s2">"create_language_server"</span><span class="p">,</span>
+    <span class="s2">&quot;CompletionContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DefinitionContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DocumentLinkContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LanguageFeature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RstLanguageServer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_language_server&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="c1"># Commands</span>
-<span class="n">ESBONIO_SERVER_CONFIGURATION</span> <span class="o">=</span> <span class="s2">"esbonio.server.configuration"</span>
-<span class="n">ESBONIO_SERVER_PREVIEW</span> <span class="o">=</span> <span class="s2">"esbonio.server.preview"</span>
+<span class="n">ESBONIO_SERVER_CONFIGURATION</span> <span class="o">=</span> <span class="s2">&quot;esbonio.server.configuration&quot;</span>
+<span class="n">ESBONIO_SERVER_PREVIEW</span> <span class="o">=</span> <span class="s2">&quot;esbonio.server.preview&quot;</span>
 
 
 <span class="k">class</span> <span class="nc">Patched</span><span class="p">(</span><span class="n">LanguageServerProtocol</span><span class="p">):</span>
-    <span class="sd">"""Tweaked version of the protocol allowing us to tweak how the `ServerCapabilities`</span>
-<span class="sd">    are constructed."""</span>
+    <span class="sd">&quot;&quot;&quot;Tweaked version of the protocol allowing us to tweak how the `ServerCapabilities`</span>
+<span class="sd">    are constructed.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_capabilities</span> <span class="o">=</span> <span class="n">ServerCapabilities</span><span class="p">()</span>
@@ -325,7 +326,7 @@
 <div class="viewcode-block" id="create_language_server"><a class="viewcode-back" href="../../lsp/api-reference.html#esbonio.lsp.create_language_server">[docs]</a><span class="k">def</span> <span class="nf">create_language_server</span><span class="p">(</span>
     <span class="n">server_cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">RstLanguageServer</span><span class="p">],</span> <span class="n">modules</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RstLanguageServer</span><span class="p">:</span>
-    <span class="sd">"""Create a new language server instance.</span>
+    <span class="sd">&quot;&quot;&quot;Create a new language server instance.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -334,12 +335,12 @@
 <span class="sd">    modules:</span>
 <span class="sd">       The list of modules that should be loaded.</span>
 <span class="sd">    args, kwargs:</span>
-<span class="sd">       Any additional arguments that should be passed to the language server's</span>
+<span class="sd">       Any additional arguments that should be passed to the language server&#39;s</span>
 <span class="sd">       constructor.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="s2">"logger"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"logger"</span><span class="p">]</span> <span class="o">=</span> <span class="n">logger</span>
+    <span class="k">if</span> <span class="s2">&quot;logger&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;logger&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logger</span>
 
     <span class="n">server</span> <span class="o">=</span> <span class="n">server_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">protocol_cls</span><span class="o">=</span><span class="n">Patched</span><span class="p">)</span>
 
@@ -391,7 +392,7 @@
         <span class="n">FileOperationRegistrationOptions</span><span class="p">(</span>
             <span class="n">filters</span><span class="o">=</span><span class="p">[</span>
                 <span class="n">FileOperationFilter</span><span class="p">(</span>
-                    <span class="n">pattern</span><span class="o">=</span><span class="n">FileOperationPattern</span><span class="p">(</span><span class="n">glob</span><span class="o">=</span><span class="s2">"**/*.rst"</span><span class="p">),</span>
+                    <span class="n">pattern</span><span class="o">=</span><span class="n">FileOperationPattern</span><span class="p">(</span><span class="n">glob</span><span class="o">=</span><span class="s2">&quot;**/*.rst&quot;</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="p">]</span>
         <span class="p">),</span>
@@ -437,12 +438,12 @@
                             <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span>
                             <span class="n">capabilities</span><span class="o">=</span><span class="n">ls</span><span class="o">.</span><span class="n">client_capabilities</span><span class="p">,</span>
                         <span class="p">)</span>
-                        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Hover context: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+                        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Hover context: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
                         <span class="n">hover_value</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">hover</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
                         <span class="n">hover_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hover_value</span><span class="p">)</span>
 
-        <span class="n">hover_content_values</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hover_values</span><span class="p">)</span>
+        <span class="n">hover_content_values</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hover_values</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">Hover</span><span class="p">(</span>
             <span class="n">contents</span><span class="o">=</span><span class="n">MarkupContent</span><span class="p">(</span>
@@ -455,7 +456,7 @@
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span>
         <span class="n">COMPLETION</span><span class="p">,</span>
         <span class="n">CompletionOptions</span><span class="p">(</span>
-            <span class="n">trigger_characters</span><span class="o">=</span><span class="p">[</span><span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"."</span><span class="p">,</span> <span class="s2">":"</span><span class="p">,</span> <span class="s2">"`"</span><span class="p">,</span> <span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">],</span> <span class="n">resolve_provider</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">trigger_characters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">],</span> <span class="n">resolve_provider</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">),</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_completion</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">CompletionParams</span><span class="p">):</span>
@@ -485,10 +486,10 @@
                             <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span>
                             <span class="n">capabilities</span><span class="o">=</span><span class="n">ls</span><span class="o">.</span><span class="n">client_capabilities</span><span class="p">,</span>
                         <span class="p">)</span>
-                        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Completion context: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+                        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Completion context: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
-                            <span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"source_feature"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="ow">or</span> <span class="p">{})}</span>
+                            <span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;source_feature&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="ow">or</span> <span class="p">{})}</span>
                             <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">CompletionList</span><span class="p">(</span><span class="n">is_incomplete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
@@ -499,12 +500,12 @@
     <span class="k">def</span> <span class="nf">on_completion_resolve</span><span class="p">(</span>
         <span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">CompletionItem</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletionItem</span><span class="p">:</span>
-        <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source_feature"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">data</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source_feature&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">feature</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">get_feature</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">feature</span><span class="p">:</span>
             <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">"Unable to resolve completion item, unknown source: '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">source</span>
+                <span class="s2">&quot;Unable to resolve completion item, unknown source: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">source</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">item</span>
 
@@ -562,24 +563,24 @@
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">ESBONIO_SERVER_CONFIGURATION</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_configuration</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">"""Get the server's configuration.</span>
+        <span class="sd">&quot;&quot;&quot;Get the server&#39;s configuration.</span>
 
 <span class="sd">        Not to be confused with the ``workspace/configuration`` request where the server</span>
-<span class="sd">        can request the client's configuration. This is so clients can ask for sphinx's</span>
+<span class="sd">        can request the client&#39;s configuration. This is so clients can ask for sphinx&#39;s</span>
 <span class="sd">        output path for example.</span>
 
-<span class="sd">        As far as I know, there isn't anything built into the spec to cater for this?</span>
-<span class="sd">        """</span>
+<span class="sd">        As far as I know, there isn&#39;t anything built into the spec to cater for this?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">configuration</span>
-        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_CONFIGURATION</span><span class="p">,</span> <span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_CONFIGURATION</span><span class="p">,</span> <span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">config</span>
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">ESBONIO_SERVER_PREVIEW</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">"""Start/Generate a preview of the project"""</span>
+        <span class="sd">&quot;&quot;&quot;Start/Generate a preview of the project&quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
-        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_PREVIEW</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ESBONIO_SERVER_PREVIEW</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">ls</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
@@ -591,12 +592,12 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Unable to import module '</span><span class="si">%s</span><span class="s2">'</span><span class="se">\n</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to import module &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="k">return</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">"esbonio_setup"</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;esbonio_setup&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">"Unable to load module '</span><span class="si">%s</span><span class="s2">', missing 'esbonio_setup' function"</span><span class="p">,</span> <span class="n">module</span>
+            <span class="s2">&quot;Unable to load module &#39;</span><span class="si">%s</span><span class="s2">&#39;, missing &#39;esbonio_setup&#39; function&quot;</span><span class="p">,</span> <span class="n">module</span>
         <span class="p">)</span>
         <span class="k">return</span>
 
@@ -604,12 +605,12 @@
         <span class="n">mod</span><span class="o">.</span><span class="n">esbonio_setup</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">"Error while setting up module '</span><span class="si">%s</span><span class="s2">'</span><span class="se">\n</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+            <span class="s2">&quot;Error while setting up module &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
         <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""Debug helper function that converts an object to JSON."""</span>
+    <span class="sd">&quot;&quot;&quot;Debug helper function that converts an object to JSON.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
@@ -622,7 +623,7 @@
                 <span class="k">continue</span>
 
             <span class="c1"># Truncate long strings - but not uris!</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"uri"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;uri&quot;</span><span class="p">):</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">shorten</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
 
             <span class="n">fields</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>

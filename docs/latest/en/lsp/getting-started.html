@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Advanced Usage" href="advanced-usage.html" /><link rel="prev" title="Esbonio" href="../index.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Getting Started - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -210,7 +210,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -232,22 +233,30 @@
 <p>Feel free to submit a pull request with steps on how to get started or if you’re not
 sure on where to start, <a class="reference external" href="https://github.com/swyddfa/esbonio/issues/new">open an issue</a> and we’ll help you figure it out.</p>
 </div>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-0" name="subject">
-<option data-id="emacs-eglot" value="editor-emacs-eglot-0">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-0"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="editor-emacs-eglot-0">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="editor-emacs-lsp-mode-0">Emacs (lsp-mode)</option>
 <option data-id="kate" value="editor-kate-0">Kate</option>
 <option data-id="neovim-lspconfig" value="editor-neovim-lspconfig-0">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="editor-vim-coc-nvim-0">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="editor-vim-vim-lsp-0">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="editor-vscode-esbonio-0">VSCode (Esbonio)</option>
-</select>
-<div id="group-0">
+  </select>
+
+  <div id="group-0">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
 <p>The language server can be installed using pip</p>
@@ -264,45 +273,61 @@ building your documentation e.g.</p>
 </div>
 <p>Otherwise the language server will fail to properly understand your project.</p>
 <p>If you want to try the latest developments before they are released you can use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install from the development branch.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install <span class="s2">"git+https://github.com/swyddfa/esbonio#egg=esbonio&amp;subdirectory=lib/esbonio"</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install <span class="s2">&quot;git+https://github.com/swyddfa/esbonio#egg=esbonio&amp;subdirectory=lib/esbonio&quot;</span>
 </pre></div>
 </div>
 <p>For more information on this command see the documentation on pip’s <a class="reference external" href="https://pip.pypa.io/en/stable/topics/vcs-support/">VCS Support</a>.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-1" name="subject">
-<option data-id="emacs-eglot" value="editor-emacs-eglot-1">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-1"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="editor-emacs-eglot-1">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="editor-emacs-lsp-mode-1">Emacs (lsp-mode)</option>
 <option data-id="kate" value="editor-kate-1">Kate</option>
 <option data-id="neovim-lspconfig" value="editor-neovim-lspconfig-1">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="editor-vim-coc-nvim-1">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="editor-vim-vim-lsp-1">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="editor-vscode-esbonio-1">VSCode (Esbonio)</option>
-</select>
-<div id="group-1">
+  </select>
+
+  <div id="group-1">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h2>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-2" name="subject">
-<option data-id="emacs-eglot" value="editor-emacs-eglot-2">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-2"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="editor-emacs-eglot-2">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="editor-emacs-lsp-mode-2">Emacs (lsp-mode)</option>
 <option data-id="kate" value="">Kate</option>
 <option data-id="neovim-lspconfig" value="editor-neovim-lspconfig-2">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="editor-vim-coc-nvim-2">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="editor-vim-vim-lsp-2">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="editor-vscode-esbonio-2">VSCode (Esbonio)</option>
-</select>
-<div id="group-2">
+  </select>
+
+  <div id="group-2">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.buildDir-string">
 <span id="confval-sphinx.buildDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.buildDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.buildDir-string" title="Permalink to this definition">#</a></dt>
@@ -315,6 +340,7 @@ This option can be used to force the language server to use a location of your c
 <li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.builderName-string">
 <span id="confval-sphinx.builderName (string)"></span><span class="sig-name descname"><span class="pre">sphinx.builderName</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.builderName-string" title="Permalink to this definition">#</a></dt>
@@ -325,6 +351,7 @@ This option allows you to specify the builder you wish to use.</p>
 <p>Some features (such as previews) are currently only available for the <code class="docutils literal notranslate"><span class="pre">html</span></code> builder.</p>
 </div>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.confDir-string">
 <span id="confval-sphinx.confDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.confDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.confDir-string" title="Permalink to this definition">#</a></dt>
@@ -337,6 +364,7 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${workspaceFolder}/docs</span></code> - Same as <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code>, placeholder for true multi-root workspace support.</p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.configOverrides-object">
 <span id="confval-sphinx.configOverrides (object)"></span><span class="sig-name descname"><span class="pre">sphinx.configOverrides</span> <span class="pre">(object)</span></span><a class="headerlink" href="#confval-sphinx.configOverrides-object" title="Permalink to this definition">#</a></dt>
@@ -344,21 +372,22 @@ Currently accepted values include:</p>
 This covers both the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-D" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-D</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-A" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-A</span></code></a> cli options.</p>
 <p>For example the cli argument <code class="docutils literal notranslate"><span class="pre">-Dlanguage=cy</span></code> overrides a project’s language, the equivalent setting using the <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> setting would be:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
-   "sphinx.configOverrides": {
-      "language": "cy"
+   &quot;sphinx.configOverrides&quot;: {
+      &quot;language&quot;: &quot;cy&quot;
    }
 }
 </pre></div>
 </div>
 <p>Simiarly the argument <code class="docutils literal notranslate"><span class="pre">-Adocstitle=ProjectName</span></code> overrides the value of the <code class="docutils literal notranslate"><span class="pre">docstitle</span></code> variable inside HTML templates, the equivalent setting using <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> would be:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
-   "sphinx.configOverrides": {
-      "html_context.docstitle": "ProjectName"
+   &quot;sphinx.configOverrides&quot;: {
+      &quot;html_context.docstitle&quot;: &quot;ProjectName&quot;
    }
 }
 </pre></div>
 </div>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.doctreeDir-string">
 <span id="confval-sphinx.doctreeDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.doctreeDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.doctreeDir-string" title="Permalink to this definition">#</a></dt>
@@ -372,18 +401,21 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${buildDir}/.doctrees</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">buildDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.forceFullBuild-boolean">
 <span id="confval-sphinx.forceFullBuild (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.forceFullBuild</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.forceFullBuild-boolean" title="Permalink to this definition">#</a></dt>
 <dd><p>Flag that indicates if the server should force a full build of the documentation on startup.
 (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.keepGoing-boolean">
 <span id="confval-sphinx.keepGoing (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.keepGoing</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.keepGoing-boolean" title="Permalink to this definition">#</a></dt>
 <dd><p>Continue building even when errors (from warnings) are encountered.
 (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.makeMode-boolean">
 <span id="confval-sphinx.makeMode (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.makeMode</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.makeMode-boolean" title="Permalink to this definition">#</a></dt>
@@ -391,13 +423,15 @@ Currently accepted values include:</p>
 If <code class="docutils literal notranslate"><span class="pre">false</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-b" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-b</span></code></a> argument.
 (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.numJobs-string-or-integer">
 <span id="confval-sphinx.numJobs (string or integer)"></span><span class="sig-name descname"><span class="pre">sphinx.numJobs</span> <span class="pre">(string</span> <span class="pre">or</span> <span class="pre">integer)</span></span><a class="headerlink" href="#confval-sphinx.numJobs-string-or-integer" title="Permalink to this definition">#</a></dt>
 <dd><p>Controls the number of parallel jobs used during a Sphinx build.</p>
-<p>The default value of <code class="docutils literal notranslate"><span class="pre">"auto"</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> will behave the same as passing <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">auto</span></code> to a <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command.
 Setting this value to <code class="docutils literal notranslate"><span class="pre">1</span></code> effectively disables parallel builds.</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.quiet-boolean">
 <span id="confval-sphinx.quiet (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.quiet-boolean" title="Permalink to this definition">#</a></dt>
@@ -405,6 +439,7 @@ Setting this value to <code class="docutils literal notranslate"><span class="pr
 Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-q" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.silent-boolean">
 <span id="confval-sphinx.silent (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.silent-boolean" title="Permalink to this definition">#</a></dt>
@@ -412,6 +447,7 @@ Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org
 Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-Q" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-Q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.srcDir-string">
 <span id="confval-sphinx.srcDir (string)"></span><span class="sig-name descname"><span class="pre">sphinx.srcDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.srcDir-string" title="Permalink to this definition">#</a></dt>
@@ -425,6 +461,7 @@ Currently accepted values include:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">${confDir}/../src/</span></code> - A path relative to your project’s <code class="docutils literal notranslate"><span class="pre">confDir</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.tags-string">
 <span id="confval-sphinx.tags (string[])"></span><span class="sig-name descname"><span class="pre">sphinx.tags</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-sphinx.tags-string" title="Permalink to this definition">#</a></dt>
@@ -432,16 +469,19 @@ Currently accepted values include:</p>
 See the documentation on the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-t" title="(in Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-t</span></code></a> cli option for more details.
 (Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.verbosity-integer">
 <span id="confval-sphinx.verbosity (integer)"></span><span class="sig-name descname"><span class="pre">sphinx.verbosity</span> <span class="pre">(integer)</span></span><a class="headerlink" href="#confval-sphinx.verbosity-integer" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the verbosity level of Sphinx’s output. (Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.warningIsError-boolean">
 <span id="confval-sphinx.warningIsError (boolean)"></span><span class="sig-name descname"><span class="pre">sphinx.warningIsError</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.warningIsError-boolean" title="Permalink to this definition">#</a></dt>
 <dd><p>Treat warnings as errors. (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
 <span id="confval-server.logLevel (string)"></span><span class="sig-name descname"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-server.logLevel-string" title="Permalink to this definition">#</a></dt>
@@ -453,12 +493,14 @@ This can be set to one of the following values.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code></p></li>
 </ul>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logFilter-string">
 <span id="confval-server.logFilter (string[])"></span><span class="sig-name descname"><span class="pre">server.logFilter</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-server.logFilter-string" title="Permalink to this definition">#</a></dt>
 <dd><p>The language server will typically include log output from all of its components.
 This option can be used to restrict the log output to be only those named.</p>
 </dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.hideSphinxOutput-boolean">
 <span id="confval-server.hideSphinxOutput (boolean)"></span><span class="sig-name descname"><span class="pre">server.hideSphinxOutput</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.hideSphinxOutput-boolean" title="Permalink to this definition">#</a></dt>
@@ -469,69 +511,94 @@ This will be removed in <code class="docutils literal notranslate"><span class="
 <p>Normally any build output from Sphinx will be forwarded to the client as log messages.
 If you prefer this flag can be used to exclude any Sphinx output from the log.</p>
 </dd></dl>
+
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
 <p>For some editors where the setup is more manual, we do provide some example configurations
 to help get you started.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-3" name="subject">
-<option data-id="emacs-eglot" value="editor-emacs-eglot-3">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-3"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="editor-emacs-eglot-3">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="editor-emacs-lsp-mode-3">Emacs (lsp-mode)</option>
 <option data-id="kate" value="">Kate</option>
 <option data-id="neovim-lspconfig" value="editor-neovim-lspconfig-3">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="editor-vim-coc-nvim-3">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="editor-vim-vim-lsp-3">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="">VSCode (Esbonio)</option>
-</select>
-<div id="group-3">
+  </select>
+
+  <div id="group-3">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 <section id="debugging">
 <h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">#</a></h2>
 <p>In the event that something does not work as expected, you can increase the logging level of the server by setting the <a class="reference internal" href="#confval-server.logLevel-string"><code class="xref std std-confval docutils literal notranslate"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></code></a> option to <code class="docutils literal notranslate"><span class="pre">debug</span></code>.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-4" name="subject">
-<option data-id="emacs-eglot" value="">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-4"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="">Emacs (lsp-mode)</option>
 <option data-id="kate" value="">Kate</option>
 <option data-id="neovim-lspconfig" value="editor-neovim-lspconfig-4">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="editor-vim-coc-nvim-4">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="editor-vim-vim-lsp-4">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="">VSCode (Esbonio)</option>
-</select>
-<div id="group-4">
+  </select>
+
+  <div id="group-4">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">#</a></h2>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Editor:</label>
-<select class="mb-2" data-category="editor" data-kind="relevant-to" hx-get="getting-started/:subject.html" hx-target="#group-5" name="subject">
-<option data-id="emacs-eglot" value="">Emacs (eglot)</option>
+  <label>Editor:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="getting-started/:subject.html"
+          hx-target="#group-5"
+          data-category="editor"
+          data-kind="relevant-to">
+    <option data-id="emacs-eglot" value="">Emacs (eglot)</option>
 <option data-id="emacs-lsp-mode" value="">Emacs (lsp-mode)</option>
 <option data-id="kate" value="">Kate</option>
 <option data-id="neovim-lspconfig" value="">Neovim (lspconfig)</option>
 <option data-id="vim-coc-nvim" value="">Vim (coc.nvim)</option>
 <option data-id="vim-vim-lsp" value="">Vim (vim-lsp)</option>
 <option data-id="vscode-esbonio" value="editor-vscode-esbonio-3">VSCode (Esbonio)</option>
-</select>
-<div id="group-5">
+  </select>
+
+  <div id="group-5">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 </section>
-<script crossorigin="anonymous" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" src="https://unpkg.com/htmx.org@1.7.0" type="application/javascript"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
+<script type="application/javascript" src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
   let updatedPath = event.detail.path.replace(/:([A-Za-z0-9_]+)/g, function (_match, name) {
     let value = event.detail.parameters[name]
     delete event.detail.parameters[name]

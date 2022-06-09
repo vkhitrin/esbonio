@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Tutorial" href="tutorial.html" /><link rel="prev" title="Changelog" href="../changelog.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Relevent To - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -210,7 +210,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -246,7 +247,7 @@
 </div>
 <p>Ensure that the extension is enabled by including <code class="docutils literal notranslate"><span class="pre">esbonio.relevant_to</span></code> in the <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list inside your project’s <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
-   <span class="s2">"esbonio.relevant_to"</span>
+   <span class="s2">&quot;esbonio.relevant_to&quot;</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -270,18 +271,26 @@ Consider the following example.</p>
 </div>
 <p>The argument to the directive defines the category of subject this section is about. The content of the directive must be a valid <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#definition-lists">definition list</a> where the term is the name of the subject (<code class="docutils literal notranslate"><span class="pre">Red</span></code>, <code class="docutils literal notranslate"><span class="pre">Green</span></code> or <code class="docutils literal notranslate"><span class="pre">Blue</span></code> in this case) and the definition is the term’s corresponding content.</p>
 <p>Here is how the above example is rendered.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Colour:</label>
-<select class="mb-2" data-category="colour" data-kind="relevant-to" hx-get="relevant_to/:subject.html" hx-target="#group-0" name="subject">
-<option data-id="blue" value="colour-blue-0">Blue</option>
+  <label>Colour:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="relevant_to/:subject.html"
+          hx-target="#group-0"
+          data-category="colour"
+          data-kind="relevant-to">
+    <option data-id="blue" value="colour-blue-0">Blue</option>
 <option data-id="green" value="colour-green-0">Green</option>
 <option data-id="red" value="colour-red-0">Red</option>
-</select>
-<div id="group-0">
+  </select>
+
+  <div id="group-0">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 <p>The body of a definition can contain most reStructuredText constructs including roles and directives</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">relevant-to</span><span class="p">::</span> Editor
 
@@ -295,9 +304,10 @@ Consider the following example.</p>
 </div>
 <p>However section titles are not supported.</p>
 </dd></dl>
+
 </section>
 </section>
-<script crossorigin="anonymous" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" src="https://unpkg.com/htmx.org@1.7.0" type="application/javascript"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
+<script type="application/javascript" src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
   let updatedPath = event.detail.path.replace(/:([A-Za-z0-9_]+)/g, function (_match, name) {
     let value = event.detail.parameters[name]
     delete event.detail.parameters[name]

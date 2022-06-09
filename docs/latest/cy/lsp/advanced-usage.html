@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Extending" href="extending.html" /><link rel="prev" title="Getting Started" href="getting-started.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Advanced Usage - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -210,7 +210,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -246,33 +247,44 @@ The following startup modules are included with the <code class="docutils litera
 <dd><p>The default startup module you are probably already familiar with.
 It is in fact just an alias for the <a class="reference internal" href="#startmod-esbonio.lsp.sphinx"><code class="xref std std-startmod docutils literal notranslate"><span class="pre">esbonio.lsp.sphinx</span></code></a> startup module.</p>
 </dd></dl>
+
 <dl class="std startmod">
 <dt class="sig sig-object std" id="startmod-esbonio.lsp.rst">
 <span class="sig-name descname"><span class="pre">esbonio.lsp.rst</span></span><a class="headerlink" href="#startmod-esbonio.lsp.rst" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>A "vanilla" reStructuedText language server for use with docutils projects.</p>
+<dd><p>A &quot;vanilla&quot; reStructuedText language server for use with docutils projects.</p>
 </dd></dl>
+
 <dl class="std startmod">
 <dt class="sig sig-object std" id="startmod-esbonio.lsp.sphinx">
 <span class="sig-name descname"><span class="pre">esbonio.lsp.sphinx</span></span><a class="headerlink" href="#startmod-esbonio.lsp.sphinx" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A language server tailored for use with Sphinx projects.</p>
 </dd></dl>
+
 </section>
 <section id="extension-modules">
 <h2>Extension Modules<a class="headerlink" href="#extension-modules" title="Permalink i'r pennawd hwn">#</a></h2>
 <p>Inspired by the way Sphinx extensions work, functionality is added to a language server through a list of python modules with each module contributing some features.</p>
 <p>Below is the list of modules loaded by default for each of the provided servers.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Startup Module:</label>
-<select class="mb-2" data-category="startup-module" data-kind="relevant-to" hx-get="advanced-usage/:subject.html" hx-target="#group-0" name="subject">
-<option data-id="esbonio" value="startup-module-esbonio-0">esbonio</option>
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-0"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-0">esbonio</option>
 <option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-0">esbonio.lsp.rst</option>
 <option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-0">esbonio.lsp.sphinx</option>
-</select>
-<div id="group-0">
+  </select>
+
+  <div id="group-0">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 <p>In addition to the modules enabled by default, the following modules are provided and can be
 enabled if you wish.</p>
 <dl class="std extmod">
@@ -282,43 +294,60 @@ enabled if you wish.</p>
 <p>Basic spell checking, with errors reported as diagnostics and corrections suggested as code actions.
 Currently only available for English and can be confused by reStructuredText syntax.</p>
 </dd></dl>
+
 </section>
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink i'r pennawd hwn">#</a></h2>
 <p>The bundled language servers offer some commands that can be invoked from a language client using
 a <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_executeCommand">workspace/executeCommand</a> request.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Startup Module:</label>
-<select class="mb-2" data-category="startup-module" data-kind="relevant-to" hx-get="advanced-usage/:subject.html" hx-target="#group-1" name="subject">
-<option data-id="esbonio" value="startup-module-esbonio-1">esbonio</option>
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-1"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-1">esbonio</option>
 <option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-1">esbonio.lsp.rst</option>
 <option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-1">esbonio.lsp.sphinx</option>
-</select>
-<div id="group-1">
+  </select>
+
+  <div id="group-1">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 <section id="notifications">
 <h2>Notifications<a class="headerlink" href="#notifications" title="Permalink i'r pennawd hwn">#</a></h2>
 <p>The bundled language servers also emit custom notifications that language clients
 can use to react to events happening within the server.</p>
-<hr/>
+
+<hr />
 <div class="pt-2">
-<label>Startup Module:</label>
-<select class="mb-2" data-category="startup-module" data-kind="relevant-to" hx-get="advanced-usage/:subject.html" hx-target="#group-2" name="subject">
-<option data-id="esbonio" value="startup-module-esbonio-2">esbonio</option>
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-2"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-2">esbonio</option>
 <option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-2">esbonio.lsp.rst</option>
 <option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-2">esbonio.lsp.sphinx</option>
-</select>
-<div id="group-2">
+  </select>
+
+  <div id="group-2">
+  </div>
 </div>
-</div>
-<hr/>
+<hr />
 </section>
 </section>
-<script crossorigin="anonymous" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" src="https://unpkg.com/htmx.org@1.7.0" type="application/javascript"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
+<script type="application/javascript" src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script><script>document.body.addEventListener("htmx:configRequest", function (event) {
   let updatedPath = event.detail.path.replace(/:([A-Za-z0-9_]+)/g, function (_match, name) {
     let value = event.detail.parameters[name]
     delete event.detail.parameters[name]
