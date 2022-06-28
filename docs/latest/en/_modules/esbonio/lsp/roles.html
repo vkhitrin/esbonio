@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>esbonio.lsp.roles - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -226,7 +226,6 @@
         <article role="main">
           <h1>Source code for esbonio.lsp.roles</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Role support.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
@@ -234,7 +233,6 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItem</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItemKind</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DocumentLink</span>
@@ -786,16 +784,7 @@
 
 
 <span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>
-
-    <span class="n">roles</span> <span class="o">=</span> <span class="n">Roles</span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-    <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">roles</span><span class="p">)</span>
-
-    <span class="n">docutils_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp.rst&quot;</span><span class="p">,</span> <span class="s2">&quot;roles.json&quot;</span><span class="p">)</span>
-    <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">docutils_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)))</span>
-
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rst</span><span class="p">,</span> <span class="n">SphinxLanguageServer</span><span class="p">):</span>
-        <span class="n">sphinx_docs</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_string</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp.sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;roles.json&quot;</span><span class="p">)</span>
-        <span class="n">roles</span><span class="o">.</span><span class="n">add_documentation</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sphinx_docs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)))</span>
+    <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">Roles</span><span class="p">(</span><span class="n">rst</span><span class="p">))</span>
 </pre></div>
         </article>
       </div>

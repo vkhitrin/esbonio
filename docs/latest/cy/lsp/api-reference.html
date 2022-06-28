@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="How To" href="how-to.html" /><link rel="prev" title="Extending" href="extending.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>API Reference - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -305,6 +305,27 @@ diagnostics from the given source are cleared.</p></li>
 <span class="sig-name descname"><span class="pre">get_directives</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_directives"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_directives" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Return a dictionary of the known directives</p>
 <dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_feature">
+<span class="sig-name descname"><span class="pre">get_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><span class="pre">LanguageFeature</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_feature"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_feature" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(yn Python v3.10)"><span class="pre">Type</span></a><span class="p"><span class="pre">[</span></span><span class="pre">esbonio.lsp.rst.LF</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">esbonio.lsp.rst.LF</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Returns the requested language feature if it exists, otherwise it returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramedrau</dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em> | </em><em>Type</em><em>[</em><a class="reference internal" href="#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><em>LanguageFeature</em></a><em>]</em>) -- <p>A feature can be referenced either by its class definition (preferred) or by
+a string representing the language feature's dotted name e.g.
+<code class="docutils literal notranslate"><span class="pre">a.b.c.ClassName</span></code>.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn 0.14.0: </span>Passing a string <code class="docutils literal notranslate"><span class="pre">key</span></code> to this method is deprecated and will become an
+error in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>.</p>
+</div>
+</p>
+</dd>
 </dl>
 </dd></dl>
 
