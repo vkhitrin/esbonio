@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Changelog" href="../../changelog.html" /><link rel="prev" title="How To" href="../how-to.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>How To: Get Debug Information - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -177,6 +177,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../extensions/relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/hello-world.html">Hello World</a></li>
@@ -227,7 +228,7 @@ Depending on your needs you may find one of the following options useful.</p>
 <section id="enable-debug-logging">
 <h2>Enable Debug Logging<a class="headerlink" href="#enable-debug-logging" title="Permalink to this headline">#</a></h2>
 <p>The simplest way to get more information is to set the <a class="reference internal" href="../getting-started.html#confval-server.logLevel-string"><code class="xref std std-confval docutils literal notranslate"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></code></a> option to <code class="docutils literal notranslate"><span class="pre">debug</span></code>.
-Additional messages from the language server will be sent to your language client as <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#window_logMessage">window/logMessage</a> messages.</p>
+Additional messages from the language server will be sent to your language client as <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#window_logMessage">window/logMessage</a> messages.</p>
 </section>
 <section id="capture-all-messages">
 <h2>Capture All Messages<a class="headerlink" href="#capture-all-messages" title="Permalink to this headline">#</a></h2>

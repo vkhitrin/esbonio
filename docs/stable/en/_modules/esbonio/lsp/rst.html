@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>esbonio.lsp.rst - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -176,6 +176,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
@@ -227,17 +228,20 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">docutils.parsers.rst.directives</span> <span class="k">as</span> <span class="nn">directives</span>
+<span class="kn">import</span> <span class="nn">docutils.parsers.rst.directives</span> <span class="k">as</span> <span class="nn">docutils_directives</span>
+<span class="kn">import</span> <span class="nn">docutils.parsers.rst.roles</span> <span class="k">as</span> <span class="nn">docutils_roles</span>
 <span class="kn">import</span> <span class="nn">pygls.uris</span> <span class="k">as</span> <span class="nn">Uri</span>
 <span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">Directive</span>
-<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">roles</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
 <span class="kn">from</span> <span class="nn">pygls</span> <span class="kn">import</span> <span class="n">IS_WIN</span>
@@ -260,16 +264,20 @@
 
 <span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">read_initial_doctree</span>
 <span class="kn">from</span> <span class="nn">esbonio.cli</span> <span class="kn">import</span> <span class="n">setup_cli</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.log</span> <span class="kn">import</span> <span class="n">setup_logging</span>
 
 
+<span class="n">LF</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;LF&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;LanguageFeature&quot;</span><span class="p">)</span>
 <span class="n">TRIPLE_QUOTE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(</span><span class="se">\&quot;\&quot;\&quot;</span><span class="s2">|&#39;&#39;&#39;)&quot;</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;A regular expression matching the triple quotes used to delimit python docstrings.&quot;&quot;&quot;</span>
 
 <span class="c1"># fmt: off</span>
 <span class="c1"># Order matters!</span>
 <span class="n">DEFAULT_MODULES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;esbonio.lsp.directives&quot;</span><span class="p">,</span>  <span class="c1"># Generic directive support</span>
-    <span class="s2">&quot;esbonio.lsp.roles&quot;</span><span class="p">,</span>       <span class="c1"># Generic roles support</span>
+    <span class="s2">&quot;esbonio.lsp.directives&quot;</span><span class="p">,</span>      <span class="c1"># Generic directive support</span>
+    <span class="s2">&quot;esbonio.lsp.roles&quot;</span><span class="p">,</span>           <span class="c1"># Generic roles support</span>
+    <span class="s2">&quot;esbonio.lsp.rst.directives&quot;</span><span class="p">,</span>  <span class="c1"># Specialised support for docutils directives</span>
+    <span class="s2">&quot;esbonio.lsp.rst.roles&quot;</span><span class="p">,</span>       <span class="c1"># Specialised support for docutils roles</span>
 <span class="p">]</span>
 <span class="sd">&quot;&quot;&quot;The modules to load in the default configuration of the server.&quot;&quot;&quot;</span>
 <span class="c1"># fmt: on</span>
@@ -612,7 +620,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span> <span class="o">=</span> <span class="n">InitializationOptions</span><span class="p">(</span>
             <span class="o">**</span><span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">initialization_options</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_logging</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">setup_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">InitializedParams</span><span class="p">):</span>
         <span class="k">pass</span>
@@ -632,8 +640,46 @@
         <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
 
-    <span class="k">def</span> <span class="nf">get_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;LanguageFeature&quot;</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="nd">@typing</span><span class="o">.</span><span class="n">overload</span>
+    <span class="k">def</span> <span class="nf">get_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Optional[LanguageFeature]&quot;</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@typing</span><span class="o">.</span><span class="n">overload</span>
+    <span class="k">def</span> <span class="nf">get_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">LF</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LF</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+<div class="viewcode-block" id="RstLanguageServer.get_feature"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_feature">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the requested language feature if it exists, otherwise it returns</span>
+<span class="sd">        ``None``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key: str | Type[LanguageFeature]</span>
+<span class="sd">           A feature can be referenced either by its class definition (preferred) or by</span>
+<span class="sd">           a string representing the language feature&#39;s dotted name e.g.</span>
+<span class="sd">           ``a.b.c.ClassName``.</span>
+
+<span class="sd">           .. deprecated:: 0.14.0</span>
+
+<span class="sd">              Passing a string ``key`` to this method is deprecated and will become an</span>
+<span class="sd">              error in ``v1.0``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Language features should be referenced by their class definition, &quot;</span>
+                <span class="s2">&quot;this will become an error in v1.0.&quot;</span><span class="p">,</span>
+                <span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">LanguageFeature</span><span class="p">):</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Expected language feature definition&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">get_doctree</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">docname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -671,7 +717,10 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span>
 
         <span class="n">ignored_directives</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;restructuredtext-test-directive&quot;</span><span class="p">]</span>
-        <span class="n">found_directives</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">directives</span><span class="o">.</span><span class="n">_directive_registry</span><span class="p">,</span> <span class="o">**</span><span class="n">directives</span><span class="o">.</span><span class="n">_directives</span><span class="p">}</span>
+        <span class="n">found_directives</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="o">**</span><span class="n">docutils_directives</span><span class="o">.</span><span class="n">_directive_registry</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">docutils_directives</span><span class="o">.</span><span class="n">_directives</span><span class="p">,</span>
+        <span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="n">resolve_directive</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
@@ -696,10 +745,12 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span>
 
-        <span class="n">found_roles</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">roles</span><span class="o">.</span><span class="n">_roles</span><span class="p">,</span> <span class="o">**</span><span class="n">roles</span><span class="o">.</span><span class="n">_role_registry</span><span class="p">}</span>
+        <span class="n">found_roles</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">docutils_roles</span><span class="o">.</span><span class="n">_roles</span><span class="p">,</span> <span class="o">**</span><span class="n">docutils_roles</span><span class="o">.</span><span class="n">_role_registry</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">found_roles</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">roles</span><span class="o">.</span><span class="n">unimplemented_role</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">found_roles</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">docutils_roles</span><span class="o">.</span><span class="n">unimplemented_role</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span></div>
@@ -848,60 +899,7 @@
 <span class="sd">           The position representing the point at which to stop gathering text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">offset_at_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">source</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span></div>
-
-    <span class="k">def</span> <span class="nf">_configure_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ServerConfig</span><span class="p">):</span>
-
-        <span class="n">level</span> <span class="o">=</span> <span class="n">LOG_LEVELS</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">log_level</span><span class="p">]</span>
-
-        <span class="n">lsp_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp&quot;</span><span class="p">)</span>
-        <span class="n">lsp_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-
-        <span class="n">lsp_handler</span> <span class="o">=</span> <span class="n">LspHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">lsp_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">log_filter</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">lsp_handler</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">LogFilter</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">log_filter</span><span class="p">))</span>
-
-        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%(name)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">lsp_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-        <span class="n">lsp_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">lsp_handler</span><span class="p">)</span></div>
-
-
-<span class="n">LOG_LEVELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;debug&quot;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-    <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-    <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
-<span class="p">}</span>
-
-
-<span class="k">class</span> <span class="nc">LogFilter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A log filter that accepts message from any of the listed logger names.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">names</span>
-
-    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">LspHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A logging handler that will send log records to an LSP client.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
-
-    <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">LogRecord</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Sends the record to the client.&quot;&quot;&quot;</span>
-
-        <span class="c1"># To avoid infinite recursions, it&#39;s simpler to just ignore all log records</span>
-        <span class="c1"># coming from pygls...</span>
-        <span class="k">if</span> <span class="s2">&quot;pygls&quot;</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="n">log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">show_message_log</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">source</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">resolve_directive</span><span class="p">(</span><span class="n">directive</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Directive</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Directive</span><span class="p">:</span>

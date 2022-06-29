@@ -5,13 +5,13 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Indecs" href="genindex.html" /><link rel="search" title="Chwilio" href="search.html" /><link rel="next" title="Getting Started" href="lsp/getting-started.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>Esbonio</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -177,6 +177,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="extensions/relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
@@ -304,7 +305,7 @@
 </style>
 
 <div class="full-width" style="display: flex">
-  <div id="69bc75ce-3ff2-47ca-9f0a-02e3d5de5fe4" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+  <div id="466e5a88-87de-4e7e-9f83-50e2f0a47c82" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
     
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
   <label for="completion" style="margin-bottom:0; margin-left: 5px">
@@ -347,7 +348,7 @@
 
 <input type="radio" checked name="features" style="display: none" id="completion" />
 <div data-content="completion">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_completion">textDocument/completion</a> and can
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_completion">textDocument/completion</a> and can
 offer suggestions in a variety of contexts.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/completion-demo.gif"><img alt="_images/completion-demo.gif" src="_images/completion-demo.gif" /></a>
@@ -355,7 +356,7 @@ offer suggestions in a variety of contexts.</p>
 </div>
 <input type="radio"  name="features" style="display: none" id="definition" />
 <div data-content="definition">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_definition">textDocument/definition</a> to provide the
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_definition">textDocument/definition</a> to provide the
 location of items referenced by certain roles. Currently only the <code class="docutils literal notranslate"><span class="pre">:ref:</span></code>
 and <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> roles are supported.</p>
 <figure class="align-center">
@@ -364,7 +365,7 @@ and <code class="docutils literal notranslate"><span class="pre">:doc:</span></c
 </div>
 <input type="radio"  name="features" style="display: none" id="diagnostics" />
 <div data-content="diagnostics">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_publishDiagnostics">textDocument/publishDiagnostics</a> to
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics">textDocument/publishDiagnostics</a> to
 report errors/warnings enountered during a build.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/diagnostic-sphinx-errors-demo.png"><img alt="_images/diagnostic-sphinx-errors-demo.png" src="_images/diagnostic-sphinx-errors-demo.png" /></a>
@@ -372,14 +373,14 @@ report errors/warnings enountered during a build.</p>
 </div>
 <input type="radio"  name="features" style="display: none" id="document-links" />
 <div data-content="document-links">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_documentLink">textDocument/documentLink</a> to make references to other files &quot;Ctrl + Clickable&quot;</p>
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentLink">textDocument/documentLink</a> to make references to other files &quot;Ctrl + Clickable&quot;</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/document-links-demo.png"><img alt="_images/document-links-demo.png" src="_images/document-links-demo.png" /></a>
 </figure>
 </div>
 <input type="radio"  name="features" style="display: none" id="document-symbols" />
 <div data-content="document-symbols">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_documentSymbol">textDocument/documentSymbol</a> which
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentSymbol">textDocument/documentSymbol</a> which
 powers features like the &quot;Outline&quot; view in VSCode.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/document-symbols-demo.png"><img alt="_images/document-symbols-demo.png" src="_images/document-symbols-demo.png" /></a>
@@ -387,7 +388,7 @@ powers features like the &quot;Outline&quot; view in VSCode.</p>
 </div>
 <input type="radio"  name="features" style="display: none" id="hover" />
 <div data-content="hover">
-<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/specification-current#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover">textDocument/hover</a> to provide easy access to documentation for roles and directives.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png" /></a>
 </figure>
@@ -418,7 +419,7 @@ powers features like the &quot;Outline&quot; view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('69bc75ce-3ff2-47ca-9f0a-02e3d5de5fe4')
+  const container = document.getElementById('466e5a88-87de-4e7e-9f83-50e2f0a47c82')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)
@@ -439,6 +440,7 @@ See the section on <a class="reference internal" href="lsp/extending.html#lsp-ex
 <p>In addition to the language server, the Esbonio project provides a number of
 Sphinx extensions.</p>
 <ul class="simple">
+<li><p><a class="reference internal" href="extensions/relevant_to.html"><span class="doc">Relevent To</span></a>: Swap out sections of an article based on a chosen subject.</p></li>
 <li><p><a class="reference internal" href="extensions/tutorial.html"><span class="doc">Tutorial</span></a>: Export tutorial articles as <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">

@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>esbonio.lsp.sphinx - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -176,6 +176,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
@@ -226,10 +227,12 @@
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Queue</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">IO</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -252,6 +255,7 @@
 <span class="kn">from</span> <span class="nn">sphinx.domains</span> <span class="kn">import</span> <span class="n">Domain</span>
 <span class="kn">from</span> <span class="nn">sphinx.errors</span> <span class="kn">import</span> <span class="n">ConfigError</span>
 <span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">console</span>
+<span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">logging</span> <span class="k">as</span> <span class="n">sphinx_logging_module</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">NAMESPACE</span> <span class="k">as</span> <span class="n">SPHINX_LOG_NAMESPACE</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">VERBOSITY_MAP</span>
 
@@ -280,8 +284,11 @@
 <span class="n">DEFAULT_MODULES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;esbonio.lsp.directives&quot;</span><span class="p">,</span>         <span class="c1"># Generic directive support</span>
     <span class="s2">&quot;esbonio.lsp.roles&quot;</span><span class="p">,</span>              <span class="c1"># Generic roles support</span>
+    <span class="s2">&quot;esbonio.lsp.rst.directives&quot;</span><span class="p">,</span>     <span class="c1"># Specialised support for docutils directives</span>
+    <span class="s2">&quot;esbonio.lsp.rst.roles&quot;</span><span class="p">,</span>          <span class="c1"># Specialised support for docutils roles</span>
     <span class="s2">&quot;esbonio.lsp.sphinx.codeblocks&quot;</span><span class="p">,</span>  <span class="c1"># Support for code-block, highlight, etc.</span>
     <span class="s2">&quot;esbonio.lsp.sphinx.domains&quot;</span><span class="p">,</span>     <span class="c1"># Support for Sphinx domains</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.directives&quot;</span><span class="p">,</span>  <span class="c1"># Specialised support for Sphinx directives</span>
     <span class="s2">&quot;esbonio.lsp.sphinx.images&quot;</span><span class="p">,</span>      <span class="c1"># Support for image, figure etc</span>
     <span class="s2">&quot;esbonio.lsp.sphinx.includes&quot;</span><span class="p">,</span>    <span class="c1"># Support for include, literal-include etc.</span>
     <span class="s2">&quot;esbonio.lsp.sphinx.roles&quot;</span><span class="p">,</span>       <span class="c1"># Support for misc roles added by Sphinx e.g. :download:</span>
@@ -480,30 +487,42 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span> <span class="o">=</span> <span class="n">sphinx_config</span><span class="o">.</span><span class="n">to_application_args</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Sphinx Args </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
-        <span class="c1"># Disable color escape codes in Sphinx&#39;s log messages</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">nocolor</span><span class="p">()</span>
+        <span class="c1"># Override Sphinx&#39;s logging setup with our own.</span>
+        <span class="n">sphinx_logging_module</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logging_setup</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">sphinx</span><span class="p">)</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">Sphinx</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span><span class="p">)</span>
-
-        <span class="c1"># This has to happen after app creation otherwise our logging handler</span>
-        <span class="c1"># will get cleared by Sphinx&#39;s setup.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">server</span><span class="o">.</span><span class="n">hide_sphinx_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">silent</span><span class="p">:</span>
-            <span class="n">sphinx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">SPHINX_LOG_NAMESPACE</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span> <span class="o">=</span> <span class="n">SphinxLogHandler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">VERBOSITY_MAP</span><span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">verbosity</span><span class="p">])</span>
-
-            <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_extensions</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_config</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">app</span></div>
+
+    <span class="k">def</span> <span class="nf">_logging_setup</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">server</span><span class="p">:</span> <span class="n">SphinxServerConfig</span><span class="p">,</span>
+        <span class="n">sphinx</span><span class="p">:</span> <span class="n">SphinxConfig</span><span class="p">,</span>
+        <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span>
+        <span class="n">status</span><span class="p">:</span> <span class="n">IO</span><span class="p">,</span>
+        <span class="n">warning</span><span class="p">:</span> <span class="n">IO</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="c1"># Disable color escape codes in Sphinx&#39;s log messages</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">nocolor</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">server</span><span class="o">.</span><span class="n">hide_sphinx_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">silent</span><span class="p">:</span>
+            <span class="n">sphinx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">SPHINX_LOG_NAMESPACE</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span> <span class="o">=</span> <span class="n">SphinxLogHandler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="n">VERBOSITY_MAP</span><span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">verbosity</span><span class="p">]</span>
+
+            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+            <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_sphinx_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Loop through each of Sphinx&#39;s extensions and see if any contain server</span>

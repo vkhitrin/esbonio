@@ -3,15 +3,15 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Changelog" href="../changelog.html" />
+<link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Relevent To" href="relevant_to.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
         <title>Tutorial - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -177,6 +177,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="relevant_to.html">Relevent To</a></li>
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Tutorial</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/hello-world.html">Shwmae i gyd</a></li>
@@ -222,14 +223,14 @@
         <article role="main">
           <section id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink i'r pennawd hwn">#</a></h1>
-<p>The tutorial extension's aim is to make it easy to export tutorials written as part of
+<p>The <code class="docutils literal notranslate"><span class="pre">esbonio.tutorial</span></code> extension's aim is to make it easy to export tutorials written as part of
 your project's documentation to <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> allowing the reader to follow along
 in an interactive environment and further explore for themselves.</p>
 <p>With online services such as <a class="reference external" href="https://mybinder.org/">Binder</a> it's also possible to create fully interactive
 online versions of your tutorials allowing the user to just try things out bypassing any
 (potentially) complicated setup steps.</p>
-<p>This extension is available through the <code class="docutils literal notranslate"><span class="pre">esbonio-extensions</span></code> Python package.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install esbonio-extensions
+<p>This extension is available through the <code class="docutils literal notranslate"><span class="pre">esbonio-extensions</span></code> Python package but the <code class="docutils literal notranslate"><span class="pre">tutorial</span></code> extra is required due to some additional dependencies.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install esbonio-extensions<span class="o">[</span>tutorial<span class="o">]</span>
 </pre></div>
 </div>
 <section id="getting-started">
@@ -370,8 +371,8 @@ a <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stabl
 <section id="packaging">
 <h4>Packaging<a class="headerlink" href="#packaging" title="Permalink i'r pennawd hwn">#</a></h4>
 <div class="tabbed-set docutils">
-<input checked="checked" id="ff762ed0-7acd-45c7-8fdf-3440dfd03f60" name="d53e8421-e1f3-41f9-ae6c-b1eb987efc1d" type="radio">
-</input><label class="tabbed-label" for="ff762ed0-7acd-45c7-8fdf-3440dfd03f60">
+<input checked="checked" id="da511c74-2662-4561-9c11-4421f681d971" name="e6af0709-7b36-4701-968a-d2713107e32e" type="radio">
+</input><label class="tabbed-label" for="da511c74-2662-4561-9c11-4421f681d971">
 setuptools</label><div class="tabbed-content docutils">
 <p>The exported tutorial can be bundled in your Python package using the
 <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">Data Files</a> support built into setuptools. This requires you to add the
@@ -442,14 +443,14 @@ build output when you run</p>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../changelog.html">
+          <a class="prev-page" href="relevant_to.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Changelog</div>
+                <div class="title">Relevent To</div>
                 
               </div>
             </a>
