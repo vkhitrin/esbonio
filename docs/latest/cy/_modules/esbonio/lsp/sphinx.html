@@ -231,10 +231,12 @@
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Queue</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">IO</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -257,6 +259,7 @@
 <span class="kn">from</span> <span class="nn">sphinx.domains</span> <span class="kn">import</span> <span class="n">Domain</span>
 <span class="kn">from</span> <span class="nn">sphinx.errors</span> <span class="kn">import</span> <span class="n">ConfigError</span>
 <span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">console</span>
+<span class="kn">from</span> <span class="nn">sphinx.util</span> <span class="kn">import</span> <span class="n">logging</span> <span class="k">as</span> <span class="n">sphinx_logging_module</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">NAMESPACE</span> <span class="k">as</span> <span class="n">SPHINX_LOG_NAMESPACE</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">VERBOSITY_MAP</span>
 
@@ -488,30 +491,42 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span> <span class="o">=</span> <span class="n">sphinx_config</span><span class="o">.</span><span class="n">to_application_args</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Sphinx Args </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
-        <span class="c1"># Disable color escape codes in Sphinx&#39;s log messages</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">nocolor</span><span class="p">()</span>
+        <span class="c1"># Override Sphinx&#39;s logging setup with our own.</span>
+        <span class="n">sphinx_logging_module</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logging_setup</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">sphinx</span><span class="p">)</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">Sphinx</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_args</span><span class="p">)</span>
-
-        <span class="c1"># This has to happen after app creation otherwise our logging handler</span>
-        <span class="c1"># will get cleared by Sphinx&#39;s setup.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">server</span><span class="o">.</span><span class="n">hide_sphinx_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">silent</span><span class="p">:</span>
-            <span class="n">sphinx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">SPHINX_LOG_NAMESPACE</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span> <span class="o">=</span> <span class="n">SphinxLogHandler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">VERBOSITY_MAP</span><span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">verbosity</span><span class="p">])</span>
-
-            <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_extensions</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_sphinx_config</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">app</span></div>
+
+    <span class="k">def</span> <span class="nf">_logging_setup</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">server</span><span class="p">:</span> <span class="n">SphinxServerConfig</span><span class="p">,</span>
+        <span class="n">sphinx</span><span class="p">:</span> <span class="n">SphinxConfig</span><span class="p">,</span>
+        <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span>
+        <span class="n">status</span><span class="p">:</span> <span class="n">IO</span><span class="p">,</span>
+        <span class="n">warning</span><span class="p">:</span> <span class="n">IO</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="c1"># Disable color escape codes in Sphinx&#39;s log messages</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">nocolor</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">server</span><span class="o">.</span><span class="n">hide_sphinx_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">silent</span><span class="p">:</span>
+            <span class="n">sphinx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">SPHINX_LOG_NAMESPACE</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span> <span class="o">=</span> <span class="n">SphinxLogHandler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="n">VERBOSITY_MAP</span><span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">verbosity</span><span class="p">]</span>
+
+            <span class="n">sphinx_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+            <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sphinx_log</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_sphinx_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Loop through each of Sphinx&#39;s extensions and see if any contain server</span>
