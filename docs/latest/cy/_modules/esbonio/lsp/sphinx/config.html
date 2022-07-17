@@ -251,6 +251,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.cmd.build</span> <span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">sphinx_build</span>
+<span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">OnceFilter</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">SphinxLogRecord</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">WarningLogRecordTranslator</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
@@ -258,14 +259,6 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp.log</span> <span class="kn">import</span> <span class="n">LOG_NAMESPACE</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.log</span> <span class="kn">import</span> <span class="n">LspHandler</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">ServerConfig</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">OnceFilter</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="c1"># OnceFilter is not defined in Sphinx 2.x</span>
-    <span class="k">class</span> <span class="nc">OnceFilter</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-        <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">True</span>
 
 
 <span class="n">PATH_VAR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\${(\w+)}/?.*&quot;</span><span class="p">)</span>
