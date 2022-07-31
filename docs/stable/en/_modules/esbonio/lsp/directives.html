@@ -243,10 +243,12 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">CompletionContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">DefinitionContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">DocumentLinkContext</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">HoverContext</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">ImplementationContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
-<span class="kn">from</span> <span class="nn">esbonio.lsp.rst</span> <span class="kn">import</span> <span class="n">HoverContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx</span> <span class="kn">import</span> <span class="n">SphinxLanguageServer</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.util.inspect</span> <span class="kn">import</span> <span class="n">get_object_location</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE_OPTION</span>
 
@@ -460,6 +462,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span></div>
 
     <span class="n">completion_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">,</span> <span class="n">DIRECTIVE_OPTION</span><span class="p">]</span>
+    <span class="n">definition_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
+    <span class="n">hover_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
+    <span class="n">implementation_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">completion_resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">CompletionItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletionItem</span><span class="p">:</span>
 
@@ -668,10 +673,7 @@
         <span class="n">item</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">MarkupContent</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">item</span>
 
-    <span class="n">definition_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
-
     <span class="k">def</span> <span class="nf">definition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
         <span class="n">directive</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
@@ -746,8 +748,6 @@
 
         <span class="k">return</span> <span class="n">links</span>
 
-    <span class="n">hover_triggers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIRECTIVE</span><span class="p">]</span>
-
     <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;docstring&quot;</span><span class="p">}:</span>
@@ -788,6 +788,38 @@
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+
+        <span class="n">region</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;directive&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_directive_implementation</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">find_directive_implementation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+
+        <span class="n">directives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_directives</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">name</span>
+
+        <span class="n">impl</span> <span class="o">=</span> <span class="n">directives</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">impl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting implementation of &#39;</span><span class="si">%s</span><span class="s2">&#39; (</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">impl</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">get_object_location</span><span class="p">(</span><span class="n">impl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">location</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_surrounding_directive</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span>

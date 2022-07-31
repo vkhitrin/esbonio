@@ -223,6 +223,7 @@
           <h1>Source code for esbonio.lsp.rst</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -230,6 +231,7 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -420,6 +422,32 @@
         <span class="p">)</span></div>
 
 
+<span class="k">class</span> <span class="nc">ImplementationContext</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class that captures the context within which an implementation request has been</span>
+<span class="sd">    made.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="s2">&quot;re.Match&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span>
+    <span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="sd">&quot;&quot;&quot;The document within which the implementation request was made.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="sd">&quot;&quot;&quot;The location type where the request was made.</span>
+<span class="sd">        See :meth:`~esbonio.lsp.rst.RstLanguageServer.get_location_type` for details.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">match</span>
+        <span class="sd">&quot;&quot;&quot;The match object describing the site of the implementation request.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="sd">&quot;&quot;&quot;The position at which the implementation request was made.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">character</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ImplementationContext&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s2">) -- </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+
 <span class="k">class</span> <span class="nc">HoverContext</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A class that captures the context within a hover request has been made.&quot;&quot;&quot;</span>
 
@@ -531,6 +559,22 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[]</span></div>
 
+    <span class="n">implementation_triggers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;re.Pattern&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="sd">&quot;&quot;&quot;A list of regular expressions used to determine if the</span>
+<span class="sd">    :meth:`~esbonio.lsp.rst.LanguageFeature.implementation` method should be called.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LanguageFeature.implementation"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.implementation">[docs]</a>    <span class="k">def</span> <span class="nf">implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Called if any of the given ``implementation_triggers`` match the current line.</span>
+
+<span class="sd">        This method should return a list of ``Location`` objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context:</span>
+<span class="sd">           The context of the implementation request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
 <div class="viewcode-block" id="LanguageFeature.document_link"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.LanguageFeature.document_link">[docs]</a>    <span class="k">def</span> <span class="nf">document_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DocumentLink</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Called whenever a ``textDocument/documentLink`` request is received.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[]</span></div></div>
@@ -596,7 +640,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_diagnostics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Diagnostic</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;Where we store and manage diagnostics.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_extensions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;Record of modules that have been loaded.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LanguageFeature</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -634,8 +678,62 @@
     <span class="k">def</span> <span class="nf">delete_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DeleteFilesParams</span><span class="p">):</span>
         <span class="k">pass</span>
 
+<div class="viewcode-block" id="RstLanguageServer.load_extension"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.load_extension">[docs]</a>    <span class="k">def</span> <span class="nf">load_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load the given setup function as an extension.</span>
+
+<span class="sd">        If an extension with the given ``name`` already exists, the given setup function</span>
+<span class="sd">        will be ignored.</span>
+
+<span class="sd">        The ``setup`` function can declare dependencies in the form of type</span>
+<span class="sd">        annotations.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           from esbonio.lsp.roles import Roles</span>
+<span class="sd">           from esbonio.lsp.sphinx import SphinxLanguageServer</span>
+
+<span class="sd">           def esbonio_setup(rst: SphinxLanguageServer, roles: Roles):</span>
+<span class="sd">               ...</span>
+
+<span class="sd">        In this example the setup function is requesting instances of the</span>
+<span class="sd">        :class:`~esbonio.lsp.sphinx.SphinxLanguageServer` and the</span>
+<span class="sd">        :class:`~esbonio.lsp.roles.Roles` language feature.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name</span>
+<span class="sd">           The name to give the extension</span>
+
+<span class="sd">        setup</span>
+<span class="sd">           The setup function to call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_extensions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping extension &#39;</span><span class="si">%s</span><span class="s2">&#39;, already loaded&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">arguments</span> <span class="o">=</span> <span class="n">_get_setup_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">setup</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loaded extension &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_extensions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Unable to load extension &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+            <span class="p">)</span></div>
+
 <div class="viewcode-block" id="RstLanguageServer.add_feature"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.add_feature">[docs]</a>    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="s2">&quot;LanguageFeature&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Register a language feature with the server.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Register a language feature with the server.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        feature</span>
+<span class="sd">           The language feature</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
@@ -700,12 +798,17 @@
 <span class="sd">        uri</span>
 <span class="sd">           Returns the doctree that corresponds with the given uri.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">read_initial_doctree</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">loctype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_location_type</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">loctype</span> <span class="o">!=</span> <span class="s2">&quot;rst&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting initial doctree for: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">read_initial_doctree</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="k">return</span> <span class="kc">None</span></div>
@@ -813,32 +916,39 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Publishing </span><span class="si">%d</span><span class="s2"> diagnostics for: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">diag_list</span><span class="p">),</span> <span class="n">uri</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">publish_diagnostics</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">diag_list</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RstLanguageServer.get_location_type"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_location_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_location_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Given a document and a position, return the kind of location that</span>
-<span class="sd">        represents.</span>
+<div class="viewcode-block" id="RstLanguageServer.get_location_type"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_location_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_location_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Given a document and a position, return the type of location.</span>
 
-<span class="sd">        This will return one of the following values:</span>
+<span class="sd">        Returns one of the following values:</span>
 
-<span class="sd">        - ``rst``: Indicates that the position is within an ``*.rst`` document</span>
-<span class="sd">        - ``py``: Indicates that the position is within code in a ``*.py`` document</span>
+<span class="sd">        - ``rst``: Indicates that the position is within an reStructuredText document</span>
+<span class="sd">        - ``py``: Indicates that the position is within code in a Python file</span>
 <span class="sd">        - ``docstring``: Indicates that the position is within a docstring in a</span>
-<span class="sd">          ``*.py`` document.</span>
+<span class="sd">          Python file.</span>
+
+<span class="sd">        If the location type cannot be determined, this function will fall back to</span>
+<span class="sd">        ``rst``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        doc:</span>
+<span class="sd">        doc</span>
 <span class="sd">           The document associated with the given position</span>
-<span class="sd">        position:</span>
-<span class="sd">           The position to determine the type of.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="p">))</span><span class="o">.</span><span class="n">suffix</span>
 
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.rst&quot;</span><span class="p">:</span>
+<span class="sd">        position</span>
+<span class="sd">           The position to determine the type of</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">fpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="p">))</span>
+
+        <span class="c1"># Prefer the document&#39;s language_id, but fallback to file extensions</span>
+        <span class="n">loctype</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s2">&quot;language_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fpath</span><span class="o">.</span><span class="n">suffix</span>
+
+        <span class="k">if</span> <span class="n">loctype</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.rst&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;restructuredtext&quot;</span><span class="p">}:</span>
             <span class="k">return</span> <span class="s2">&quot;rst&quot;</span>
 
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.py&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">loctype</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.py&quot;</span><span class="p">,</span> <span class="s2">&quot;py&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">}:</span>
 
-            <span class="c1"># Let&#39;s count how many pairs of triple quotes are &quot;above&quot; us in the file</span>
+            <span class="c1"># Let&#39;s count how many pairs of triple quotes are above us in the file</span>
             <span class="c1"># even =&gt; we&#39;re outside a docstring</span>
             <span class="c1"># odd  =&gt; we&#39;re within a docstring</span>
             <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_to_position</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
@@ -928,6 +1038,50 @@
         <span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">uri</span>
+
+
+<span class="k">def</span> <span class="nf">_get_setup_arguments</span><span class="p">(</span>
+    <span class="n">server</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Given a setup function, try to construct the collection of arguments to pass to</span>
+<span class="sd">    it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">annotations</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">get_type_hints</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">annotations</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">type_</span><span class="p">):</span>
+            <span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">server</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">type_</span><span class="p">,</span> <span class="n">LanguageFeature</span><span class="p">):</span>
+            <span class="c1"># Try and obtain an instance of the requested language feature.</span>
+            <span class="n">feature</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_feature</span><span class="p">(</span><span class="n">type_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span>
+                <span class="k">continue</span>
+
+            <span class="n">server</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Skipping extension &#39;</span><span class="si">%s</span><span class="s2">&#39;, server missing requested feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                <span class="n">modname</span><span class="p">,</span>
+                <span class="n">type_</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">server</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;Skipping extension &#39;</span><span class="si">%s</span><span class="s2">&#39;, parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has unsupported type: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="n">modname</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">,</span>
+            <span class="n">type_</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">args</span>
 
 
 <span class="n">cli</span> <span class="o">=</span> <span class="n">setup_cli</span><span class="p">(</span><span class="s2">&quot;esbonio.lsp.rst&quot;</span><span class="p">,</span> <span class="s2">&quot;Esbonio&#39;s reStructuredText language server.&quot;</span><span class="p">)</span>

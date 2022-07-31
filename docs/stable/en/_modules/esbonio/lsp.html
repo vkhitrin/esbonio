@@ -223,17 +223,13 @@
           <h1>Source code for esbonio.lsp</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">enum</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
 
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">CODE_ACTION</span>
@@ -243,6 +239,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DOCUMENT_LINK</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">DOCUMENT_SYMBOL</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">HOVER</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">IMPLEMENTATION</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZE</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">INITIALIZED</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.methods</span> <span class="kn">import</span> <span class="n">SHUTDOWN</span>
@@ -267,6 +264,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">FileOperationRegistrationOptions</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Hover</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">HoverParams</span>
+<span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">ImplementationParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializedParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">InitializeParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">MarkupContent</span>
@@ -278,17 +276,20 @@
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">DefinitionContext</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">DocumentLinkContext</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">HoverContext</span>
+<span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">ImplementationContext</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">LanguageFeature</span>
 <span class="kn">from</span> <span class="nn">.rst</span> <span class="kn">import</span> <span class="n">RstLanguageServer</span>
 <span class="kn">from</span> <span class="nn">.symbols</span> <span class="kn">import</span> <span class="n">SymbolVisitor</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.13.0&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.13.1&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;CompletionContext&quot;</span><span class="p">,</span>
     <span class="s2">&quot;DefinitionContext&quot;</span><span class="p">,</span>
     <span class="s2">&quot;DocumentLinkContext&quot;</span><span class="p">,</span>
     <span class="s2">&quot;HoverContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ImplementationContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LanguageFeature&quot;</span><span class="p">,</span>
     <span class="s2">&quot;RstLanguageServer&quot;</span><span class="p">,</span>
     <span class="s2">&quot;create_language_server&quot;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -374,7 +375,11 @@
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">TEXT_DOCUMENT_DID_OPEN</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_open</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidOpenTextDocumentParams</span><span class="p">):</span>
-        <span class="k">pass</span>
+
+        <span class="c1"># TODO: Delete me when we&#39;ve dropped Python 3.6 and a pygls release that</span>
+        <span class="c1"># remembers the language id is available.</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">language_id</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">language_id</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">TEXT_DOCUMENT_DID_CHANGE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_change</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidChangeTextDocumentParams</span><span class="p">):</span>
@@ -537,6 +542,33 @@
 
         <span class="k">return</span> <span class="n">definitions</span>
 
+    <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">IMPLEMENTATION</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">on_implementation</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">ImplementationParams</span><span class="p">):</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">position</span>
+
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">line_at_position</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">get_location_type</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+        <span class="n">implementations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ls</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">implementation_triggers</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">pos</span><span class="o">.</span><span class="n">character</span> <span class="ow">and</span> <span class="n">pos</span><span class="o">.</span><span class="n">character</span> <span class="o">&lt;=</span> <span class="n">stop</span><span class="p">:</span>
+                        <span class="n">context</span> <span class="o">=</span> <span class="n">ImplementationContext</span><span class="p">(</span>
+                            <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">pos</span>
+                        <span class="p">)</span>
+                        <span class="n">ls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Implementation context: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+                        <span class="n">implementations</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">implementation</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">implementations</span>
+
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">DOCUMENT_LINK</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_document_link</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DocumentLinkParams</span><span class="p">):</span>
         <span class="n">uri</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span>
@@ -590,25 +622,6 @@
 <span class="k">def</span> <span class="nf">_load_module</span><span class="p">(</span><span class="n">server</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load an extension module by calling its ``esbonio_setup`` function, if it exists.&quot;&quot;&quot;</span>
 
-    <span class="n">setup</span> <span class="o">=</span> <span class="n">_get_setup_function</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">setup</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="n">args</span> <span class="o">=</span> <span class="n">_get_setup_arguments</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">setup</span><span class="p">,</span> <span class="n">modname</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">setup</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loaded module &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">modname</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Error while setting up module &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">modname</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
-        <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_get_setup_function</span><span class="p">(</span><span class="n">modname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]:</span>
-
     <span class="k">try</span><span class="p">:</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -617,57 +630,12 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;esbonio_setup&quot;</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Unable to load module &#39;</span><span class="si">%s</span><span class="s2">&#39;, missing &#39;esbonio_setup&#39; function&quot;</span><span class="p">,</span> <span class="n">modname</span>
-        <span class="p">)</span>
+    <span class="n">setup</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;esbonio_setup&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">setup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Skipping module &#39;</span><span class="si">%s</span><span class="s2">&#39;, missing &#39;esbonio_setup&#39; function&quot;</span><span class="p">,</span> <span class="n">modname</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">return</span> <span class="n">module</span><span class="o">.</span><span class="n">esbonio_setup</span>
-
-
-<span class="k">def</span> <span class="nf">_get_setup_arguments</span><span class="p">(</span>
-    <span class="n">server</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">modname</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Given a setup function, try to construct the collection of arguments to pass to</span>
-<span class="sd">    it.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">annotations</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">get_type_hints</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>
-    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">annotations</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-    <span class="p">}</span>
-
-    <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">type_</span><span class="p">):</span>
-            <span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">server</span>
-            <span class="k">continue</span>
-
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">type_</span><span class="p">,</span> <span class="n">LanguageFeature</span><span class="p">):</span>
-            <span class="c1"># Try and obtain an instance of the requested language feature.</span>
-            <span class="n">feature</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_feature</span><span class="p">(</span><span class="n">type_</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span>
-                <span class="k">continue</span>
-
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="s2">&quot;Skipping module &#39;</span><span class="si">%s</span><span class="s2">&#39;, server missing requested feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
-                <span class="n">modname</span><span class="p">,</span>
-                <span class="n">type_</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Skipping module &#39;</span><span class="si">%s</span><span class="s2">&#39;, parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has unsupported type: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
-            <span class="n">modname</span><span class="p">,</span>
-            <span class="n">name</span><span class="p">,</span>
-            <span class="n">type_</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">return</span> <span class="n">args</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="n">modname</span><span class="p">,</span> <span class="n">setup</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

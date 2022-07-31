@@ -302,10 +302,22 @@
   input#hover:checked ~ div[data-label="hover"] {
     border-left: solid 5px #81d3ee;
   }
+
+  input#implementation:not(:checked) ~ div[data-content="implementation"] {
+    display: none;
+  }
+
+  input#implementation:not(:checked) ~ div[data-label="implementation"] {
+    border-left: solid 5px #white;
+  }
+
+  input#implementation:checked ~ div[data-label="implementation"] {
+    border-left: solid 5px #81d3ee;
+  }
 </style>
 
 <div class="full-width" style="display: flex">
-  <div id="466e5a88-87de-4e7e-9f83-50e2f0a47c82" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+  <div id="c0bbe91e-3ab8-496b-9321-1831536bdb78" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
     
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
   <label for="completion" style="margin-bottom:0; margin-left: 5px">
@@ -340,6 +352,12 @@
 <div data-label="hover" style="margin-right: 5px; border-left: solid 2px white ">
   <label for="hover" style="margin-bottom:0; margin-left: 5px">
     Hover
+  </label>
+</div>
+
+<div data-label="implementation" style="margin-right: 5px; border-left: solid 2px white ">
+  <label for="implementation" style="margin-bottom:0; margin-left: 5px">
+    Implementation
   </label>
 </div>
 
@@ -393,6 +411,13 @@ powers features like the &quot;Outline&quot; view in VSCode.</p>
 <a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png" /></a>
 </figure>
 </div>
+<input type="radio"  name="features" style="display: none" id="implementation" />
+<div data-content="implementation">
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_implementation">textDocument/implementation</a> so you can easily find the implementation of a given role or directive.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="/_images/implementation-demo.gif"><img alt="_images/implementation-demo.gif" src="_images/implementation-demo.gif" /></a>
+</figure>
+</div>
   </div>
 </div>
 <script>
@@ -419,7 +444,7 @@ powers features like the &quot;Outline&quot; view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('466e5a88-87de-4e7e-9f83-50e2f0a47c82')
+  const container = document.getElementById('c0bbe91e-3ab8-496b-9321-1831536bdb78')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)

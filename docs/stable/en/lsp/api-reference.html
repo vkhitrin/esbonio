@@ -262,6 +262,9 @@ constructor.</p></li>
 <span class="sig-name descname"><span class="pre">add_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.add_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.add_feature" title="Permalink to this definition">#</a></dt>
 <dd><p>Register a language feature with the server.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feature</strong> (<a class="reference internal" href="#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><em>esbonio.lsp.rst.LanguageFeature</em></a>) – The language feature</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -342,21 +345,22 @@ represent that they exist.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_location_type">
-<span class="sig-name descname"><span class="pre">get_location_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_location_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="Permalink to this definition">#</a></dt>
-<dd><p>Given a document and a position, return the kind of location that
-represents.</p>
-<p>This will return one of the following values:</p>
+<span class="sig-name descname"><span class="pre">get_location_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_location_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="Permalink to this definition">#</a></dt>
+<dd><p>Given a document and a position, return the type of location.</p>
+<p>Returns one of the following values:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rst</span></code>: Indicates that the position is within an <code class="docutils literal notranslate"><span class="pre">*.rst</span></code> document</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">py</span></code>: Indicates that the position is within code in a <code class="docutils literal notranslate"><span class="pre">*.py</span></code> document</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rst</span></code>: Indicates that the position is within an reStructuredText document</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">py</span></code>: Indicates that the position is within code in a Python file</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docstring</span></code>: Indicates that the position is within a docstring in a
-<code class="docutils literal notranslate"><span class="pre">*.py</span></code> document.</p></li>
+Python file.</p></li>
 </ul>
+<p>If the location type cannot be determined, this function will fall back to
+<code class="docutils literal notranslate"><span class="pre">rst</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> (<em>pygls.workspace.Document</em>) – The document associated with the given position</p></li>
-<li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) – The position to determine the type of.</p></li>
+<li><p><strong>doc</strong> – The document associated with the given position</p></li>
+<li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) – The position to determine the type of</p></li>
 </ul>
 </dd>
 </dl>
@@ -393,6 +397,34 @@ represents.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>doc</strong> (<em>pygls.workspace.Document</em>) – The document associated with the given position.</p></li>
 <li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) – The position representing the line to retrieve.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.load_extension">
+<span class="sig-name descname"><span class="pre">load_extension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.load_extension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.load_extension" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the given setup function as an extension.</p>
+<p>If an extension with the given <code class="docutils literal notranslate"><span class="pre">name</span></code> already exists, the given setup function
+will be ignored.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">setup</span></code> function can declare dependencies in the form of type
+annotations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">esbonio.lsp.roles</span> <span class="kn">import</span> <span class="n">Roles</span>
+<span class="kn">from</span> <span class="nn">esbonio.lsp.sphinx</span> <span class="kn">import</span> <span class="n">SphinxLanguageServer</span>
+
+<span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">SphinxLanguageServer</span><span class="p">,</span> <span class="n">roles</span><span class="p">:</span> <span class="n">Roles</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>In this example the setup function is requesting instances of the
+<a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer" title="esbonio.lsp.sphinx.SphinxLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code></a> and the
+<a class="reference internal" href="#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a> language feature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name to give the extension</p></li>
+<li><p><strong>setup</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – The setup function to call</p></li>
 </ul>
 </dd>
 </dl>
@@ -1076,6 +1108,18 @@ allowing for additional details to be provided e.g. documentation.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.implementation">
+<span class="sig-name descname"><span class="pre">implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.implementation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.implementation" title="Permalink to this definition">#</a></dt>
+<dd><p>Called if any of the given <code class="docutils literal notranslate"><span class="pre">implementation_triggers</span></code> match the current line.</p>
+<p>This method should return a list of <code class="docutils literal notranslate"><span class="pre">Location</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>esbonio.lsp.rst.ImplementationContext</em>) – The context of the implementation request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.initialize">
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Called once when the server is first initialized.</p>
@@ -1118,6 +1162,13 @@ current line.</p>
 <span class="sig-name descname"><span class="pre">definition_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.definition_triggers" title="Permalink to this definition">#</a></dt>
 <dd><p>A list of regular expressions used to determine if the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">definition()</span></code> method should be called.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.implementation_triggers">
+<span class="sig-name descname"><span class="pre">implementation_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.implementation_triggers" title="Permalink to this definition">#</a></dt>
+<dd><p>A list of regular expressions used to determine if the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">implementation()</span></code> method should be called.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1602,8 +1653,159 @@ target.</p>
 
 </section>
 </section>
-<section id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">#</a></h2>
+<section id="module-esbonio.lsp.testing">
+<span id="testing"></span><h2>Testing<a class="headerlink" href="#module-esbonio.lsp.testing" title="Permalink to this headline">#</a></h2>
+<p>Utility functions to help with testing Language Server features.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.completion_request">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">completion_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">character</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#completion_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.completion_request" title="Permalink to this definition">#</a></dt>
+<dd><p>Make a completion request to a language server.</p>
+<p>Intended for use within test cases, this function simulates the opening of a
+document, inserting some text, triggering a completion request and closing it
+again.</p>
+<p>The file referenced by <code class="docutils literal notranslate"><span class="pre">test_uri</span></code> does not have to exist.</p>
+<p>The text to be inserted is specified through the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter. By default
+it’s assumed that the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter consists of a single line of text, in fact
+this function will error if that is not the case.</p>
+<p>If your request requires additional context (such as directive option completions)
+it can be included but it must be delimited with a <code class="docutils literal notranslate"><span class="pre">\f</span></code> character. For example,
+to represent the following scenario:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">filename</span><span class="o">.</span><span class="n">png</span>
+   <span class="p">:</span><span class="n">align</span><span class="p">:</span> <span class="n">center</span>
+   <span class="p">:</span>
+    <span class="o">^</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">^</span></code> represents the position from which we trigger the completion request.
+We would set <code class="docutils literal notranslate"><span class="pre">text</span></code> to the following
+<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">image::</span> <span class="pre">filename.png\n</span>&#160;&#160; <span class="pre">:align:</span> <span class="pre">center\n\f</span>&#160;&#160; <span class="pre">:</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test</strong> – The client used to make the request.</p></li>
+<li><p><strong>test_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The uri the completion request should be made within.</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The text that provides the context for the completion request.</p></li>
+<li><p><strong>character</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The character index at which to make the completion request from.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will default to the end of the inserted text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.directive_argument_patterns">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">directive_argument_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#directive_argument_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.directive_argument_patterns" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a number of example directive argument patterns.</p>
+<p>These correspond to test cases where directive argument suggestions should be
+generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the directive to generate suggestions for.</p></li>
+<li><p><strong>partial</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The partial argument that the user has already entered.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.hover_request">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">hover_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#hover_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.hover_request" title="Permalink to this definition">#</a></dt>
+<dd><p>Make a hover request to a language server.</p>
+<p>Intended for use within test cases, this function simulates the opening of a
+document containing some text, triggering a hover request and closing it again.</p>
+<p>The file referenced by <code class="docutils literal notranslate"><span class="pre">test_uri</span></code> does not have to exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test</strong> – The client used to make the request.</p></li>
+<li><p><strong>test_uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The uri the completion request should be made within.</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The text that provides the context for the hover request.</p></li>
+<li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) – The position at which to make the hover request from.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.intersphinx_target_patterns">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">intersphinx_target_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#intersphinx_target_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.intersphinx_target_patterns" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a number of example intersphinx target patterns.</p>
+<p>These correspond to cases where target completions may be generated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the role to generate examples for</p></li>
+<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the project to generate examples for</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.make_esbonio_client">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">make_esbonio_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#make_esbonio_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.make_esbonio_client" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct a pytest-lsp client that is aware of esbonio specific messages</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.role_patterns">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">role_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#role_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.role_patterns" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a number of example role patterns.</p>
+<p>These correspond to when role suggestions should be generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>partial</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The partial role name that the user has already entered</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.role_target_patterns">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">role_target_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_modifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#role_target_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.role_target_patterns" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a number of example role target patterns.</p>
+<p>These correspond to test cases where role target suggestions should be generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the role to generate suggestions for.</p></li>
+<li><p><strong>partial</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The partial target that the user as already entered.</p></li>
+<li><p><strong>include_modifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – A flag to indicate if additional modifiers like <code class="docutils literal notranslate"><span class="pre">!</span></code> and <code class="docutils literal notranslate"><span class="pre">~</span></code> should be
+included in the generated patterns.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.sphinx_version">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">sphinx_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lte</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gte</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#sphinx_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.sphinx_version" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function for determining which version of Sphinx we are
+testing with.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently this function only considers the major version number.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eq</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is exactly
+what’s given.</p></li>
+<li><p><strong>gt</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is strictly
+greater than what’s given</p></li>
+<li><p><strong>gte</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is greater than
+or equal to what’s given</p></li>
+<li><p><strong>lt</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is strictly
+less than what’s given</p></li>
+<li><p><strong>lte</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is less than
+or equal to what’s given</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -1675,7 +1877,7 @@ target.</p>
 <li><a class="reference internal" href="#roles">Roles</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#module-esbonio.lsp.testing">Testing</a></li>
 </ul>
 </li>
 </ul>
