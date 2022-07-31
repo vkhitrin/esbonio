@@ -10,8 +10,8 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -306,10 +306,22 @@
   input#hover:checked ~ div[data-label="hover"] {
     border-left: solid 5px #81d3ee;
   }
+
+  input#implementation:not(:checked) ~ div[data-content="implementation"] {
+    display: none;
+  }
+
+  input#implementation:not(:checked) ~ div[data-label="implementation"] {
+    border-left: solid 5px #white;
+  }
+
+  input#implementation:checked ~ div[data-label="implementation"] {
+    border-left: solid 5px #81d3ee;
+  }
 </style>
 
 <div class="full-width" style="display: flex">
-  <div id="4fc20747-8a2f-4927-a5e5-abaef5afb795" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
+  <div id="d151a235-a28b-4aec-97b7-a4896e7908eb" style="flex-shrink: 0; border-right: solid 1px #ccc; margin-right: 10px">
     
 <div data-label="completion" style="margin-right: 5px; border-left: solid 2px white ">
   <label for="completion" style="margin-bottom:0; margin-left: 5px">
@@ -344,6 +356,12 @@
 <div data-label="hover" style="margin-right: 5px; border-left: solid 2px white ">
   <label for="hover" style="margin-bottom:0; margin-left: 5px">
     Hover
+  </label>
+</div>
+
+<div data-label="implementation" style="margin-right: 5px; border-left: solid 2px white ">
+  <label for="implementation" style="margin-bottom:0; margin-left: 5px">
+    Implementation
   </label>
 </div>
 
@@ -397,6 +415,13 @@ powers features like the “Outline” view in VSCode.</p>
 <a class="reference external image-reference" href="/_images/hover-demo.png"><img alt="_images/hover-demo.png" src="_images/hover-demo.png" /></a>
 </figure>
 </div>
+<input type="radio"  name="features" style="display: none" id="implementation" />
+<div data-content="implementation">
+<p>The language server implements <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_implementation">textDocument/implementation</a> so you can easily find the implementation of a given role or directive.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="/_images/implementation-demo.gif"><img alt="_images/implementation-demo.gif" src="_images/implementation-demo.gif" /></a>
+</figure>
+</div>
   </div>
 </div>
 <script>
@@ -423,7 +448,7 @@ powers features like the “Outline” view in VSCode.</p>
     })
   }
 
-  const container = document.getElementById('4fc20747-8a2f-4927-a5e5-abaef5afb795')
+  const container = document.getElementById('d151a235-a28b-4aec-97b7-a4896e7908eb')
   selectItem(container, container.children[0])
   container.addEventListener('click', (event) => {
     selectItem(container, event.target)

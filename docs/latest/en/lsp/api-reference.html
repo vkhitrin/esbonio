@@ -10,8 +10,8 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -1111,6 +1111,18 @@ allowing for additional details to be provided e.g. documentation.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.implementation">
+<span class="sig-name descname"><span class="pre">implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.implementation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.implementation" title="Permalink to this definition">#</a></dt>
+<dd><p>Called if any of the given <code class="docutils literal notranslate"><span class="pre">implementation_triggers</span></code> match the current line.</p>
+<p>This method should return a list of <code class="docutils literal notranslate"><span class="pre">Location</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>esbonio.lsp.rst.ImplementationContext</em>) – The context of the implementation request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.initialize">
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#LanguageFeature.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.LanguageFeature.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Called once when the server is first initialized.</p>
@@ -1153,6 +1165,13 @@ current line.</p>
 <span class="sig-name descname"><span class="pre">definition_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.definition_triggers" title="Permalink to this definition">#</a></dt>
 <dd><p>A list of regular expressions used to determine if the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">definition()</span></code> method should be called.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.LanguageFeature.implementation_triggers">
+<span class="sig-name descname"><span class="pre">implementation_triggers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">re.Pattern</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#esbonio.lsp.LanguageFeature.implementation_triggers" title="Permalink to this definition">#</a></dt>
+<dd><p>A list of regular expressions used to determine if the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">implementation()</span></code> method should be called.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1727,6 +1746,14 @@ document containing some text, triggering a hover request and closing it again.<
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="esbonio.lsp.testing.make_esbonio_client">
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">make_esbonio_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#make_esbonio_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.make_esbonio_client" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct a pytest-lsp client that is aware of esbonio specific messages</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="esbonio.lsp.testing.role_patterns">
 <span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">role_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#role_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.role_patterns" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a number of example role patterns.</p>
@@ -1757,14 +1784,27 @@ included in the generated patterns.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="esbonio.lsp.testing.sphinx_version">
-<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">sphinx_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#sphinx_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.sphinx_version" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.testing.</span></span><span class="sig-name descname"><span class="pre">sphinx_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lte</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gte</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/testing.html#sphinx_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.testing.sphinx_version" title="Permalink to this definition">#</a></dt>
 <dd><p>Helper function for determining which version of Sphinx we are
 testing with.</p>
-<p>Currently this only cares about the major version number.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently this function only considers the major version number.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>eq</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the Sphinx version exactly matches
-what’s given.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eq</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is exactly
+what’s given.</p></li>
+<li><p><strong>gt</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is strictly
+greater than what’s given</p></li>
+<li><p><strong>gte</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is greater than
+or equal to what’s given</p></li>
+<li><p><strong>lt</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is strictly
+less than what’s given</p></li>
+<li><p><strong>lte</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – When set, this function returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if Sphinx’s version is less than
+or equal to what’s given</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
