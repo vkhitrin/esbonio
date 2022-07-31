@@ -379,7 +379,11 @@
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">TEXT_DOCUMENT_DID_OPEN</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_open</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidOpenTextDocumentParams</span><span class="p">):</span>
-        <span class="k">pass</span>
+
+        <span class="c1"># TODO: Delete me when we&#39;ve dropped Python 3.6 and a pygls release that</span>
+        <span class="c1"># remembers the language id is available.</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">language_id</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">language_id</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="n">TEXT_DOCUMENT_DID_CHANGE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">on_change</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DidChangeTextDocumentParams</span><span class="p">):</span>

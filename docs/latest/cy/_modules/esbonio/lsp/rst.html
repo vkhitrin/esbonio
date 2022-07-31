@@ -802,12 +802,17 @@
 <span class="sd">        uri</span>
 <span class="sd">           Returns the doctree that corresponds with the given uri.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">read_initial_doctree</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">loctype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_location_type</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">loctype</span> <span class="o">!=</span> <span class="s2">&quot;rst&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting initial doctree for: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">read_initial_doctree</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="k">return</span> <span class="kc">None</span></div>
@@ -915,32 +920,39 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Publishing </span><span class="si">%d</span><span class="s2"> diagnostics for: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">diag_list</span><span class="p">),</span> <span class="n">uri</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">publish_diagnostics</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">diag_list</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RstLanguageServer.get_location_type"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_location_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_location_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Given a document and a position, return the kind of location that</span>
-<span class="sd">        represents.</span>
+<div class="viewcode-block" id="RstLanguageServer.get_location_type"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_location_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_location_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Given a document and a position, return the type of location.</span>
 
-<span class="sd">        This will return one of the following values:</span>
+<span class="sd">        Returns one of the following values:</span>
 
-<span class="sd">        - ``rst``: Indicates that the position is within an ``*.rst`` document</span>
-<span class="sd">        - ``py``: Indicates that the position is within code in a ``*.py`` document</span>
+<span class="sd">        - ``rst``: Indicates that the position is within an reStructuredText document</span>
+<span class="sd">        - ``py``: Indicates that the position is within code in a Python file</span>
 <span class="sd">        - ``docstring``: Indicates that the position is within a docstring in a</span>
-<span class="sd">          ``*.py`` document.</span>
+<span class="sd">          Python file.</span>
+
+<span class="sd">        If the location type cannot be determined, this function will fall back to</span>
+<span class="sd">        ``rst``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        doc:</span>
+<span class="sd">        doc</span>
 <span class="sd">           The document associated with the given position</span>
-<span class="sd">        position:</span>
-<span class="sd">           The position to determine the type of.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="p">))</span><span class="o">.</span><span class="n">suffix</span>
 
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.rst&quot;</span><span class="p">:</span>
+<span class="sd">        position</span>
+<span class="sd">           The position to determine the type of</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="n">fpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">to_fs_path</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uri</span><span class="p">))</span>
+
+        <span class="c1"># Prefer the document&#39;s language_id, but fallback to file extensions</span>
+        <span class="n">loctype</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s2">&quot;language_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fpath</span><span class="o">.</span><span class="n">suffix</span>
+
+        <span class="k">if</span> <span class="n">loctype</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.rst&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;restructuredtext&quot;</span><span class="p">}:</span>
             <span class="k">return</span> <span class="s2">&quot;rst&quot;</span>
 
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.py&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">loctype</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.py&quot;</span><span class="p">,</span> <span class="s2">&quot;py&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">}:</span>
 
-            <span class="c1"># Let&#39;s count how many pairs of triple quotes are &quot;above&quot; us in the file</span>
+            <span class="c1"># Let&#39;s count how many pairs of triple quotes are above us in the file</span>
             <span class="c1"># even =&gt; we&#39;re outside a docstring</span>
             <span class="c1"># odd  =&gt; we&#39;re within a docstring</span>
             <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_to_position</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>

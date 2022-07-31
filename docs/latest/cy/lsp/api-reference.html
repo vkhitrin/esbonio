@@ -349,21 +349,22 @@ represent that they exist.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_location_type">
-<span class="sig-name descname"><span class="pre">get_location_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_location_type"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>Given a document and a position, return the kind of location that
-represents.</p>
-<p>This will return one of the following values:</p>
+<span class="sig-name descname"><span class="pre">get_location_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_location_type"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_location_type" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Given a document and a position, return the type of location.</p>
+<p>Returns one of the following values:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rst</span></code>: Indicates that the position is within an <code class="docutils literal notranslate"><span class="pre">*.rst</span></code> document</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">py</span></code>: Indicates that the position is within code in a <code class="docutils literal notranslate"><span class="pre">*.py</span></code> document</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rst</span></code>: Indicates that the position is within an reStructuredText document</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">py</span></code>: Indicates that the position is within code in a Python file</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docstring</span></code>: Indicates that the position is within a docstring in a
-<code class="docutils literal notranslate"><span class="pre">*.py</span></code> document.</p></li>
+Python file.</p></li>
 </ul>
+<p>If the location type cannot be determined, this function will fall back to
+<code class="docutils literal notranslate"><span class="pre">rst</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> (<em>pygls.workspace.Document</em>) -- The document associated with the given position</p></li>
-<li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) -- The position to determine the type of.</p></li>
+<li><p><strong>doc</strong> -- The document associated with the given position</p></li>
+<li><p><strong>position</strong> (<em>pygls.lsp.types.basic_structures.Position</em>) -- The position to determine the type of</p></li>
 </ul>
 </dd>
 </dl>
