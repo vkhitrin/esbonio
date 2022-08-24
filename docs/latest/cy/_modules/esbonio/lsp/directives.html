@@ -227,11 +227,13 @@
           <h1>Cod ffynhonnell ar gyfer esbonio.lsp.directives</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItem</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">CompletionItemKind</span>
@@ -243,6 +245,7 @@
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Position</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Range</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">TextEdit</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">CompletionContext</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp</span> <span class="kn">import</span> <span class="n">DefinitionContext</span>
@@ -256,16 +259,80 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">DIRECTIVE_OPTION</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="c1"># Protocol is only available in Python 3.8+</span>
-    <span class="k">class</span> <span class="nc">Protocol</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-        <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">DirectiveLanguageFeature</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Base class for directive language features.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">complete_arguments</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of completion items representing valid targets for the given</span>
+<span class="sd">        directive.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context:</span>
+<span class="sd">           The completion context</span>
+<span class="sd">        domain:</span>
+<span class="sd">           The name of the domain the directive is a member of</span>
+<span class="sd">        name:</span>
+<span class="sd">           The name of the domain</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span>
+        <span class="n">directive</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">argument</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Resolve a document link request for the given argument.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context:</span>
+<span class="sd">           The context of the document link request.</span>
+<span class="sd">        directive:</span>
+<span class="sd">           The name of the directive the argument is associated with.</span>
+<span class="sd">        domain:</span>
+<span class="sd">           The name of the domain the directive belongs to, if applicable.</span>
+<span class="sd">        argument:</span>
+<span class="sd">           The argument to resolve the link for.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span>
+        <span class="n">directive</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">argument</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of locations representing definitions of the given argument.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context:</span>
+<span class="sd">           The context of the definition request.</span>
+<span class="sd">        directive:</span>
+<span class="sd">           The name of the directive the argument is associated with.</span>
+<span class="sd">        domain:</span>
+<span class="sd">           The name of the domain the directive belongs to, if applicable.</span>
+<span class="sd">        argument:</span>
+<span class="sd">           The argument to find the definition of.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span>
 
 
 <div class="viewcode-block" id="ArgumentCompletion"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentCompletion">[docs]</a><span class="k">class</span> <span class="nc">ArgumentCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A completion provider for directive arguments.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A completion provider for directive arguments.</span>
+
+<span class="sd">    .. deprecated:: xxxx</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use subclasses of</span>
+<span class="sd">       :class:`~esbonio.lsp.directives.DirectiveLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ArgumentCompletion.complete_arguments"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentCompletion.complete_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">complete_arguments</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
@@ -285,7 +352,13 @@
 
 
 <div class="viewcode-block" id="ArgumentDefinition"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentDefinition">[docs]</a><span class="k">class</span> <span class="nc">ArgumentDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A definition provider for directive arguments.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A definition provider for directive arguments.</span>
+
+<span class="sd">    .. deprecated:: xxxx</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use subclasses of</span>
+<span class="sd">       :class:`~esbonio.lsp.directives.DirectiveLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ArgumentDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -310,7 +383,13 @@
 
 
 <div class="viewcode-block" id="ArgumentLink"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentLink">[docs]</a><span class="k">class</span> <span class="nc">ArgumentLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A document link resolver for directive arguments.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A document link resolver for directive arguments.</span>
+
+<span class="sd">    .. deprecated:: xxxx</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use subclasses of</span>
+<span class="sd">       :class:`~esbonio.lsp.directives.DirectiveLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ArgumentLink.resolve_link"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.ArgumentLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -343,49 +422,118 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;Cache for documentation.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_completion_providers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ArgumentCompletion</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">&quot;&quot;&quot;A dictionary of providers that give completion suggestions for directive</span>
-<span class="sd">        arguments.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DirectiveLanguageFeature</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="sd">&quot;&quot;&quot;The collection of registered features.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_definition_providers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ArgumentDefinition</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">&quot;&quot;&quot;A dictionary of providers that locate definitions for directive arguments.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="n">DirectiveLanguageFeature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register a directive language feature.</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_link_providers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ArgumentLink</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">&quot;&quot;&quot;A dictionary of providers that resolve document links for directive</span>
-<span class="sd">        arguments.&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        feature</span>
+<span class="sd">           The directive language feature</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span>
 
 <div class="viewcode-block" id="Directives.add_argument_completion_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.Directives.add_argument_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_argument_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">ArgumentCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register an :class:`~esbonio.lsp.directives.ArgumentCompletion` provider.</span>
 
+<span class="sd">        .. deprecated:: xxxx</span>
+
+<span class="sd">           This will be removed in ``v1.0``, use</span>
+<span class="sd">           :meth:`esbonio.lsp.directives.Directives.add_feature` with a</span>
+<span class="sd">           :class:`esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider:</span>
 <span class="sd">           The provider to register.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_completion_providers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">provider</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ArgumentCompletion providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;DirectiveLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.completion&quot;</span>
+
+        <span class="c1"># Automatically derive the feature definition from the provider.</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">CompletionProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">DirectiveLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;complete_arguments&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">complete_arguments</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
 
 <div class="viewcode-block" id="Directives.add_argument_definition_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.Directives.add_argument_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_argument_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">ArgumentDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register an :class:`~esbonio.lsp.directives.ArgumentDefinition` provider.</span>
 
+<span class="sd">        .. deprecated:: xxxx</span>
+
+<span class="sd">           This will be removed in ``v1.0``, use</span>
+<span class="sd">           :meth:`esbonio.lsp.directives.Directives.add_feature` with a</span>
+<span class="sd">           :class:`esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider:</span>
 <span class="sd">           The provider to register.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_definition_providers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">provider</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ArgumentDefinition providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;DirectiveLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.definitions&quot;</span>
+
+        <span class="c1"># Automatically derive the feature definition from the provider.</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">DefinitionProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">DirectiveLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;find_definitions&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
 
 <div class="viewcode-block" id="Directives.add_argument_link_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.Directives.add_argument_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_argument_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">ArgumentLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register an :class:`~esbonio.lsp.directives.ArgumentLink` provider.</span>
 
+<span class="sd">        .. deprecated:: xxxx</span>
+
+<span class="sd">           This will be removed in ``v1.0``, use</span>
+<span class="sd">           :meth:`esbonio.lsp.directives.Directives.add_feature` with a</span>
+<span class="sd">           :class:`esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider:</span>
 <span class="sd">           The provider to register.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_argument_link_providers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">provider</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;ArgumentLink providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;DirectiveLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.links&quot;</span>
+
+        <span class="c1"># Automatically derive the feature definition from the provider.</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">LinkProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">DirectiveLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;resolve_link&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
 
 <div class="viewcode-block" id="Directives.add_documentation"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.directives.Directives.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register directive documentation.</span>
@@ -513,8 +661,8 @@
         <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">provider_name</span><span class="p">,</span> <span class="n">provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_completion_providers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">arguments</span> <span class="o">+=</span> <span class="n">provider</span><span class="o">.</span><span class="n">complete_arguments</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">arguments</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">complete_arguments</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
 
         <span class="k">return</span> <span class="n">arguments</span>
 
@@ -703,9 +851,9 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
         <span class="n">definitions</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_definition_providers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">definitions</span> <span class="o">+=</span> <span class="p">(</span>
-                <span class="n">provider</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">directive</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="n">feature</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">directive</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">definitions</span>
@@ -725,11 +873,15 @@
 
                 <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">tooltip</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">for</span> <span class="n">provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argument_link_providers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">(</span>
-                        <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span>
-                    <span class="p">)</span>
-                    <span class="k">if</span> <span class="n">target</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                        <span class="n">target</span> <span class="o">=</span> <span class="n">result</span>
+                        <span class="k">break</span>
+
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+                        <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="n">result</span>
                         <span class="k">break</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>

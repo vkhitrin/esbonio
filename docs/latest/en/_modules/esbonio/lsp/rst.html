@@ -268,10 +268,10 @@
 <span class="kn">from</span> <span class="nn">pygls.server</span> <span class="kn">import</span> <span class="n">LanguageServer</span>
 <span class="kn">from</span> <span class="nn">pygls.workspace</span> <span class="kn">import</span> <span class="n">Document</span>
 
-<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">read_initial_doctree</span>
 <span class="kn">from</span> <span class="nn">esbonio.cli</span> <span class="kn">import</span> <span class="n">setup_cli</span>
 <span class="kn">from</span> <span class="nn">esbonio.lsp.log</span> <span class="kn">import</span> <span class="n">setup_logging</span>
 
+<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">read_initial_doctree</span>
 
 <span class="n">LF</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;LF&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;LanguageFeature&quot;</span><span class="p">)</span>
 <span class="n">TRIPLE_QUOTE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(</span><span class="se">\&quot;\&quot;\&quot;</span><span class="s2">|&#39;&#39;&#39;)&quot;</span><span class="p">)</span>
@@ -619,7 +619,10 @@
     <span class="sd">&quot;&quot;&quot;The logging level of server messages to display.&quot;&quot;&quot;</span>
 
     <span class="n">log_filter</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;logFilter&quot;</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;A list of logger names to restrict output to.&quot;&quot;&quot;</span></div>
+    <span class="sd">&quot;&quot;&quot;A list of logger names to restrict output to.&quot;&quot;&quot;</span>
+
+    <span class="n">show_deprecation_warnings</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;showDeprecationWarnings&quot;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Developer flag to enable deprecation warnings.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="InitializationOptions"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.InitializationOptions">[docs]</a><span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -648,7 +651,7 @@
         <span class="sd">&quot;&quot;&quot;Record of modules that have been loaded.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LanguageFeature</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="sd">&quot;&quot;&quot;The list of language features registered with the server.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;The collection of language features registered with the server.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Directive</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="sd">&quot;&quot;&quot;Cache for known directives.&quot;&quot;&quot;</span>
@@ -887,6 +890,21 @@
 
             <span class="k">if</span> <span class="n">clear_source</span> <span class="ow">and</span> <span class="n">clear_uri</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_diagnostics</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="RstLanguageServer.add_diagnostics"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.add_diagnostics">[docs]</a>    <span class="k">def</span> <span class="nf">add_diagnostics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">diagnostic</span><span class="p">:</span> <span class="n">Diagnostic</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a diagnostic to the given source and uri.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        source</span>
+<span class="sd">           The source the diagnostics are from</span>
+<span class="sd">        uri</span>
+<span class="sd">           The uri the diagnostics are associated with</span>
+<span class="sd">        diagnostic</span>
+<span class="sd">           The diagnostic to add</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">normalise_uri</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diagnostics</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">diagnostic</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RstLanguageServer.set_diagnostics"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.rst.RstLanguageServer.set_diagnostics">[docs]</a>    <span class="k">def</span> <span class="nf">set_diagnostics</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">diagnostics</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Diagnostic</span><span class="p">]</span>

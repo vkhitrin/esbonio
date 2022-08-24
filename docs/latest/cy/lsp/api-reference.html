@@ -262,6 +262,21 @@ constructor.</p></li>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.add_diagnostics">
+<span class="sig-name descname"><span class="pre">add_diagnostics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnostic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.add_diagnostics"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.add_diagnostics" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Add a diagnostic to the given source and uri.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramedrau</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The source the diagnostics are from</p></li>
+<li><p><strong>uri</strong> -- The uri the diagnostics are associated with</p></li>
+<li><p><strong>diagnostic</strong> (<em>pygls.lsp.types.basic_structures.Diagnostic</em>) -- The diagnostic to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.add_feature">
 <span class="sig-name descname"><span class="pre">add_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#RstLanguageServer.add_feature"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.add_feature" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Register a language feature with the server.</p>
@@ -515,7 +530,7 @@ annotations.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">ServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#ServerConfig"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig" title="Permalink i'r diffiniad hwn">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">ServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/rst.html#ServerConfig"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Configuration options for the server.</p>
 <dl class="field-list simple">
 </dl>
@@ -529,6 +544,12 @@ annotations.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig.log_level">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error'</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'logLevel')</span></em><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig.log_level" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>The logging level of server messages to display.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig.show_deprecation_warnings">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_deprecation_warnings</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'showDeprecationWarnings')</span></em><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig.show_deprecation_warnings" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Developer flag to enable deprecation warnings.</p>
 </dd></dl>
 
 </dd></dl>
@@ -763,7 +784,7 @@ given role.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxServerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hideSphinxOutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx/config.html#SphinxServerConfig"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxServerConfig" title="Permalink i'r diffiniad hwn">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hideSphinxOutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/sphinx/config.html#SphinxServerConfig"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxServerConfig" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><div class="deprecated">
 <p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn 0.12.0: </span>This will be removed in v1.0.
 Use <a class="reference internal" href="getting-started.html#confval-sphinx.quiet-boolean"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></code></a> and <a class="reference internal" href="getting-started.html#confval-sphinx.silent-boolean"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></code></a>
@@ -1326,6 +1347,10 @@ See <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer.get_l
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentCompletion">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">ArgumentCompletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentCompletion"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentCompletion" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A completion provider for directive arguments.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use subclasses of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DirectiveLanguageFeature</span></code> instead.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentCompletion.complete_arguments">
 <span class="sig-name descname"><span class="pre">complete_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentCompletion.complete_arguments"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentCompletion.complete_arguments" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -1348,6 +1373,10 @@ directive.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentDefinition">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">ArgumentDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentDefinition"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentDefinition" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A definition provider for directive arguments.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use subclasses of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DirectiveLanguageFeature</span></code> instead.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentDefinition.find_definitions">
 <span class="sig-name descname"><span class="pre">find_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentDefinition.find_definitions"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentDefinition.find_definitions" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -1370,6 +1399,10 @@ directive.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentLink">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.directives.</span></span><span class="sig-name descname"><span class="pre">ArgumentLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentLink"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentLink" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A document link resolver for directive arguments.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use subclasses of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DirectiveLanguageFeature</span></code> instead.</p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.ArgumentLink.resolve_link">
 <span class="sig-name descname"><span class="pre">resolve_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#ArgumentLink.resolve_link"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.ArgumentLink.resolve_link" title="Permalink i'r diffiniad hwn">#</a></dt>
@@ -1396,6 +1429,11 @@ directive.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.add_argument_completion_provider">
 <span class="sig-name descname"><span class="pre">add_argument_completion_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#Directives.add_argument_completion_provider"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.add_argument_completion_provider" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Register an <a class="reference internal" href="#esbonio.lsp.directives.ArgumentCompletion" title="esbonio.lsp.directives.ArgumentCompletion"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentCompletion</span></code></a> provider.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">esbonio.lsp.directives.Directives.add_feature()</span></code> with a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">esbonio.lsp.directives.DirectiveLanguageFeature</span></code> subclass instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau</dt>
 <dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentCompletion" title="esbonio.lsp.directives.ArgumentCompletion"><em>esbonio.lsp.directives.ArgumentCompletion</em></a>) -- The provider to register.</p>
@@ -1407,6 +1445,11 @@ directive.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.add_argument_definition_provider">
 <span class="sig-name descname"><span class="pre">add_argument_definition_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#Directives.add_argument_definition_provider"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.add_argument_definition_provider" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Register an <a class="reference internal" href="#esbonio.lsp.directives.ArgumentDefinition" title="esbonio.lsp.directives.ArgumentDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentDefinition</span></code></a> provider.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">esbonio.lsp.directives.Directives.add_feature()</span></code> with a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">esbonio.lsp.directives.DirectiveLanguageFeature</span></code> subclass instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau</dt>
 <dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentDefinition" title="esbonio.lsp.directives.ArgumentDefinition"><em>esbonio.lsp.directives.ArgumentDefinition</em></a>) -- The provider to register.</p>
@@ -1418,6 +1461,11 @@ directive.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.add_argument_link_provider">
 <span class="sig-name descname"><span class="pre">add_argument_link_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/esbonio/lsp/directives.html#Directives.add_argument_link_provider"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.add_argument_link_provider" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Register an <a class="reference internal" href="#esbonio.lsp.directives.ArgumentLink" title="esbonio.lsp.directives.ArgumentLink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentLink</span></code></a> provider.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Dibrisiwyd ers fersiwn xxxx: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>, use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">esbonio.lsp.directives.Directives.add_feature()</span></code> with a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">esbonio.lsp.directives.DirectiveLanguageFeature</span></code> subclass instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau</dt>
 <dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.directives.ArgumentLink" title="esbonio.lsp.directives.ArgumentLink"><em>esbonio.lsp.directives.ArgumentLink</em></a>) -- The provider to register.</p>
