@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Indecs" href="../../../genindex.html" /><link rel="search" title="Chwilio" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
         <title>esbonio.lsp.directives - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -280,7 +280,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">resolve_argument_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span>
         <span class="n">directive</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -302,7 +302,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">find_argument_definitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span>
         <span class="n">directive</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -475,8 +475,8 @@
 <span class="sd">        .. deprecated:: xxxx</span>
 
 <span class="sd">           This will be removed in ``v1.0``, use</span>
-<span class="sd">           :meth:`esbonio.lsp.directives.Directives.add_feature` with a</span>
-<span class="sd">           :class:`esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
+<span class="sd">           :meth:`~esbonio.lsp.directives.Directives.add_feature` with a</span>
+<span class="sd">           :class:`~esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -497,7 +497,7 @@
         <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">DefinitionProvider&quot;</span><span class="p">,</span>
             <span class="p">(</span><span class="n">DirectiveLanguageFeature</span><span class="p">,),</span>
-            <span class="p">{</span><span class="s2">&quot;find_definitions&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;find_argument_definitions&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">},</span>
         <span class="p">)()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
@@ -508,8 +508,8 @@
 <span class="sd">        .. deprecated:: xxxx</span>
 
 <span class="sd">           This will be removed in ``v1.0``, use</span>
-<span class="sd">           :meth:`esbonio.lsp.directives.Directives.add_feature` with a</span>
-<span class="sd">           :class:`esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
+<span class="sd">           :meth:`~esbonio.lsp.directives.Directives.add_feature` with a</span>
+<span class="sd">           :class:`~esbonio.lsp.directives.DirectiveLanguageFeature` subclass instead.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -530,7 +530,7 @@
         <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">LinkProvider&quot;</span><span class="p">,</span>
             <span class="p">(</span><span class="n">DirectiveLanguageFeature</span><span class="p">,),</span>
-            <span class="p">{</span><span class="s2">&quot;resolve_link&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;resolve_argument_link&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">},</span>
         <span class="p">)()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
@@ -853,7 +853,8 @@
 
         <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">definitions</span> <span class="o">+=</span> <span class="p">(</span>
-                <span class="n">feature</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">directive</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="n">feature</span><span class="o">.</span><span class="n">find_argument_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">directive</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">[]</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">definitions</span>
@@ -874,7 +875,9 @@
                 <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">tooltip</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">resolve_argument_link</span><span class="p">(</span>
+                        <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">argument</span>
+                    <span class="p">)</span>
 
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="n">target</span> <span class="o">=</span> <span class="n">result</span>
