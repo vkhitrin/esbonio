@@ -2,17 +2,14 @@
 <html class="no-js" lang="cy">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="prev" title="Solution Example" href="../extensions/tutorial/solution-example.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
         <title>Development Environments - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -211,8 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/develop/docs/contributing/devenvs.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -227,9 +232,9 @@
         </div>
         <article role="main">
           <section id="development-environments">
-<h1>Development Environments<a class="headerlink" href="#development-environments" title="Permalink i'r pennawd hwn">#</a></h1>
+<h1>Development Environments<a class="headerlink" href="#development-environments" title="Permalink to this heading">#</a></h1>
 <section id="language-server">
-<span id="devenv-lsp"></span><h2>Language Server<a class="headerlink" href="#language-server" title="Permalink i'r pennawd hwn">#</a></h2>
+<span id="devenv-lsp"></span><h2>Language Server<a class="headerlink" href="#language-server" title="Permalink to this heading">#</a></h2>
 <p>Assuming that you already have <a class="reference external" href="https://www.python.org/">Python</a> available you can create a virtual
 environment in the root of the repository with the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m venv .env
@@ -245,7 +250,7 @@ $ pip install -e .[dev]
 </div>
 </section>
 <section id="vscode">
-<h2>VSCode<a class="headerlink" href="#vscode" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>VSCode<a class="headerlink" href="#vscode" title="Permalink to this heading">#</a></h2>
 <p>As the VSCode extension relies on the Language Server for much of its
 functionality the first step in setting up your development environment would be
 to follow the setup guide for the <a class="reference internal" href="#devenv-lsp"><span class="std std-ref">Language Server</span></a>.</p>
@@ -329,7 +334,9 @@ the main instance.</p>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script src="../_static/translations.js"></script>
     </body>

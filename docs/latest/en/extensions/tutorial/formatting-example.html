@@ -1,18 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Hello World" href="hello-world.html" /><link rel="prev" title="Tutorial" href="../tutorial.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
         <title>Formatting Example - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -211,8 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/develop/docs/extensions/tutorial/formatting-example.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -227,11 +232,11 @@
         </div>
         <article role="main">
           <section id="formatting-example">
-<h1>Formatting Example<a class="headerlink" href="#formatting-example" title="Permalink to this headline">#</a></h1>
+<h1>Formatting Example<a class="headerlink" href="#formatting-example" title="Permalink to this heading">#</a></h1>
 <p>This tutorial demonstrates how different features of your reStructuredText document are
 rendered in the exported notebook.</p>
 <section id="basic-formatting">
-<h2>Basic Formatting<a class="headerlink" href="#basic-formatting" title="Permalink to this headline">#</a></h2>
+<h2>Basic Formatting<a class="headerlink" href="#basic-formatting" title="Permalink to this heading">#</a></h2>
 <p>Your explanations are converted into markdown and included as markdown cells within the
 exported notebook.</p>
 <p><strong>Bold</strong>, <em>Italics</em>, <code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">code</span></code>, and math (e.g. <span class="math notranslate nohighlight">\(\sqrt{b^2 - 4ac}\)</span>) work as you would expect.</p>
@@ -242,9 +247,9 @@ are converted to their markdown equivalents. <a class="reference external" href=
 markdown links.</p>
 </section>
 <section id="lists">
-<h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">#</a></h2>
+<h2>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h2>
 <section id="unordered-lists">
-<h3>Unordered Lists<a class="headerlink" href="#unordered-lists" title="Permalink to this headline">#</a></h3>
+<h3>Unordered Lists<a class="headerlink" href="#unordered-lists" title="Permalink to this heading">#</a></h3>
 <p>aka. bullet point lists.</p>
 <ul>
 <li><p>Item A</p></li>
@@ -261,7 +266,7 @@ There could be multiple lines of text</p>
 </ul>
 </section>
 <section id="ordered-lists">
-<h3>Ordered Lists<a class="headerlink" href="#ordered-lists" title="Permalink to this headline">#</a></h3>
+<h3>Ordered Lists<a class="headerlink" href="#ordered-lists" title="Permalink to this heading">#</a></h3>
 <p>Typically used to describe a sequence of steps.</p>
 <ol class="arabic">
 <li><p>Step one</p></li>
@@ -273,7 +278,7 @@ This one is more involved</p>
 </ol>
 </section>
 <section id="definition-lists">
-<h3>Definition Lists<a class="headerlink" href="#definition-lists" title="Permalink to this headline">#</a></h3>
+<h3>Definition Lists<a class="headerlink" href="#definition-lists" title="Permalink to this heading">#</a></h3>
 <p>Definition lists don’t have an obvious counterpart in markdown. Currently they are
 transformed into a normal bulleted list, with the <code class="docutils literal notranslate"><span class="pre">term</span></code> being defined rendered as
 inline code.</p>
@@ -287,16 +292,16 @@ inline code.</p>
 </section>
 </section>
 <section id="blocks">
-<h2>Blocks<a class="headerlink" href="#blocks" title="Permalink to this headline">#</a></h2>
+<h2>Blocks<a class="headerlink" href="#blocks" title="Permalink to this heading">#</a></h2>
 <section id="quoted-blocks">
-<h3>Quoted Blocks<a class="headerlink" href="#quoted-blocks" title="Permalink to this headline">#</a></h3>
+<h3>Quoted Blocks<a class="headerlink" href="#quoted-blocks" title="Permalink to this heading">#</a></h3>
 <blockquote>
 <div><p>To be or not to be.</p>
 </div></blockquote>
 <p>Quoted blocks are translated into their markdown equivalents</p>
 </section>
 <section id="line-blocks">
-<h3>Line Blocks<a class="headerlink" href="#line-blocks" title="Permalink to this headline">#</a></h3>
+<h3>Line Blocks<a class="headerlink" href="#line-blocks" title="Permalink to this heading">#</a></h3>
 <p>Line blocks are translated into a fenced block</p>
 <div class="line-block">
 <div class="line">Abc</div>
@@ -305,7 +310,7 @@ inline code.</p>
 </div>
 </section>
 <section id="literal-blocks">
-<h3>Literal Blocks<a class="headerlink" href="#literal-blocks" title="Permalink to this headline">#</a></h3>
+<h3>Literal Blocks<a class="headerlink" href="#literal-blocks" title="Permalink to this heading">#</a></h3>
 <p>A literal block is by default treated as python code and rendered as an executable
 cell in the exported notebook. To change how these blocks are handled, see the
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v6.0.0)"><code class="docutils literal notranslate"><span class="pre">highlight</span></code></a> directive and  <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-highlight_language" title="(in Sphinx v6.0.0)"><code class="docutils literal notranslate"><span class="pre">highlight_language</span></code></a>
@@ -328,7 +333,7 @@ notebook given the appropriate kernel.</p>
 </div>
 </section>
 <section id="code-blocks">
-<h3>Code Blocks<a class="headerlink" href="#code-blocks" title="Permalink to this headline">#</a></h3>
+<h3>Code Blocks<a class="headerlink" href="#code-blocks" title="Permalink to this heading">#</a></h3>
 <p>Code blocks follow the same rules as outlined above for literal blocks.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
 <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">}</span>
@@ -345,29 +350,29 @@ no code
 </section>
 </section>
 <section id="images">
-<h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">#</a></h2>
+<h2>Images<a class="headerlink" href="#images" title="Permalink to this heading">#</a></h2>
 <img alt="../../_images/vscode-screenshot.png" class="align-center" src="../../_images/vscode-screenshot.png" />
 </section>
 <section id="admonitions">
-<h2>Admonitions<a class="headerlink" href="#admonitions" title="Permalink to this headline">#</a></h2>
+<h2>Admonitions<a class="headerlink" href="#admonitions" title="Permalink to this heading">#</a></h2>
 <p>Since there is no direct counterpart to admonitions in markdown, the extension does its
 best to approximate them using quoted blocks. Below are some example admonitions.</p>
 <section id="attention">
-<h3>Attention<a class="headerlink" href="#attention" title="Permalink to this headline">#</a></h3>
+<h3>Attention<a class="headerlink" href="#attention" title="Permalink to this heading">#</a></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Be sure to save your changes before closing.</p>
 </div>
 </section>
 <section id="caution">
-<h3>Caution<a class="headerlink" href="#caution" title="Permalink to this headline">#</a></h3>
+<h3>Caution<a class="headerlink" href="#caution" title="Permalink to this heading">#</a></h3>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>This feature is a work in progress, be sure to back up your data.</p>
 </div>
 </section>
 <section id="danger">
-<h3>Danger<a class="headerlink" href="#danger" title="Permalink to this headline">#</a></h3>
+<h3>Danger<a class="headerlink" href="#danger" title="Permalink to this heading">#</a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>Migrating from v1 to v3 directly is not supported! You may experience
@@ -375,7 +380,7 @@ data loss!</p>
 </div>
 </section>
 <section id="error">
-<h3>Error<a class="headerlink" href="#error" title="Permalink to this headline">#</a></h3>
+<h3>Error<a class="headerlink" href="#error" title="Permalink to this heading">#</a></h3>
 <div class="admonition error">
 <p class="admonition-title">Error</p>
 <p>Something happended that prevented the configurator from configurating
@@ -393,28 +398,28 @@ I can’t help you.</p>
 </div>
 </section>
 <section id="hint">
-<h3>Hint<a class="headerlink" href="#hint" title="Permalink to this headline">#</a></h3>
+<h3>Hint<a class="headerlink" href="#hint" title="Permalink to this heading">#</a></h3>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>Try turining it off and on again.</p>
 </div>
 </section>
 <section id="important">
-<h3>Important<a class="headerlink" href="#important" title="Permalink to this headline">#</a></h3>
+<h3>Important<a class="headerlink" href="#important" title="Permalink to this heading">#</a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Switch on before use.</p>
 </div>
 </section>
 <section id="note">
-<h3>Note<a class="headerlink" href="#note" title="Permalink to this headline">#</a></h3>
+<h3>Note<a class="headerlink" href="#note" title="Permalink to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There are some situations where this may not apply.</p>
 </div>
 </section>
 <section id="tip">
-<h3>Tip<a class="headerlink" href="#tip" title="Permalink to this headline">#</a></h3>
+<h3>Tip<a class="headerlink" href="#tip" title="Permalink to this heading">#</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>For best results:</p>
@@ -426,7 +431,7 @@ I can’t help you.</p>
 </div>
 </section>
 <section id="warning">
-<h3>Warning<a class="headerlink" href="#warning" title="Permalink to this headline">#</a></h3>
+<h3>Warning<a class="headerlink" href="#warning" title="Permalink to this heading">#</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This feature will be removed in future versions.</p>
@@ -535,7 +540,9 @@ I can’t help you.</p>
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>

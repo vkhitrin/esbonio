@@ -2,17 +2,14 @@
 <html class="no-js" lang="cy">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Relevent To" href="relevant_to.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
         <title>Tutorial - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -211,8 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/develop/docs/extensions/tutorial.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -227,7 +232,7 @@
         </div>
         <article role="main">
           <section id="tutorial">
-<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink i'r pennawd hwn">#</a></h1>
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">esbonio.tutorial</span></code> extension's aim is to make it easy to export tutorials written as part of
 your project's documentation to <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> allowing the reader to follow along
 in an interactive environment and further explore for themselves.</p>
@@ -239,7 +244,7 @@ online versions of your tutorials allowing the user to just try things out bypas
 </pre></div>
 </div>
 <section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>Ensure the extension is enabled by including <code class="code docutils literal notranslate"><span class="pre">esbonio.tutorial</span></code> in
 your <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list inside your project's <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
@@ -271,9 +276,9 @@ that can then be used to export tutorials as <code class="docutils literal notra
 file containing the &quot;Hello, World!&quot; tutorial.</p>
 </section>
 <section id="writing-tutorials">
-<h2>Writing Tutorials<a class="headerlink" href="#writing-tutorials" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Writing Tutorials<a class="headerlink" href="#writing-tutorials" title="Permalink to this heading">#</a></h2>
 <section id="solutions">
-<h3>Solutions<a class="headerlink" href="#solutions" title="Permalink i'r pennawd hwn">#</a></h3>
+<h3>Solutions<a class="headerlink" href="#solutions" title="Permalink to this heading">#</a></h3>
 <p>If you want your tutorials to include exercises that the reader is meant to solve
 the <a class="reference internal" href="#directive-solution" title="solution directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">solution</span></code></a> directive can be used to insert solutions.</p>
 <details class="admonition note">
@@ -300,7 +305,7 @@ the <a class="reference internal" href="#directive-solution" title="solution dir
 
 </section>
 <section id="translations">
-<h3>Translations<a class="headerlink" href="#translations" title="Permalink i'r pennawd hwn">#</a></h3>
+<h3>Translations<a class="headerlink" href="#translations" title="Permalink to this heading">#</a></h3>
 <p>Since the notebook version of the tutorial is generated from your documentation
 you can also leverage Sphinx's <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/advanced/intl.html#intl" title="(yn Sphinx v6.0.0)"><span>Internationalization</span></a> support to produce translated
 versions of your tutorials!</p>
@@ -363,22 +368,18 @@ variable to specify the language.</p>
 </section>
 </section>
 <section id="deploying-tutorials">
-<h2>Deploying Tutorials<a class="headerlink" href="#deploying-tutorials" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Deploying Tutorials<a class="headerlink" href="#deploying-tutorials" title="Permalink to this heading">#</a></h2>
 <p>Once you've written and exported your tutorials, you probably want to make them
 accessible to your users. Below are a few examples on ways you could distribute
 them.</p>
 <section id="local">
-<h3>Local<a class="headerlink" href="#local" title="Permalink i'r pennawd hwn">#</a></h3>
+<h3>Local<a class="headerlink" href="#local" title="Permalink to this heading">#</a></h3>
 <p>Perhaps the most straightforward way is to package the tutorial alongside your
 project. You could then provide a cli command that will automate the process
 of copying the tutorial into a location on the user's machine and starting up
 a <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html">Jupyter Lab</a> instance.</p>
 <section id="packaging">
-<h4>Packaging<a class="headerlink" href="#packaging" title="Permalink i'r pennawd hwn">#</a></h4>
-<div class="tabbed-set docutils">
-<input checked="checked" id="941375a7-2dce-4627-9b8f-a5efe4e8d843" name="aeb9f67a-7977-4e43-bb18-a70768c8c301" type="radio">
-</input><label class="tabbed-label" for="941375a7-2dce-4627-9b8f-a5efe4e8d843">
-setuptools</label><div class="tabbed-content docutils">
+<h4>Packaging<a class="headerlink" href="#packaging" title="Permalink to this heading">#</a></h4>
 <p>The exported tutorial can be bundled in your Python package using the
 <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">Data Files</a> support built into setuptools. This requires you to add the
 following flag to your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> (or <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>) file</p>
@@ -414,16 +415,11 @@ build output when you run</p>
 <span class="go">adding &#39;esbonio_extensions-0.0.2.dist-info/RECORD&#39;</span>
 </pre></div>
 </div>
-</div>
-</div>
 </section>
-</section>
-<section id="binder">
-<h3>Binder<a class="headerlink" href="#binder" title="Permalink i'r pennawd hwn">#</a></h3>
 </section>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/formatting-example.html">Formatting Example</a></li>
@@ -494,7 +490,10 @@ build output when you run</p>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#writing-tutorials">Writing Tutorials</a><ul>
-<li><a class="reference internal" href="#solutions">Solutions</a></li>
+<li><a class="reference internal" href="#solutions">Solutions</a><ul>
+<li><a class="reference internal" href="#directive-solution"><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">solution::</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#translations">Translations</a></li>
 </ul>
 </li>
@@ -503,7 +502,6 @@ build output when you run</p>
 <li><a class="reference internal" href="#packaging">Packaging</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#binder">Binder</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
@@ -521,7 +519,9 @@ build output when you run</p>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script src="../_static/translations.js"></script>
     </body>

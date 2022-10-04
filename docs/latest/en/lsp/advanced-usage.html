@@ -1,18 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Extending" href="extending.html" /><link rel="prev" title="Getting Started" href="getting-started.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
         <title>Advanced Usage - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -211,8 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/develop/docs/lsp/advanced-usage.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -227,7 +232,7 @@
         </div>
         <article role="main">
           <section id="advanced-usage">
-<span id="lsp-advanced"></span><h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">#</a></h1>
+<span id="lsp-advanced"></span><h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this heading">#</a></h1>
 <p>The <a class="reference internal" href="getting-started.html"><span class="doc">Getting Started</span></a> guide should contain all you need to get up and running with your
 editor of choice. However there may come a time when you will want to enable/disable certain
 functionality or use a different server entirely.</p>
@@ -239,7 +244,7 @@ that it also comes with a default implementation that works well for Sphinx proj
 the section on <a class="reference internal" href="extending.html"><span class="doc">Extending</span></a> if you want to know more)</p>
 <p>However, all that we need to know for the moment is the concept of startup modules.</p>
 <section id="startup-modules">
-<span id="lsp-startup-mods"></span><h2>Startup Modules<a class="headerlink" href="#startup-modules" title="Permalink to this headline">#</a></h2>
+<span id="lsp-startup-mods"></span><h2>Startup Modules<a class="headerlink" href="#startup-modules" title="Permalink to this heading">#</a></h2>
 <p>A startup module is any python module (or script) that results in a running language server.
 The following startup modules are included with the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> python package.</p>
 <dl class="std startmod">
@@ -263,7 +268,7 @@ It is in fact just an alias for the <a class="reference internal" href="#startmo
 
 </section>
 <section id="extension-modules">
-<h2>Extension Modules<a class="headerlink" href="#extension-modules" title="Permalink to this headline">#</a></h2>
+<span id="lsp-extension-modules"></span><h2>Extension Modules<a class="headerlink" href="#extension-modules" title="Permalink to this heading">#</a></h2>
 <p>Inspired by the way Sphinx extensions work, functionality is added to a language server through a list of python modules with each module contributing some features.</p>
 <p>Below is the list of modules loaded by default for each of the provided servers.</p>
 
@@ -298,7 +303,7 @@ Currently only available for English and can be confused by reStructuredText syn
 
 </section>
 <section id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">#</a></h2>
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">#</a></h2>
 <p>The bundled language servers offer some commands that can be invoked from a language client using
 a <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_executeCommand">workspace/executeCommand</a> request.</p>
 
@@ -323,7 +328,7 @@ a <a class="reference external" href="https://microsoft.github.io/language-serve
 <hr />
 </section>
 <section id="notifications">
-<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">#</a></h2>
+<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading">#</a></h2>
 <p>The bundled language servers also emit custom notifications that language clients
 can use to react to events happening within the server.</p>
 
@@ -521,7 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     </body>
 </html>
