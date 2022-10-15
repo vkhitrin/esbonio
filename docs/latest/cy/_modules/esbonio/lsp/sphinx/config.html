@@ -166,10 +166,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../lsp/getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../lsp/advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../lsp/extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../lsp/extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +182,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -263,11 +267,11 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">LOG_NAMESPACE</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="MissingConfigError"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.MissingConfigError">[docs]</a><span class="k">class</span> <span class="nc">MissingConfigError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="MissingConfigError"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.MissingConfigError">[docs]</a><span class="k">class</span> <span class="nc">MissingConfigError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Indicates that we couldn&#39;t locate the project&#39;s &#39;conf.py&#39;&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="SphinxConfig"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig">[docs]</a><span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="SphinxConfig"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig">[docs]</a><span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration values to pass to the Sphinx application instance.&quot;&quot;&quot;</span>
 
     <span class="n">build_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;buildDir&quot;</span><span class="p">)</span>
@@ -326,7 +330,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_jobs</span>
 
-<div class="viewcode-block" id="SphinxConfig.from_arguments"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.from_arguments">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SphinxConfig.from_arguments"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.from_arguments">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_arguments</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -404,7 +408,7 @@
             <span class="n">warningIsError</span><span class="o">=</span><span class="n">sphinx_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;warningiserror&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SphinxConfig.to_cli_args"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_cli_args">[docs]</a>    <span class="k">def</span> <span class="nf">to_cli_args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxConfig.to_cli_args"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_cli_args">[docs]</a>    <span class="k">def</span> <span class="nf">to_cli_args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Convert this into the equivalent ``sphinx-build`` cli arguments.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_mode</span><span class="p">:</span>
@@ -496,7 +500,7 @@
 
         <span class="k">return</span> <span class="n">args</span>
 
-<div class="viewcode-block" id="SphinxConfig.to_application_args"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_application_args">[docs]</a>    <span class="k">def</span> <span class="nf">to_application_args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxConfig.to_application_args"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.to_application_args">[docs]</a>    <span class="k">def</span> <span class="nf">to_application_args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Convert this into the equivalent Sphinx application arguments.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">{</span>
@@ -546,7 +550,7 @@
             <span class="n">warningIsError</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">warning_is_error</span><span class="p">,</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="SphinxConfig.resolve_build_dir"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_build_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+<div class="viewcode-block" id="SphinxConfig.resolve_build_dir"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_build_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_build_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the build dir to use based on the user&#39;s config.</span>
 
 <span class="sd">        If nothing is specified in the given ``config``, this will choose a location</span>
@@ -607,7 +611,7 @@
 
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SphinxConfig.resolve_doctree_dir"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_doctree_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_doctree_dir</span><span class="p">(</span>
+<div class="viewcode-block" id="SphinxConfig.resolve_doctree_dir"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_doctree_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_doctree_dir</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_build_dir</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the directory to use for doctrees based on the user&#39;s config.</span>
@@ -666,7 +670,7 @@
 
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doctree_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SphinxConfig.resolve_conf_dir"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_conf_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxConfig.resolve_conf_dir"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_conf_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_conf_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Get the conf dir to use based on the user&#39;s config.</span>
 
 <span class="sd">        If ``conf_dir`` is not set, this method will attempt to find it by searching</span>
@@ -708,7 +712,7 @@
         <span class="n">conf</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="o">*</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SphinxConfig.resolve_src_dir"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_src_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+<div class="viewcode-block" id="SphinxConfig.resolve_src_dir"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_src_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actual_conf_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the src dir to use based on the user&#39;s config.</span>
 
 <span class="sd">        By default the src dir will be the same as the conf dir, but this can</span>
@@ -752,7 +756,7 @@
         <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">src_dir</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span></div></div>
 
 
-<div class="viewcode-block" id="SphinxServerConfig"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxServerConfig">[docs]</a><span class="k">class</span> <span class="nc">SphinxServerConfig</span><span class="p">(</span><span class="n">ServerConfig</span><span class="p">):</span>
+<div class="viewcode-block" id="SphinxServerConfig"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxServerConfig">[docs]</a><span class="k">class</span> <span class="nc">SphinxServerConfig</span><span class="p">(</span><span class="n">ServerConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. deprecated:: 0.12.0</span>
 
@@ -765,7 +769,7 @@
     <span class="sd">&quot;&quot;&quot;A flag to indicate if Sphinx build output should be omitted from the log.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InitializationOptions"><a class="viewcode-back" href="../../../../lsp/api-reference.html#esbonio.lsp.sphinx.InitializationOptions">[docs]</a><span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="InitializationOptions"><a class="viewcode-back" href="../../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.InitializationOptions">[docs]</a><span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The initialization options we can expect to receive from a client.&quot;&quot;&quot;</span>
 
     <span class="n">sphinx</span><span class="p">:</span> <span class="n">SphinxConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SphinxConfig</span><span class="p">)</span>

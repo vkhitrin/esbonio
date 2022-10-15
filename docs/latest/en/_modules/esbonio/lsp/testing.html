@@ -166,10 +166,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../lsp/extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +182,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -245,7 +249,7 @@
     <span class="o">...</span>
 
 
-<div class="viewcode-block" id="make_esbonio_client"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.make_esbonio_client">[docs]</a><span class="k">def</span> <span class="nf">make_esbonio_client</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Client</span><span class="p">:</span>
+<div class="viewcode-block" id="make_esbonio_client"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.make_esbonio_client">[docs]</a><span class="k">def</span> <span class="nf">make_esbonio_client</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Client</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Construct a pytest-lsp client that is aware of esbonio specific messages&quot;&quot;&quot;</span>
     <span class="n">client</span> <span class="o">=</span> <span class="n">make_test_client</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">client</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span><span class="s2">&quot;esbonio/buildStart&quot;</span><span class="p">)(</span><span class="n">_noop</span><span class="p">)</span>
@@ -254,7 +258,7 @@
     <span class="k">return</span> <span class="n">client</span></div>
 
 
-<div class="viewcode-block" id="sphinx_version"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.sphinx_version">[docs]</a><span class="k">def</span> <span class="nf">sphinx_version</span><span class="p">(</span>
+<div class="viewcode-block" id="sphinx_version"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.sphinx_version">[docs]</a><span class="k">def</span> <span class="nf">sphinx_version</span><span class="p">(</span>
     <span class="n">eq</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">lt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">lte</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -312,7 +316,7 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="directive_argument_patterns"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.directive_argument_patterns">[docs]</a><span class="k">def</span> <span class="nf">directive_argument_patterns</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="directive_argument_patterns"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.directive_argument_patterns">[docs]</a><span class="k">def</span> <span class="nf">directive_argument_patterns</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return a number of example directive argument patterns.</span>
 
 <span class="sd">    These correspond to test cases where directive argument suggestions should be</span>
@@ -328,7 +332,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">partial</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.. </span><span class="si">{}</span><span class="s2">:: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;   .. </span><span class="si">{}</span><span class="s2">:: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">]]</span></div>
 
 
-<div class="viewcode-block" id="role_patterns"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.role_patterns">[docs]</a><span class="k">def</span> <span class="nf">role_patterns</span><span class="p">(</span><span class="n">partial</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="role_patterns"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.role_patterns">[docs]</a><span class="k">def</span> <span class="nf">role_patterns</span><span class="p">(</span><span class="n">partial</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return a number of example role patterns.</span>
 
 <span class="sd">    These correspond to when role suggestions should be generated.</span>
@@ -355,7 +359,7 @@
     <span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="role_target_patterns"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.role_target_patterns">[docs]</a><span class="k">def</span> <span class="nf">role_target_patterns</span><span class="p">(</span>
+<div class="viewcode-block" id="role_target_patterns"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.role_target_patterns">[docs]</a><span class="k">def</span> <span class="nf">role_target_patterns</span><span class="p">(</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">include_modifiers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return a number of example role target patterns.</span>
@@ -395,7 +399,7 @@
     <span class="k">return</span> <span class="n">test_cases</span></div>
 
 
-<div class="viewcode-block" id="intersphinx_target_patterns"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.intersphinx_target_patterns">[docs]</a><span class="k">def</span> <span class="nf">intersphinx_target_patterns</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="intersphinx_target_patterns"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.intersphinx_target_patterns">[docs]</a><span class="k">def</span> <span class="nf">intersphinx_target_patterns</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return a number of example intersphinx target patterns.</span>
 
 <span class="sd">    These correspond to cases where target completions may be generated</span>
@@ -422,7 +426,7 @@
     <span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="completion_request"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.completion_request">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">completion_request</span><span class="p">(</span>
+<div class="viewcode-block" id="completion_request"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.completion_request">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">completion_request</span><span class="p">(</span>
     <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">test_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">character</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">CompletionList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Make a completion request to a language server.</span>
@@ -490,7 +494,7 @@
     <span class="k">return</span> <span class="n">response</span></div>
 
 
-<div class="viewcode-block" id="hover_request"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.testing.hover_request">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">hover_request</span><span class="p">(</span>
+<div class="viewcode-block" id="hover_request"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.testing.hover_request">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">hover_request</span><span class="p">(</span>
     <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">test_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Position</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Hover</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Make a hover request to a language server.</span>

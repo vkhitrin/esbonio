@@ -166,10 +166,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../lsp/extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +182,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -228,6 +232,7 @@
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Queue</span>
@@ -240,7 +245,6 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">pygls.uris</span> <span class="k">as</span> <span class="nn">Uri</span>
-<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">Directive</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DeleteFilesParams</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">Diagnostic</span>
 <span class="kn">from</span> <span class="nn">pygls.lsp.types</span> <span class="kn">import</span> <span class="n">DiagnosticSeverity</span>
@@ -285,20 +289,21 @@
 <span class="n">DEFAULT_MODULES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;esbonio.lsp.directives&quot;</span><span class="p">,</span>         <span class="c1"># Generic directive support</span>
     <span class="s2">&quot;esbonio.lsp.roles&quot;</span><span class="p">,</span>              <span class="c1"># Generic roles support</span>
-    <span class="s2">&quot;esbonio.lsp.rst.directives&quot;</span><span class="p">,</span>     <span class="c1"># Specialised support for docutils directives</span>
-    <span class="s2">&quot;esbonio.lsp.rst.roles&quot;</span><span class="p">,</span>          <span class="c1"># Specialised support for docutils roles</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.codeblocks&quot;</span><span class="p">,</span>  <span class="c1"># Support for code-block, highlight, etc.</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.domains&quot;</span><span class="p">,</span>     <span class="c1"># Support for Sphinx domains</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.directives&quot;</span><span class="p">,</span>  <span class="c1"># Specialised support for Sphinx directives</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.images&quot;</span><span class="p">,</span>      <span class="c1"># Support for image, figure etc</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.includes&quot;</span><span class="p">,</span>    <span class="c1"># Support for include, literal-include etc.</span>
-    <span class="s2">&quot;esbonio.lsp.sphinx.roles&quot;</span><span class="p">,</span>       <span class="c1"># Support for misc roles added by Sphinx e.g. :download:</span>
+    <span class="s2">&quot;esbonio.lsp.rst.directives&quot;</span><span class="p">,</span>     <span class="c1"># docutils directives</span>
+    <span class="s2">&quot;esbonio.lsp.rst.roles&quot;</span><span class="p">,</span>          <span class="c1"># docutils roles</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.autodoc&quot;</span><span class="p">,</span>     <span class="c1"># automodule, autoclass, etc.</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.codeblocks&quot;</span><span class="p">,</span>  <span class="c1"># code-block, highlight, etc.</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.domains&quot;</span><span class="p">,</span>     <span class="c1"># Sphinx domains</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.directives&quot;</span><span class="p">,</span>  <span class="c1"># Sphinx directives</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.images&quot;</span><span class="p">,</span>      <span class="c1"># image, figure etc</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.includes&quot;</span><span class="p">,</span>    <span class="c1"># include, literal-include etc.</span>
+    <span class="s2">&quot;esbonio.lsp.sphinx.roles&quot;</span><span class="p">,</span>       <span class="c1"># misc roles added by Sphinx e.g. :download:</span>
 <span class="p">]</span>
 <span class="sd">&quot;&quot;&quot;The modules to load in the default configuration of the server.&quot;&quot;&quot;</span>
 <span class="c1"># fmt: on</span>
 
 
-<div class="viewcode-block" id="SphinxLanguageServer"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer">[docs]</a><span class="k">class</span> <span class="nc">SphinxLanguageServer</span><span class="p">(</span><span class="n">RstLanguageServer</span><span class="p">):</span>
+<div class="viewcode-block" id="SphinxLanguageServer"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer">[docs]</a><span class="k">class</span> <span class="nc">SphinxLanguageServer</span><span class="p">(</span><span class="n">RstLanguageServer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A language server dedicated to working with Sphinx projects.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -476,7 +481,7 @@
             <span class="p">},</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="SphinxLanguageServer.create_sphinx_app"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.create_sphinx_app">[docs]</a>    <span class="k">def</span> <span class="nf">create_sphinx_app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">InitializationOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sphinx</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.create_sphinx_app"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.create_sphinx_app">[docs]</a>    <span class="k">def</span> <span class="nf">create_sphinx_app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">InitializationOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sphinx</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Create a Sphinx application instance with the given config.&quot;&quot;&quot;</span>
         <span class="n">sphinx</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">sphinx</span>
         <span class="n">server</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">server</span>
@@ -559,7 +564,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">setup</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SphinxLanguageServer.preview"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.preview"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
@@ -599,7 +604,7 @@
 
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">preview_port</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_doctree"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree">[docs]</a>    <span class="k">def</span> <span class="nf">get_doctree</span><span class="p">(</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_doctree"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree">[docs]</a>    <span class="k">def</span> <span class="nf">get_doctree</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">docname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return the initial doctree corresponding to the specified document.</span>
@@ -633,7 +638,7 @@
             <span class="c1"># self.logger.debug(traceback.format_exc())</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_domain"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Domain</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_domain"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Domain</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return the domain with the given name.</span>
 
 <span class="sd">        If a domain with the given name cannot be found, this method will return None.</span>
@@ -650,7 +655,7 @@
         <span class="n">domains</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">domains</span>
         <span class="k">return</span> <span class="n">domains</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_domains"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domains">[docs]</a>    <span class="k">def</span> <span class="nf">get_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Domain</span><span class="p">]]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_domains"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domains">[docs]</a>    <span class="k">def</span> <span class="nf">get_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Domain</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Get all the domains registered with an applications.</span>
 
 <span class="sd">        Returns a generator that iterates through all of an application&#39;s domains,</span>
@@ -678,25 +683,21 @@
 
             <span class="k">yield</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">domain</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_directives"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_directives">[docs]</a>    <span class="k">def</span> <span class="nf">get_directives</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Directive</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return a dictionary of the known directives&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_directive_options"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_directive_options">[docs]</a>    <span class="k">def</span> <span class="nf">get_directive_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the options specification for the given directive.</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span>
+<span class="sd">        .. deprecated:: 0.14.2</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_directives</span><span class="p">()</span>
+<span class="sd">           This will be removed in ``v1.0``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">domain</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domains</span><span class="p">():</span>
-            <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{prefix}</span><span class="s2">:</span><span class="si">{name}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">&quot;</span>
-
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">directive</span> <span class="ow">in</span> <span class="n">domain</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">key</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">directive</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directives</span></div>
-
-<div class="viewcode-block" id="SphinxLanguageServer.get_directive_options"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_directive_options">[docs]</a>    <span class="k">def</span> <span class="nf">get_directive_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return the options specification for the given directive.&quot;&quot;&quot;</span>
+        <span class="n">clsname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">clsname</span><span class="si">}</span><span class="s2">.get_directive_options() is deprecated and will be removed in &quot;</span>
+            <span class="s2">&quot;v1.0.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">directive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_directives</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">directive</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -716,7 +717,7 @@
 
         <span class="k">return</span> <span class="n">options</span> <span class="ow">or</span> <span class="p">{}</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_roles"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles">[docs]</a>    <span class="k">def</span> <span class="nf">get_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_roles"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles">[docs]</a>    <span class="k">def</span> <span class="nf">get_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a dictionary of known roles.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -733,7 +734,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_default_role"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_default_role">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_role</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_default_role"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_default_role">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_role</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Return the project&#39;s default role&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span>
@@ -753,7 +754,7 @@
 
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">role</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_role_target_types"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_target_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_role_target_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_role_target_types"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_target_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_role_target_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a map indicating which object types a role is capable of linking</span>
 <span class="sd">        with.</span>
 
@@ -790,7 +791,7 @@
 
         <span class="k">return</span> <span class="n">types</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_role_targets"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_targets">[docs]</a>    <span class="k">def</span> <span class="nf">get_role_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_role_targets"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_targets">[docs]</a>    <span class="k">def</span> <span class="nf">get_role_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a list of objects targeted by the given role.</span>
 
 <span class="sd">        Parameters</span>
@@ -826,7 +827,7 @@
 
         <span class="k">return</span> <span class="n">targets</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_intersphinx_projects"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_projects">[docs]</a>    <span class="k">def</span> <span class="nf">get_intersphinx_projects</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_intersphinx_projects"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_projects">[docs]</a>    <span class="k">def</span> <span class="nf">get_intersphinx_projects</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return the list of configured intersphinx project names.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -835,7 +836,7 @@
         <span class="n">inv</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;intersphinx_named_inventory&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">inv</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.has_intersphinx_targets"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets">[docs]</a>    <span class="k">def</span> <span class="nf">has_intersphinx_targets</span><span class="p">(</span>
+<div class="viewcode-block" id="SphinxLanguageServer.has_intersphinx_targets"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets">[docs]</a>    <span class="k">def</span> <span class="nf">has_intersphinx_targets</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Return ``True`` if the given intersphinx project has targets targeted by the</span>
@@ -858,7 +859,7 @@
 
         <span class="k">return</span> <span class="nb">any</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span></div>
 
-<div class="viewcode-block" id="SphinxLanguageServer.get_intersphinx_targets"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_targets">[docs]</a>    <span class="k">def</span> <span class="nf">get_intersphinx_targets</span><span class="p">(</span>
+<div class="viewcode-block" id="SphinxLanguageServer.get_intersphinx_targets"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_targets">[docs]</a>    <span class="k">def</span> <span class="nf">get_intersphinx_targets</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Return the intersphinx objects targeted by the given role.</span>

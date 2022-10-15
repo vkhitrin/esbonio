@@ -166,10 +166,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../lsp/getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../lsp/advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../lsp/extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lsp/extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +182,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -325,7 +329,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_capabilities</span> <span class="o">=</span> <span class="n">value</span>
 
 
-<div class="viewcode-block" id="create_language_server"><a class="viewcode-back" href="../../lsp/api-reference.html#esbonio.lsp.create_language_server">[docs]</a><span class="k">def</span> <span class="nf">create_language_server</span><span class="p">(</span>
+<div class="viewcode-block" id="create_language_server"><a class="viewcode-back" href="../../lsp/extending/api-reference.html#esbonio.lsp.create_language_server">[docs]</a><span class="k">def</span> <span class="nf">create_language_server</span><span class="p">(</span>
     <span class="n">server_cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">RstLanguageServer</span><span class="p">],</span> <span class="n">modules</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RstLanguageServer</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a new language server instance.</span>
