@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Indecs" href="../../genindex.html" /><link rel="search" title="Chwilio" href="../../search.html" /><link rel="next" title="Supporting Custom Directive Registries" href="directives/directive-registry.html" /><link rel="prev" title="Extending" href="../extending.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Directives - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
@@ -352,7 +352,7 @@ are written in plain text or markdown.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>documentation</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(yn Python v3.10)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(yn Python v3.10)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(yn Python v3.10)"><em>Any</em></a><em>]</em><em>]</em>) -- The documentation to register.</p>
+<dd class="field-odd"><p><strong>documentation</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(yn Python v3.11)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(yn Python v3.11)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(yn Python v3.11)"><em>Any</em></a><em>]</em><em>]</em>) -- The documentation to register.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -421,8 +421,8 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>CompletionContext</em></a>) -- The completion context</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the domain the directive is a member of</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the domain</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the domain the directive is a member of</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the domain</p></li>
 </ul>
 </dd>
 </dl>
@@ -436,9 +436,9 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>DefinitionContext</em></a>) -- The context of the definition request.</p></li>
-<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The argument to find the definition of.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The argument to find the definition of.</p></li>
 </ul>
 </dd>
 </dl>
@@ -468,9 +468,9 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>DocumentLinkContext</em></a>) -- The context of the document link request.</p></li>
-<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The argument to resolve the link for.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The argument to resolve the link for.</p></li>
 </ul>
 </dd>
 </dl>
@@ -621,8 +621,8 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>CompletionContext</em></a>) -- The completion context</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the domain the directive is a member of</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the domain</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the domain the directive is a member of</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the domain</p></li>
 </ul>
 </dd>
 </dl>
@@ -646,9 +646,9 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.DefinitionContext" title="esbonio.lsp.rst.DefinitionContext"><em>DefinitionContext</em></a>) -- The context of the definition request.</p></li>
-<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The argument to find the definition of.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The argument to find the definition of.</p></li>
 </ul>
 </dd>
 </dl>
@@ -672,9 +672,9 @@ directive.</p>
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference internal" href="api-reference.html#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>DocumentLinkContext</em></a>) -- The context of the document link request.</p></li>
-<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
-<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.10)"><em>str</em></a>) -- The argument to resolve the link for.</p></li>
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive the argument is associated with.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>]</em>) -- The name of the domain the directive belongs to, if applicable.</p></li>
+<li><p><strong>argument</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The argument to resolve the link for.</p></li>
 </ul>
 </dd>
 </dl>

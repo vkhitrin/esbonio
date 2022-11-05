@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Formatting Example" href="tutorial/formatting-example.html" /><link rel="prev" title="Relevent To" href="relevant_to.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Tutorial - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
@@ -269,9 +269,9 @@ Here is how you print the string <span class="s">``Hello, World!``</span> in Pyt
 </pre></div>
 </div>
 <p>Note the only thing specific to this extension is the <code class="docutils literal notranslate"><span class="pre">:tutorial:</span> <span class="pre">notebook</span></code>
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v6.0.0)"><span class="xref std std-ref">field list</span></a> at the start of the document to indicate
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-field-lists" title="(in Sphinx v6.0.0b3)"><span class="xref std std-ref">field list</span></a> at the start of the document to indicate
 that this document is a tutorial.</p>
-<p>This extension includes a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/builders/index.html#builders" title="(in Sphinx v6.0.0)"><span class="xref std std-ref">Sphinx Builder</span></a> called <code class="docutils literal notranslate"><span class="pre">tutorial</span></code>
+<p>This extension includes a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/builders/index.html#builders" title="(in Sphinx v6.0.0b3)"><span class="xref std std-ref">Sphinx Builder</span></a> called <code class="docutils literal notranslate"><span class="pre">tutorial</span></code>
 that can then be used to export tutorials as <code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code> files.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sphinx-build -b tutorial docs/ docs/_build/
 </pre></div>
@@ -311,7 +311,7 @@ the <a class="reference internal" href="#directive-solution" title="solution dir
 <section id="translations">
 <h3>Translations<a class="headerlink" href="#translations" title="Permalink to this heading">#</a></h3>
 <p>Since the notebook version of the tutorial is generated from your documentation
-you can also leverage Sphinx’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/advanced/intl.html#intl" title="(in Sphinx v6.0.0)"><span>Internationalization</span></a> support to produce translated
+you can also leverage Sphinx’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/advanced/intl.html#intl" title="(in Sphinx v6.0.0b3)"><span>Internationalization</span></a> support to produce translated
 versions of your tutorials!</p>
 <p>If you are already familair with producing translated versions of your documentation
 then the process is almost identicial, just replace your final build step with one
@@ -320,7 +320,7 @@ that invokes the <code class="docutils literal notranslate"><span class="pre">tu
 </pre></div>
 </div>
 <p>If you haven’t worked with translations before, here is a brief overview of a potential
-translation workflow, be sure to check the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/advanced/intl.html#intl" title="(in Sphinx v6.0.0)"><span class="xref std std-ref">documentation</span></a> for details.</p>
+translation workflow, be sure to check the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/advanced/intl.html#intl" title="(in Sphinx v6.0.0b3)"><span class="xref std std-ref">documentation</span></a> for details.</p>
 <ol class="arabic">
 <li><p>Install the <a class="reference external" href="https://pypi.org/project/sphinx-intl">sphinx-intl</a> package</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install sphinx-intl
@@ -332,7 +332,7 @@ translation workflow, be sure to check the <a class="reference external" href="h
 <span class="n">gettext_compact</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># optional.</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-locale_dirs" title="(in Sphinx v6.0.0)"><code class="docutils literal notranslate"><span class="pre">locale_dirs</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-gettext_compact" title="(in Sphinx v6.0.0)"><code class="docutils literal notranslate"><span class="pre">gettext_compact</span></code></a> for more
+<p>See <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-locale_dirs" title="(in Sphinx v6.0.0b3)"><code class="docutils literal notranslate"><span class="pre">locale_dirs</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-gettext_compact" title="(in Sphinx v6.0.0b3)"><code class="docutils literal notranslate"><span class="pre">gettext_compact</span></code></a> for more
 details.</p>
 </li>
 <li><p>Extract your translation strings from the documentation for each of your target

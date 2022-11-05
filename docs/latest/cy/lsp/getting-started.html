@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Indecs" href="../genindex.html" /><link rel="search" title="Chwilio" href="../search.html" /><link rel="next" title="Advanced Usage" href="advanced-usage.html" /><link rel="prev" title="Esbonio" href="../index.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Getting Started - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
@@ -379,7 +379,7 @@ Currently accepted values include:</p>
 <dt class="sig sig-object std" id="confval-sphinx.configOverrides-object">
 <span class="sig-name descname"><span class="pre">sphinx.configOverrides</span> <span class="pre">(object)</span></span><a class="headerlink" href="#confval-sphinx.configOverrides-object" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>This option can be used to override values set in the project's <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file.
-This covers both the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-D" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-D</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-A" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-A</span></code></a> cli options.</p>
+This covers both the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-D" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-D</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-A" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-A</span></code></a> cli options.</p>
 <p>For example the cli argument <code class="docutils literal notranslate"><span class="pre">-Dlanguage=cy</span></code> overrides a project's language, the equivalent setting using the <code class="docutils literal notranslate"><span class="pre">configOverrides</span></code> setting would be:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
    &quot;sphinx.configOverrides&quot;: {
@@ -429,8 +429,8 @@ Currently accepted values include:</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.makeMode-boolean">
 <span class="sig-name descname"><span class="pre">sphinx.makeMode</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.makeMode-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-M" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-M</span></code></a> argument.
-If <code class="docutils literal notranslate"><span class="pre">false</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-b" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-b</span></code></a> argument.
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-M" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-M</span></code></a> argument.
+If <code class="docutils literal notranslate"><span class="pre">false</span></code> the language server will behave like <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> when invoked with the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-b" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">-b</span></code></a> argument.
 (Default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd></dl>
 
@@ -446,7 +446,7 @@ Setting this value to <code class="docutils literal notranslate"><span class="pr
 <dt class="sig sig-object std" id="confval-sphinx.quiet-boolean">
 <span class="sig-name descname"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.quiet-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Hides all standard Sphinx output messages.
-Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-q" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-q</span></code></a> cli option.
+Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-q" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
 
@@ -454,7 +454,7 @@ Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org
 <dt class="sig sig-object std" id="confval-sphinx.silent-boolean">
 <span class="sig-name descname"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-sphinx.silent-boolean" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>Hides all Sphinx output.
-Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-Q" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-Q</span></code></a> cli option.
+Equivalent to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-Q" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-Q</span></code></a> cli option.
 (Default <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
 
@@ -476,7 +476,7 @@ Currently accepted values include:</p>
 <dt class="sig sig-object std" id="confval-sphinx.tags-string">
 <span class="sig-name descname"><span class="pre">sphinx.tags</span> <span class="pre">(string[])</span></span><a class="headerlink" href="#confval-sphinx.tags-string" title="Permalink i'r diffiniad hwn">#</a></dt>
 <dd><p>A list of tags to enable.
-See the documentation on the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-t" title="(yn Sphinx v6.0.0)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-t</span></code></a> cli option for more details.
+See the documentation on the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html#cmdoption-sphinx-build-t" title="(yn Sphinx v6.0.0b3)"><code class="xref std std-option docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-t</span></code></a> cli option for more details.
 (Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code>)</p>
 </dd></dl>
 
