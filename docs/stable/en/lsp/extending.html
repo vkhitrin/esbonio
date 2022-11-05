@@ -1,18 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="API Reference" href="api-reference.html" /><link rel="prev" title="Advanced Usage" href="advanced-usage.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Directives" href="extending/directives.html" /><link rel="prev" title="Advanced Usage" href="advanced-usage.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Extending - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -166,10 +163,14 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Extending</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +179,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -207,7 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/release/docs/lsp/extending.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -222,13 +232,17 @@
         </div>
         <article role="main">
           <section id="extending">
-<span id="lsp-extending"></span><h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">#</a></h1>
+<span id="lsp-extending"></span><h1>Extending<a class="headerlink" href="#extending" title="Permalink to this heading">#</a></h1>
 <p>In order to support the extensible nature of reStructuredText and Sphinx, Esbonio itself is structured so that it can be easily extended.
 This section of the documentation outlines the server’s architecture and how you can write your own extensions.</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending/directives.html">Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
+</ul>
 </div>
 <section id="architecture">
-<span id="lsp-architecture"></span><h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">#</a></h2>
+<span id="lsp-architecture"></span><h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">#</a></h2>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
@@ -463,18 +477,18 @@ These features are provided through a number of “language features” (see bel
 Instead a language server acts a container for all the active language features and provides an API they can use to query aspects of the environment.</p>
 <p>Esbonio currently provides two language servers</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="api-reference.html#esbonio.lsp.rst.RstLanguageServer" title="esbonio.lsp.rst.RstLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RstLanguageServer</span></code></a>: Base language server, meant for “vanilla” docutils projects.</p></li>
-<li><p><a class="reference internal" href="api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer" title="esbonio.lsp.sphinx.SphinxLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code></a> Language server, specialising in Sphinx projects.</p></li>
+<li><p><a class="reference internal" href="extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer" title="esbonio.lsp.rst.RstLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RstLanguageServer</span></code></a>: Base language server, meant for “vanilla” docutils projects.</p></li>
+<li><p><a class="reference internal" href="extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer" title="esbonio.lsp.sphinx.SphinxLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code></a> Language server, specialising in Sphinx projects.</p></li>
 </ul>
 </dd>
-<dt id="term-Language-Feature">Language Feature<a class="headerlink" href="#term-Language-Feature" title="Permalink to this term">#</a></dt><dd><p>Language features are subclasses of <a class="reference internal" href="api-reference.html#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageFeature</span></code></a>.
-They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="api-reference.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>).</p>
+<dt id="term-Language-Feature">Language Feature<a class="headerlink" href="#term-Language-Feature" title="Permalink to this term">#</a></dt><dd><p>Language features are subclasses of <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageFeature</span></code></a>.
+They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>).</p>
 <p>Language Features (where it makes sense) should be server agnostic, that way the same features can be reused across different envrionments.</p>
 </dd>
 <dt id="term-Engine">Engine<a class="headerlink" href="#term-Engine" title="Permalink to this term">#</a></dt><dd><p>For lack of a better name… an “engine” is responsible for mapping messages from the LSP Protocol into function calls within the language server.
 Unlike the other components of the architecture, an “engine” isn’t formally defined and there is no API to implement.
 Instead it’s just the term used to refer to all the <code class="docutils literal notranslate"><span class="pre">&#64;server.feature()</span></code> handlers that define how LSP messages should be handled.</p>
-<p>Currently we provide just a single “engine” <a class="reference internal" href="api-reference.html#esbonio.lsp.create_language_server" title="esbonio.lsp.create_language_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_language_server()</span></code></a>.
+<p>Currently we provide just a single “engine” <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.create_language_server" title="esbonio.lsp.create_language_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_language_server()</span></code></a>.
 As an example, here is how it handles <code class="docutils literal notranslate"><span class="pre">textDocument/completion</span></code> requests.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@server</span><span class="o">.</span><span class="n">feature</span><span class="p">(</span>
     <span class="n">COMPLETION</span><span class="p">,</span>
@@ -522,18 +536,8 @@ As an example, here is how it handles <code class="docutils literal notranslate"
 <p>There is nothing in Esbonio that would prevent you from writing your own if you so desired.</p>
 </dd>
 <dt id="term-Extension-Module">Extension Module<a class="headerlink" href="#term-Extension-Module" title="Permalink to this term">#</a></dt><dd><p>Ordinary Python modules are used to group related functionality together.
-Taking inspiration from how Sphinx is architected, language servers are assembled by passing the list of modules to load to the <a class="reference internal" href="api-reference.html#esbonio.lsp.create_language_server" title="esbonio.lsp.create_language_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_language_server()</span></code></a>.
+Taking inspiration from how Sphinx is architected, language servers are assembled by passing the list of modules to load to the <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.create_language_server" title="esbonio.lsp.create_language_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_language_server()</span></code></a>.
 This assembly process calls any functions with the name <code class="docutils literal notranslate"><span class="pre">esbonio_setup</span></code> allowing for <code class="docutils literal notranslate"><span class="pre">LanguageFeatures</span></code> to be configured and loaded into the server.</p>
-<p>Here is an example of such a setup function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>
-    <span class="n">rst</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">Directives</span><span class="p">(</span><span class="n">rst</span><span class="p">))</span>
-</pre></div>
-</div>
-</dd>
-<dt id="term-Provider">Provider<a class="headerlink" href="#term-Provider" title="Permalink to this term">#</a></dt><dd><p>Being a Python class <code class="docutils literal notranslate"><span class="pre">LanguageFeatures</span></code> can do whatever you like.</p>
-<p>However, a pattern commonly used in Esbonio is allowing multiple “providers” to be registered with a <code class="docutils literal notranslate"><span class="pre">LanguageFeature</span></code>, extending its functionality in some way.
-The API that a provider must implement varies and is defined by the language feature that uses it. An example of such a provider it the <a class="reference internal" href="api-reference.html#esbonio.lsp.directives.ArgumentCompletion" title="esbonio.lsp.directives.ArgumentCompletion"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentCompletion</span></code></a>
-provider which allows extensions to provide completion suggestions for directive arguments.</p>
 </dd>
 <dt id="term-Startup-Module">Startup Module<a class="headerlink" href="#term-Startup-Module" title="Permalink to this term">#</a></dt><dd><p>As mentioned above, language servers are assembled and this is done inside a startup module.
 A startup module in Esbonio is any Python script or module runnable by a <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">&lt;modulename&gt;</span></code> command that results in a running language server.
@@ -548,17 +552,17 @@ A good use case for a custom entry point would be starting up a language server 
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="api-reference.html">
+          <a class="next-page" href="extending/directives.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API Reference</div>
+                <div class="title">Directives</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="advanced-usage.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -594,7 +598,7 @@ A good use case for a custom entry point would be starting up a language server 
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -616,7 +620,9 @@ A good use case for a custom entry point would be starting up a language server 
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     </body>
 </html>

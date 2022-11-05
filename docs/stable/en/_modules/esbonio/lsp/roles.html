@@ -1,17 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>esbonio.lsp.roles - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -165,10 +162,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../lsp/advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../lsp/api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../lsp/extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lsp/extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -177,7 +178,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -254,10 +255,10 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">ROLE</span>
 
 
-<div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A definition provider for role targets&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
+<div class="viewcode-block" id="TargetDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a list of locations representing the definition of the given role</span>
@@ -276,10 +277,10 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="TargetCompletion"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion">[docs]</a><span class="k">class</span> <span class="nc">TargetCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetCompletion"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion">[docs]</a><span class="k">class</span> <span class="nc">TargetCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A completion provider for role targets&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetCompletion.complete_targets"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
+<div class="viewcode-block" id="TargetCompletion.complete_targets"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a list of completion items representing valid targets for the given</span>
@@ -296,10 +297,10 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="TargetLink"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetLink">[docs]</a><span class="k">class</span> <span class="nc">TargetLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="viewcode-block" id="TargetLink"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink">[docs]</a><span class="k">class</span> <span class="nc">TargetLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A document link provider for role targets&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetLink.resolve_link"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.TargetLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
+<div class="viewcode-block" id="TargetLink.resolve_link"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Return a link corresponding to the given target.</span>
@@ -320,7 +321,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="Roles"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles">[docs]</a><span class="k">class</span> <span class="nc">Roles</span><span class="p">(</span><span class="n">LanguageFeature</span><span class="p">):</span>
+<div class="viewcode-block" id="Roles"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles">[docs]</a><span class="k">class</span> <span class="nc">Roles</span><span class="p">(</span><span class="n">LanguageFeature</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Role support for the language server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -339,7 +340,7 @@
         <span class="sd">&quot;&quot;&quot;A list of providers that give completion suggestions for role target</span>
 <span class="sd">        objects.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Roles.add_target_definition_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Roles.add_target_definition_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetDefinition` provider.</span>
 
 <span class="sd">        Parameters</span>
@@ -349,7 +350,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_target_link_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Roles.add_target_link_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetLink` provider.</span>
 
 <span class="sd">        Parameters</span>
@@ -359,7 +360,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_target_completion_provider"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_target_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Roles.add_target_completion_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetCompletion` provider.</span>
 
 <span class="sd">        Parameters</span>
@@ -369,7 +370,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_documentation"><a class="viewcode-back" href="../../../lsp/api-reference.html#esbonio.lsp.roles.Roles.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Roles.add_documentation"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register role documentation.</span>
 
 <span class="sd">        ``documentation`` should be a dictionary of the form ::</span>
@@ -862,7 +863,9 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

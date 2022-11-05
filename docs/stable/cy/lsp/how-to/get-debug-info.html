@@ -2,17 +2,14 @@
 <html class="no-js" lang="cy">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Indecs" href="../../genindex.html" /><link rel="search" title="Chwilio" href="../../search.html" /><link rel="next" title="Changelog" href="../../changelog.html" /><link rel="prev" title="How To" href="../how-to.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-4.5.0, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>How To: Get Debug Information - Esbonio</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -166,10 +163,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced-usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../extending.html">Extending</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api-reference.html">API Reference</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../extending/directives.html">Directives</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../how-to.html">How To</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../extending/api-reference.html">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../how-to.html">How To</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +179,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -207,7 +208,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/swyddfa/esbonio/edit/release/docs/lsp/how-to/get-debug-info.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -222,22 +232,22 @@
         </div>
         <article role="main">
           <section id="how-to-get-debug-information">
-<h1>How To: Get Debug Information<a class="headerlink" href="#how-to-get-debug-information" title="Permalink i'r pennawd hwn">#</a></h1>
+<h1>How To: Get Debug Information<a class="headerlink" href="#how-to-get-debug-information" title="Permalink to this heading">#</a></h1>
 <p>In its default configuration the language server doesn't give you much information, you get Sphinx's build output and not much else.
 Depending on your needs you may find one of the following options useful.</p>
 <section id="enable-debug-logging">
-<h2>Enable Debug Logging<a class="headerlink" href="#enable-debug-logging" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Enable Debug Logging<a class="headerlink" href="#enable-debug-logging" title="Permalink to this heading">#</a></h2>
 <p>The simplest way to get more information is to set the <a class="reference internal" href="../getting-started.html#confval-server.logLevel-string"><code class="xref std std-confval docutils literal notranslate"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></code></a> option to <code class="docutils literal notranslate"><span class="pre">debug</span></code>.
 Additional messages from the language server will be sent to your language client as <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#window_logMessage">window/logMessage</a> messages.</p>
 </section>
 <section id="capture-all-messages">
-<h2>Capture All Messages<a class="headerlink" href="#capture-all-messages" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Capture All Messages<a class="headerlink" href="#capture-all-messages" title="Permalink to this heading">#</a></h2>
 <p>If you are using one of the VSCode extensions you can set the <code class="docutils literal notranslate"><span class="pre">esbonio.trace.server</span></code> option to <code class="docutils literal notranslate"><span class="pre">verbose</span></code>.
 This will print all LSP message bodies sent to/from the client in the <code class="docutils literal notranslate"><span class="pre">Output</span></code> window.</p>
 <p><strong>Note:</strong> This will generate a <em>lot</em> of output.</p>
 </section>
 <section id="capture-all-output">
-<h2>Capture All Output<a class="headerlink" href="#capture-all-output" title="Permalink i'r pennawd hwn">#</a></h2>
+<h2>Capture All Output<a class="headerlink" href="#capture-all-output" title="Permalink to this heading">#</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Pwysig</p>
 <p>This option requires the <code class="docutils literal notranslate"><span class="pre">lsp-devtools</span></code> package be installed in the same Python environment as the <code class="docutils literal notranslate"><span class="pre">esbonio</span></code> language server:</p>
@@ -273,10 +283,10 @@ This will print all LSP message bodies sent to/from the client in the <code clas
                 </div>
                 <div class="title">Changelog</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../how-to.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -312,7 +322,7 @@ This will print all LSP message bodies sent to/from the client in the <code clas
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Cynnwys
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -336,7 +346,9 @@ This will print all LSP message bodies sent to/from the client in the <code clas
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script src="../../_static/translations.js"></script>
     </body>
