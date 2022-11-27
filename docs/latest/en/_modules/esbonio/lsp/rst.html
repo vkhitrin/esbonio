@@ -620,7 +620,13 @@
     <span class="sd">&quot;&quot;&quot;A list of logger names to restrict output to.&quot;&quot;&quot;</span>
 
     <span class="n">show_deprecation_warnings</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;showDeprecationWarnings&quot;</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;Developer flag to enable deprecation warnings.&quot;&quot;&quot;</span></div>
+    <span class="sd">&quot;&quot;&quot;Developer flag to enable deprecation warnings.&quot;&quot;&quot;</span>
+
+    <span class="n">enable_scroll_sync</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;enableScrollSync&quot;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Enable custom transformation to add classes with line numbers&quot;&quot;&quot;</span>
+
+    <span class="n">enable_live_preview</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;enableLivePreview&quot;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Set it to True if you want to build Sphinx app on change event&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="InitializationOptions"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.rst.InitializationOptions">[docs]</a><span class="k">class</span> <span class="nc">InitializationOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -681,6 +687,9 @@
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">delete_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DeleteFilesParams</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_all</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">filenames</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="RstLanguageServer.load_extension"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.load_extension">[docs]</a>    <span class="k">def</span> <span class="nf">load_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
