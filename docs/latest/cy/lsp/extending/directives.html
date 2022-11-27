@@ -377,12 +377,32 @@ are written in plain text or markdown.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.get_implementation">
-<span class="sig-name descname"><span class="pre">get_implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/directives.html#Directives.get_implementation"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.get_implementation" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>Suggest directives that may be used, given a completion context.</p>
+<dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.get_documentation">
+<span class="sig-name descname"><span class="pre">get_documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/directives.html#Directives.get_documentation"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.get_documentation" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Return the documentation for the given directive, if available.</p>
+<p>If documentation for the given <code class="docutils literal notranslate"><span class="pre">label</span></code> cannot be found, this function will also
+look for the label under the project's <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-primary_domain" title="(yn Sphinx v6.0.0b3)"><code class="docutils literal notranslate"><span class="pre">primary_domain</span></code></a> followed
+by the <code class="docutils literal notranslate"><span class="pre">std</span></code> domain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>context</strong> -- The CompletionContext.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive, as the user would type in an reStructuredText file.</p></li>
+<li><p><strong>implementation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The full dotted name of the directive's implementation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.directives.Directives.get_implementation">
+<span class="sig-name descname"><span class="pre">get_implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/directives.html#Directives.get_implementation"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.Directives.get_implementation" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd><p>Return the implementation of a directive given its name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramedrau<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directive</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a>) -- The name of the directive.</p></li>
+<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(yn Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(yn Python v3.11)"><em>str</em></a><em>]</em>) -- The domain of the directive, if applicable.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -487,7 +507,7 @@ directive.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.directives.DirectiveLanguageFeature.suggest_options">
 <span class="sig-name descname"><span class="pre">suggest_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directive</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/directives.html#DirectiveLanguageFeature.suggest_options"><span class="viewcode-link"><span class="pre">[ffynhonnell]</span></span></a><a class="headerlink" href="#esbonio.lsp.directives.DirectiveLanguageFeature.suggest_options" title="Permalink i'r diffiniad hwn">#</a></dt>
-<dd><p>Suggest directive options that may be used, given a completion context.</p>
+<dd><p>Suggest options that may be used, given a completion context.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -752,6 +772,7 @@ directive.</p>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.add_documentation"><code class="docutils literal notranslate"><span class="pre">Directives.add_documentation()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.add_feature"><code class="docutils literal notranslate"><span class="pre">Directives.add_feature()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.get_directives"><code class="docutils literal notranslate"><span class="pre">Directives.get_directives()</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.directives.Directives.get_documentation"><code class="docutils literal notranslate"><span class="pre">Directives.get_documentation()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.get_implementation"><code class="docutils literal notranslate"><span class="pre">Directives.get_implementation()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.suggest_directives"><code class="docutils literal notranslate"><span class="pre">Directives.suggest_directives()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.directives.Directives.suggest_options"><code class="docutils literal notranslate"><span class="pre">Directives.suggest_options()</span></code></a></li>
