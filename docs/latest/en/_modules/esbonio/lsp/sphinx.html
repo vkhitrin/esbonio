@@ -375,7 +375,7 @@
     <span class="k">def</span> <span class="nf">_initialize_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_sphinx_app</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_sphinx_app</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="k">except</span> <span class="n">MissingConfigError</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span>
                 <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Unable to find your &#39;conf.py&#39;, features that depend on Sphinx will be unavailable&quot;</span><span class="p">,</span>
