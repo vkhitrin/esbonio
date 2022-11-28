@@ -169,10 +169,14 @@
 <li class="toctree-l3"><a class="reference internal" href="lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="lsp/extending/roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="lsp/extending/roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lsp/extending/api-reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -181,7 +185,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -244,22 +248,24 @@
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.Directives.add_documentation">add_documentation() (esbonio.lsp.directives.Directives method)</a>
 
         <ul>
-          <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_documentation">(esbonio.lsp.roles.Roles method)</a>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_documentation">(esbonio.lsp.roles.Roles method)</a>
 </li>
         </ul></li>
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.Directives.add_feature">add_feature() (esbonio.lsp.directives.Directives method)</a>
 
         <ul>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_feature">(esbonio.lsp.roles.Roles method)</a>
+</li>
           <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.add_feature">(esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_completion_provider">add_target_completion_provider() (esbonio.lsp.roles.Roles method)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_completion_provider">add_target_completion_provider() (esbonio.lsp.roles.Roles method)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_definition_provider">add_target_definition_provider() (esbonio.lsp.roles.Roles method)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_definition_provider">add_target_definition_provider() (esbonio.lsp.roles.Roles method)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_link_provider">add_target_link_provider() (esbonio.lsp.roles.Roles method)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_link_provider">add_target_link_provider() (esbonio.lsp.roles.Roles method)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.app">app (esbonio.lsp.sphinx.SphinxLanguageServer attribute)</a>
 </li>
@@ -313,8 +319,12 @@
           <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.DirectiveLanguageFeature.complete_arguments">(esbonio.lsp.directives.DirectiveLanguageFeature method)</a>
 </li>
         </ul></li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">complete_targets() (esbonio.lsp.roles.TargetCompletion method)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.complete_targets">complete_targets() (esbonio.lsp.roles.RoleLanguageFeature method)</a>
+
+        <ul>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetCompletion.complete_targets">(esbonio.lsp.roles.TargetCompletion method)</a>
 </li>
+        </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.testing.completion_request">completion_request() (in module esbonio.lsp.testing)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.LanguageFeature.completion_resolve">completion_resolve() (esbonio.lsp.LanguageFeature method)</a>
@@ -406,7 +416,7 @@
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.DEFAULT_ROLE">DEFAULT_ROLE (in module esbonio.lsp.roles)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.util.patterns.DEFAULT_ROLE">DEFAULT_ROLE (in module esbonio.lsp.util.patterns)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.LanguageFeature.definition">definition() (esbonio.lsp.LanguageFeature method)</a>
 </li>
@@ -591,11 +601,13 @@
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.ArgumentDefinition.find_definitions">find_definitions() (esbonio.lsp.directives.ArgumentDefinition method)</a>
 
         <ul>
-          <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition.find_definitions">(esbonio.lsp.roles.TargetDefinition method)</a>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetDefinition.find_definitions">(esbonio.lsp.roles.TargetDefinition method)</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.find_target_definitions">find_target_definitions() (esbonio.lsp.roles.RoleLanguageFeature method)</a>
+</li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.force_full_build">force_full_build (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.from_arguments">from_arguments() (esbonio.lsp.sphinx.SphinxConfig class method)</a>
@@ -629,19 +641,27 @@
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_doctree">get_doctree() (esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.Directives.get_documentation">get_documentation() (esbonio.lsp.directives.Directives method)</a>
+
+        <ul>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_documentation">(esbonio.lsp.roles.Roles method)</a>
 </li>
+        </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domain">get_domain() (esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_domains">get_domains() (esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_feature">get_feature() (esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.DirectiveLanguageFeature.get_implementation">get_implementation() (esbonio.lsp.directives.DirectiveLanguageFeature method)</a>
 
         <ul>
           <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.Directives.get_implementation">(esbonio.lsp.directives.Directives method)</a>
+</li>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.get_implementation">(esbonio.lsp.roles.RoleLanguageFeature method)</a>
+</li>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_implementation">(esbonio.lsp.roles.Roles method)</a>
 </li>
         </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_initial_doctree">get_initial_doctree() (esbonio.lsp.rst.RstLanguageServer method)</a>
@@ -656,10 +676,10 @@
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_targets">get_role_targets() (esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_roles">get_roles() (esbonio.lsp.rst.RstLanguageServer method)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_roles">get_roles() (esbonio.lsp.roles.Roles method)</a>
 
         <ul>
-          <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles">(esbonio.lsp.sphinx.SphinxLanguageServer method)</a>
+          <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.get_roles">(esbonio.lsp.rst.RstLanguageServer method)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -693,6 +713,8 @@
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.LanguageFeature.implementation_triggers">implementation_triggers (esbonio.lsp.LanguageFeature attribute)</a>
 </li>
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.DirectiveLanguageFeature.index_directives">index_directives() (esbonio.lsp.directives.DirectiveLanguageFeature method)</a>
+</li>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.index_roles">index_roles() (esbonio.lsp.roles.RoleLanguageFeature method)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.InitializationOptions">InitializationOptions (class in esbonio.lsp.rst)</a>
 
@@ -864,20 +886,28 @@
         <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.ArgumentLink.resolve_link">resolve_link() (esbonio.lsp.directives.ArgumentLink method)</a>
 
         <ul>
-          <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink.resolve_link">(esbonio.lsp.roles.TargetLink method)</a>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetLink.resolve_link">(esbonio.lsp.roles.TargetLink method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.resolve_src_dir">resolve_src_dir() (esbonio.lsp.sphinx.SphinxConfig method)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.ROLE">ROLE (in module esbonio.lsp.roles)</a>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.resolve_target_link">resolve_target_link() (esbonio.lsp.roles.RoleLanguageFeature method)</a>
+
+        <ul>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.resolve_target_link">(esbonio.lsp.roles.Roles method)</a>
+</li>
+        </ul></li>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.util.patterns.ROLE">ROLE (in module esbonio.lsp.util.patterns)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.testing.role_patterns">role_patterns() (in module esbonio.lsp.testing)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.testing.role_target_patterns">role_target_patterns() (in module esbonio.lsp.testing)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.Roles">Roles (class in esbonio.lsp.roles)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature">RoleLanguageFeature (class in esbonio.lsp.roles)</a>
+</li>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles">Roles (class in esbonio.lsp.roles)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer">RstLanguageServer (class in esbonio.lsp.rst)</a>
 </li>
@@ -1084,6 +1114,12 @@
           <li><a href="lsp/extending/directives.html#esbonio.lsp.directives.Directives.suggest_options">(esbonio.lsp.directives.Directives method)</a>
 </li>
         </ul></li>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.suggest_roles">suggest_roles() (esbonio.lsp.roles.RoleLanguageFeature method)</a>
+
+        <ul>
+          <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.Roles.suggest_roles">(esbonio.lsp.roles.Roles method)</a>
+</li>
+        </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.CompletionContext.supported_tags">supported_tags (esbonio.lsp.CompletionContext property)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.RstLanguageServer.sync_diagnostics">sync_diagnostics() (esbonio.lsp.rst.RstLanguageServer method)</a>
@@ -1098,11 +1134,11 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxConfig.tags">tags (esbonio.lsp.sphinx.SphinxConfig attribute)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion">TargetCompletion (class in esbonio.lsp.roles)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetCompletion">TargetCompletion (class in esbonio.lsp.roles)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition">TargetDefinition (class in esbonio.lsp.roles)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetDefinition">TargetDefinition (class in esbonio.lsp.roles)</a>
 </li>
-        <li><a href="lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink">TargetLink (class in esbonio.lsp.roles)</a>
+        <li><a href="lsp/extending/roles.html#esbonio.lsp.roles.TargetLink">TargetLink (class in esbonio.lsp.roles)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
