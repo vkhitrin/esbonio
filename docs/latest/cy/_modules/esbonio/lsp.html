@@ -351,7 +351,14 @@
     <span class="k">if</span> <span class="s2">&quot;logger&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;logger&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logger</span>
 
-    <span class="n">server</span> <span class="o">=</span> <span class="n">server_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">protocol_cls</span><span class="o">=</span><span class="n">Patched</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">server_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">protocol_cls</span><span class="o">=</span><span class="n">Patched</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># Work around older version of pygls on Python 3.6</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">server</span> <span class="o">=</span> <span class="n">server_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">protocol_cls</span><span class="o">=</span><span class="n">Patched</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
         <span class="n">_load_module</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
