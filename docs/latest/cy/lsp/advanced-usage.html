@@ -314,7 +314,10 @@ Currently only available for English and can be confused by reStructuredText syn
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">#</a></h2>
 <p>The bundled language servers offer some commands that can be invoked from a language client using
 a <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_executeCommand">workspace/executeCommand</a> request.</p>
-
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.build">
+<span class="sig-name descname"><span class="pre">esbonio.server.build</span></span><a class="headerlink" href="#command-esbonio.server.build" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd>
 <hr />
 <div class="pt-2">
   <label>Startup Module:</label>
@@ -334,12 +337,12 @@ a <a class="reference external" href="https://microsoft.github.io/language-serve
   </div>
 </div>
 <hr />
-</section>
-<section id="notifications">
-<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading">#</a></h2>
-<p>The bundled language servers also emit custom notifications that language clients
-can use to react to events happening within the server.</p>
+</dd></dl>
 
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.configuration">
+<span class="sig-name descname"><span class="pre">esbonio.server.configuration</span></span><a class="headerlink" href="#command-esbonio.server.configuration" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd>
 <hr />
 <div class="pt-2">
   <label>Startup Module:</label>
@@ -356,6 +359,58 @@ can use to react to events happening within the server.</p>
   </select>
 
   <div id="group-2">
+  </div>
+</div>
+<hr />
+</dd></dl>
+
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.preview">
+<span class="sig-name descname"><span class="pre">esbonio.server.preview</span></span><a class="headerlink" href="#command-esbonio.server.preview" title="Permalink i'r diffiniad hwn">#</a></dt>
+<dd>
+<hr />
+<div class="pt-2">
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-3"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-3">esbonio</option>
+<option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-3">esbonio.lsp.rst</option>
+<option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-3">esbonio.lsp.sphinx</option>
+  </select>
+
+  <div id="group-3">
+  </div>
+</div>
+<hr />
+</dd></dl>
+
+</section>
+<section id="notifications">
+<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading">#</a></h2>
+<p>The bundled language servers also emit custom notifications that language clients
+can use to react to events happening within the server.</p>
+
+<hr />
+<div class="pt-2">
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-4"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-4">esbonio</option>
+<option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-4">esbonio.lsp.rst</option>
+<option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-4">esbonio.lsp.sphinx</option>
+  </select>
+
+  <div id="group-4">
   </div>
 </div>
 <hr />

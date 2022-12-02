@@ -309,6 +309,17 @@
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.LanguageFeature.code_action">code_action() (esbonio.lsp.LanguageFeature method)</a>
 </li>
+        <li>
+    command
+
+        <ul>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.build">esbonio.server.build</a>
+</li>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.configuration">esbonio.server.configuration</a>
+</li>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.preview">esbonio.server.preview</a>
+</li>
+        </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.CompletionContext.commit_characters_support">commit_characters_support (esbonio.lsp.CompletionContext property)</a>
 </li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.LanguageFeature.complete">complete() (esbonio.lsp.LanguageFeature method)</a>
@@ -365,11 +376,17 @@
 </li>
           <li><a href="lsp/getting-started.html#confval-esbonio.server.updateFrequency-string">esbonio.server.updateFrequency (string)</a>
 </li>
+          <li><a href="lsp/getting-started.html#confval-server.enableLivePreview-boolean">server.enableLivePreview (boolean)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-server.enableScrollSync-boolean">server.enableScrollSync (boolean)</a>
+</li>
           <li><a href="lsp/getting-started.html#confval-server.hideSphinxOutput-boolean">server.hideSphinxOutput (boolean)</a>
 </li>
           <li><a href="lsp/getting-started.html#confval-server.logFilter-string">server.logFilter (string[])</a>
 </li>
           <li><a href="lsp/getting-started.html#confval-server.logLevel-string">server.logLevel (string)</a>
+</li>
+          <li><a href="lsp/getting-started.html#confval-server.showDeprecationWarnings-boolean">server.showDeprecationWarnings (boolean)</a>
 </li>
           <li><a href="lsp/getting-started.html#confval-sphinx.buildDir-string">sphinx.buildDir (string)</a>
 </li>
@@ -520,14 +537,28 @@
 </li>
         </ul></li>
         <li>
+    esbonio.server.build
+
+        <ul>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.build">command</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.configuration
+
+        <ul>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.configuration">command</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
     esbonio.server.enabled (boolean)
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-esbonio.server.enabled-boolean">configuration value</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     esbonio.server.enabledInPyFiles (boolean)
 
@@ -554,6 +585,13 @@
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-esbonio.server.installBehavior-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    esbonio.server.preview
+
+        <ul>
+          <li><a href="lsp/advanced-usage.html#command-esbonio.server.preview">command</a>
 </li>
         </ul></li>
         <li>
@@ -928,6 +966,20 @@
 </li>
         </ul></li>
         <li>
+    server.enableLivePreview (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.enableLivePreview-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    server.enableScrollSync (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.enableScrollSync-boolean">configuration value</a>
+</li>
+        </ul></li>
+        <li>
     server.hideSphinxOutput (boolean)
 
         <ul>
@@ -946,6 +998,13 @@
 
         <ul>
           <li><a href="lsp/getting-started.html#confval-server.logLevel-string">configuration value</a>
+</li>
+        </ul></li>
+        <li>
+    server.showDeprecationWarnings (boolean)
+
+        <ul>
+          <li><a href="lsp/getting-started.html#confval-server.showDeprecationWarnings-boolean">configuration value</a>
 </li>
         </ul></li>
         <li><a href="lsp/extending/api-reference.html#esbonio.lsp.rst.ServerConfig">ServerConfig (class in esbonio.lsp.rst)</a>
@@ -1018,6 +1077,8 @@
           <li><a href="lsp/getting-started.html#confval-sphinx.makeMode-boolean">configuration value</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     sphinx.numJobs (string or integer)
 
@@ -1025,8 +1086,6 @@
           <li><a href="lsp/getting-started.html#confval-sphinx.numJobs-string-or-integer">configuration value</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     sphinx.quiet (boolean)
 

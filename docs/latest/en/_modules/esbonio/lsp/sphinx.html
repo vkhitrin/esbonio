@@ -436,9 +436,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">sync_diagnostics</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_sphinx</span><span class="p">()</span>
 
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clear_diagnostics</span><span class="p">(</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">text_document</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">delete_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">DeleteFilesParams</span><span class="p">):</span>
@@ -495,22 +492,28 @@
 
 <div class="viewcode-block" id="SphinxLanguageServer.cb_env_before_read_docs"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.sphinx.SphinxLanguageServer.cb_env_before_read_docs">[docs]</a>    <span class="k">def</span> <span class="nf">cb_env_before_read_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">docnames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;Callback handling env-before-read-docs event.&quot;&quot;&quot;</span>
-        <span class="c1"># add our edited file to inject content in source-read, even if not physically changed</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">enable_live_preview</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-            <span class="k">return</span>
-        <span class="n">is_building</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">docnames</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">docname</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">found_docs</span> <span class="o">-</span> <span class="n">is_building</span><span class="p">:</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">doc2path</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-            <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
-            <span class="n">current_version</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="mi">0</span>
-            <span class="n">last_build_version</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s2">&quot;last_build_version&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">last_build_version</span> <span class="o">&lt;</span> <span class="n">current_version</span><span class="p">:</span>
-                <span class="n">docnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">docname</span><span class="p">)</span>
 
+        <span class="c1"># Determine if any unsaved files need to be added to the build list</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">enable_live_preview</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+            <span class="n">is_building</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">docnames</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">docname</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">found_docs</span> <span class="o">-</span> <span class="n">is_building</span><span class="p">:</span>
+                <span class="n">filepath</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">doc2path</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+                <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+                <span class="n">current_version</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="mi">0</span>
+
+                <span class="n">last_build_version</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s2">&quot;last_build_version&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">last_build_version</span> <span class="o">&lt;</span> <span class="n">current_version</span><span class="p">:</span>
+                    <span class="n">docnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">docname</span><span class="p">)</span>
+
+        <span class="c1"># Clear diagnostics for any to-be built files</span>
         <span class="k">for</span> <span class="n">docname</span> <span class="ow">in</span> <span class="n">docnames</span><span class="p">:</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">doc2path</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">from_fs_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clear_diagnostics</span><span class="p">(</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">)</span>
+
             <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
             <span class="n">current_version</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_list_pending_build_version_updates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">uri</span><span class="p">,</span> <span class="n">current_version</span><span class="p">))</span>  <span class="c1"># type: ignore</span></div>
@@ -563,8 +566,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">enable_scroll_sync</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
             <span class="n">app</span><span class="o">.</span><span class="n">add_transform</span><span class="p">(</span><span class="n">LineNumberTransform</span><span class="p">)</span>
 
+        <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-before-read-docs&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_env_before_read_docs</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_config</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">enable_live_preview</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-            <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-before-read-docs&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_env_before_read_docs</span><span class="p">)</span>
             <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;source-read&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_source_read</span><span class="p">)</span>
             <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;build-finished&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_build_finished</span><span class="p">)</span>
 
