@@ -241,6 +241,85 @@
         <article role="main">
           <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">#</a></h1>
+<section id="v0-15-0-2022-12-03">
+<h2>v0.15.0 - 2022-12-03<a class="headerlink" href="#v0-15-0-2022-12-03" title="Permalink to this heading">#</a></h2>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Add initial support for synced scrolling and live previews of HTML builds.
+<strong>Note</strong> Both of these features rely on additional integrations outside of the LSP protocol therefore requiring dedicated support from clients.</p>
+<p>Synced scrolling support can be enabled by setting the <code class="docutils literal notranslate"><span class="pre">server.enableScrollSync</span></code> initialization option to <code class="docutils literal notranslate"><span class="pre">True</span></code> and works by injecting line numbers into the generated HTML which a client can use to align the preview window to the source window.</p>
+<p>Live preview support can be enabled by setting the <code class="docutils literal notranslate"><span class="pre">server.enableLivePreview</span></code> initialization option to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the language server will then pass the contents of unsaved files for Sphinx to build.
+Currently clients are responsible for triggering intermediate builds with the new <code class="docutils literal notranslate"><span class="pre">esbonio.server.build</span></code> command, though this requirement may be removed in future. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/490">#490</a>)</p>
+</li>
+</ul>
+</section>
+<section id="enhancements">
+<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Completion suggestions will now also be generated for the long form (<code class="docutils literal notranslate"><span class="pre">:py:func:</span></code>) of roles and directives in the primary and standard Sphinx domains. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/416">#416</a>)</p></li>
+<li><p>The language server should now populate the <code class="docutils literal notranslate"><span class="pre">serverInfo</span></code> fields of its response to a client's <code class="docutils literal notranslate"><span class="pre">initialize</span></code> request. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/497">#497</a>)</p></li>
+<li><p>The default <code class="docutils literal notranslate"><span class="pre">suggest_options</span></code> implementation for <code class="docutils literal notranslate"><span class="pre">DirectiveLanguageFeatures</span></code> should now be more useful in that it will return the keys from a directive's <code class="docutils literal notranslate"><span class="pre">option_spec</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/498">#498</a>)</p></li>
+<li><p>The language server now recognises and returns <code class="docutils literal notranslate"><span class="pre">DocumentLinks</span></code> for <code class="docutils literal notranslate"><span class="pre">image::</span></code> and <code class="docutils literal notranslate"><span class="pre">figure::</span></code> directives that use <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code> references for images. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/506">#506</a>)</p></li>
+</ul>
+</section>
+<section id="fixes">
+<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Fix handling of deprecation warnings in Python 3.11 (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/494">#494</a>)</p></li>
+<li><p>The language server should now correctly handle errors that occur while generating completion suggestions for a directive's options</p>
+<p>The language server should now show hovers for directives in the primary domain. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/498">#498</a>)</p>
+</li>
+<li><p>Errors thrown by <code class="docutils literal notranslate"><span class="pre">DirectiveLanguageFeatures</span></code> during <code class="docutils literal notranslate"><span class="pre">textDocument/documentLink</span></code> or <code class="docutils literal notranslate"><span class="pre">textDocument/definition</span></code> requests are now caught and no longer result in frustrating error banners in clients.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">textDocument/documentLink</span></code> handler for <code class="docutils literal notranslate"><span class="pre">image::</span></code> and <code class="docutils literal notranslate"><span class="pre">figure::</span></code> should no longer throw exceptions for invalid paths on Windows. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/506">#506</a>)</p>
+</li>
+</ul>
+</section>
+<section id="api-changes">
+<h3>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">RoleLanguageFeatures</span></code> have been introduced as the preferred method of extending role support going forward.
+Subclasses can be implement any of the following methods</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">complete_targets</span></code> called when generating role target completion items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">find_target_definitions</span></code> used to implement goto definition for role targets</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_implementation</span></code> used to get the implementation of a role given its name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index_roles</span></code> used to tell the language server which roles exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolve_target_link</span></code> used to implement document links for role targets</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">suggest_roles</span></code> called when generating role completion suggestions</p></li>
+</ul>
+<p>and are registered using the new <code class="docutils literal notranslate"><span class="pre">Roles.add_feature()</span></code> method. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/495">#495</a>)</p>
+</li>
+</ul>
+</section>
+<section id="deprecated">
+<h3>Deprecated<a class="headerlink" href="#deprecated" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>The following protocols have been deprecated and will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TargetDefinition</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TargetCompletion</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TargetLink</span></code></p></li>
+</ul>
+<p>The following methods have been deprecated and will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Roles.add_target_definition_provider</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Roles.add_target_link_provider</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Roles.add_target_completion_provider</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RstLanguageServer.get_roles()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_domain()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_domains()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_roles()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_role_target_types()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_role_targets()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_intersphinx_targets()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.has_intersphinx_targets()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_intersphinx_projects()</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/495">#495</a>)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
 <section id="v0-14-3-2022-11-05">
 <h2>v0.14.3 - 2022-11-05<a class="headerlink" href="#v0-14-3-2022-11-05" title="Permalink to this heading">#</a></h2>
 <section id="misc">
@@ -252,8 +331,8 @@
 </section>
 <section id="v0-14-2-2022-11-05">
 <h2>v0.14.2 - 2022-11-05<a class="headerlink" href="#v0-14-2-2022-11-05" title="Permalink to this heading">#</a></h2>
-<section id="enhancements">
-<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this heading">#</a></h3>
+<section id="id12">
+<h3>Enhancements<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">esbonio.server.showDeprecationWarnings</span></code> option.</p>
 <p>This is flag is primarily aimed at developers working either directly on esbonio, or one of its extensions.
@@ -261,14 +340,14 @@ When enabled, any warnings (such as <code class="docutils literal notranslate"><
 </li>
 </ul>
 </section>
-<section id="fixes">
-<h3>Fixes<a class="headerlink" href="#fixes" title="Permalink to this heading">#</a></h3>
+<section id="id14">
+<h3>Fixes<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Spinx log messages are no longer duplicated after refreshing the application instance (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/460">#460</a>)</p></li>
 </ul>
 </section>
-<section id="api-changes">
-<h3>API Changes<a class="headerlink" href="#api-changes" title="Permalink to this heading">#</a></h3>
+<section id="id16">
+<h3>API Changes<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Added <code class="docutils literal notranslate"><span class="pre">add_diagnostics</span></code> method to the <code class="docutils literal notranslate"><span class="pre">RstLanguageServer</span></code> to enable adding diagnostics to a document incrementally. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/443">#443</a>)</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">Directives</span></code> language feature can now be extended by registering <code class="docutils literal notranslate"><span class="pre">DirectiveLanguageFeatures</span></code> using the new <code class="docutils literal notranslate"><span class="pre">add_feature</span></code> method.
@@ -283,8 +362,8 @@ This is now the preferred extension mechanism and should be used by all extensio
 </li>
 </ul>
 </section>
-<section id="deprecated">
-<h3>Deprecated<a class="headerlink" href="#deprecated" title="Permalink to this heading">#</a></h3>
+<section id="id20">
+<h3>Deprecated<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">ArgumentCompletion</span></code>, <code class="docutils literal notranslate"><span class="pre">ArgumentDefinition</span></code> and <code class="docutils literal notranslate"><span class="pre">ArgumentLink</span></code> directive providers have been deprecated in favour of <code class="docutils literal notranslate"><span class="pre">DirectiveLanguageFeatures</span></code> and will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/444">#444</a>)</p></li>
 <li><p>Calling the <code class="docutils literal notranslate"><span class="pre">get_directives()</span></code> method on the <code class="docutils literal notranslate"><span class="pre">RstLanguageServer</span></code> and <code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code> objects is deprecated in favour of calling the <code class="docutils literal notranslate"><span class="pre">get_directives()</span></code> method on the <code class="docutils literal notranslate"><span class="pre">Directives</span></code> language feature.
@@ -293,8 +372,8 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </li>
 </ul>
 </section>
-<section id="id9">
-<h3>Misc<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<section id="id23">
+<h3>Misc<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add Python 3.11 support (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/470">#470</a>)</p></li>
 </ul>
@@ -302,8 +381,8 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </section>
 <section id="v0-14-1-2022-09-11">
 <h2>v0.14.1 - 2022-09-11<a class="headerlink" href="#v0-14-1-2022-09-11" title="Permalink to this heading">#</a></h2>
-<section id="id11">
-<h3>Fixes<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<section id="id25">
+<h3>Fixes<a class="headerlink" href="#id25" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">textDocument/documentSymbol</span></code> requests should no longer fail on substitution definitions. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/448">#448</a>)</p></li>
 </ul>
@@ -311,29 +390,29 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </section>
 <section id="v0-14-0-2022-07-31">
 <h2>v0.14.0 - 2022-07-31<a class="headerlink" href="#v0-14-0-2022-07-31" title="Permalink to this heading">#</a></h2>
-<section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">#</a></h3>
+<section id="id27">
+<h3>Features<a class="headerlink" href="#id27" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now supports <code class="docutils literal notranslate"><span class="pre">textDocument/implementation</span></code> requests for roles and directives. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/431">#431</a>)</p></li>
 </ul>
 </section>
-<section id="id14">
-<h3>Enhancements<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<section id="id29">
+<h3>Enhancements<a class="headerlink" href="#id29" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Line numbers for diagnostics for issues found within Python docstrings should now be more accurate. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/433">#433</a>)</p></li>
 <li><p>Document symbol requests made for unsaved files now use the language client's version rather than the version on disk. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/434">#434</a>)</p></li>
 </ul>
 </section>
-<section id="id17">
-<h3>Fixes<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<section id="id32">
+<h3>Fixes<a class="headerlink" href="#id32" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Diagnostics for issues found in <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">included::</span></code> files should now have the correct filepath. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/425">#425</a>)</p></li>
 <li><p>Extensions defined within Sphinx extensions or <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> files can now take advantage of dependency injection (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/428">#428</a>)</p></li>
 <li><p>The server should now handle document symbol requests for files that are treated as reStructuredText files by a language client but don't have an <code class="docutils literal notranslate"><span class="pre">*.rst</span></code> extension. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/434">#434</a>)</p></li>
 </ul>
 </section>
-<section id="id21">
-<h3>API Changes<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<section id="id36">
+<h3>API Changes<a class="headerlink" href="#id36" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>It is now possible to manually load an extension by calling the <code class="docutils literal notranslate"><span class="pre">load_extension</span></code> method on a language server object. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/429">#429</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LanguageFeatures</span></code> can now respond to <code class="docutils literal notranslate"><span class="pre">textDocument/implementation</span></code> requests by providing an <code class="docutils literal notranslate"><span class="pre">implementation</span></code> method and a collection of <code class="docutils literal notranslate"><span class="pre">implementation_triggers</span></code>. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/431">#431</a>)</p></li>
@@ -342,16 +421,16 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </section>
 <section id="v0-13-1-2022-06-29">
 <h2>v0.13.1 - 2022-06-29<a class="headerlink" href="#v0-13-1-2022-06-29" title="Permalink to this heading">#</a></h2>
-<section id="id24">
-<h3>Fixes<a class="headerlink" href="#id24" title="Permalink to this heading">#</a></h3>
+<section id="id39">
+<h3>Fixes<a class="headerlink" href="#id39" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Log messages from Sphinx's startup are now captured and forwarded onto the language client. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/408">#408</a>)</p></li>
 <li><p>Log messages from the server's startup are now captured and forwarded onto the language client. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/417">#417</a>)</p></li>
 <li><p>Fixed handling of default roles when getting a document's initial doctree. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/418">#418</a>)</p></li>
 </ul>
 </section>
-<section id="id28">
-<h3>API Changes<a class="headerlink" href="#id28" title="Permalink to this heading">#</a></h3>
+<section id="id43">
+<h3>API Changes<a class="headerlink" href="#id43" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Improved type annotations allow <code class="docutils literal notranslate"><span class="pre">rst.get_feature</span></code> to be called with a language feature's type and have the return type match accordingly. This should allow editors to provide better autocomplete suggestions etc. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/409">#409</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">esbonio_setup</span></code> functions can now request specific language features and servers, just by providing type annotations e.g:</p>
@@ -366,8 +445,8 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </li>
 </ul>
 </section>
-<section id="id31">
-<h3>Deprecated<a class="headerlink" href="#id31" title="Permalink to this heading">#</a></h3>
+<section id="id46">
+<h3>Deprecated<a class="headerlink" href="#id46" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Calling <code class="docutils literal notranslate"><span class="pre">rst.get_feature</span></code> with a string will become an error in <code class="docutils literal notranslate"><span class="pre">v.1.0</span></code>, a language feature's class should be given instead. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/409">#409</a>)</p></li>
 </ul>
@@ -375,16 +454,16 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </section>
 <section id="v0-13-0-2022-05-27">
 <h2>v0.13.0 - 2022-05-27<a class="headerlink" href="#v0-13-0-2022-05-27" title="Permalink to this heading">#</a></h2>
-<section id="id33">
-<h3>Features<a class="headerlink" href="#id33" title="Permalink to this heading">#</a></h3>
+<section id="id48">
+<h3>Features<a class="headerlink" href="#id48" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Add initial <code class="docutils literal notranslate"><span class="pre">textDocument/hover</span></code> support, with documentation for roles and directives being shown.</p>
 <p>Add <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> to completion triggers. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/311">#311</a>)</p>
 </li>
 </ul>
 </section>
-<section id="id35">
-<h3>Fixes<a class="headerlink" href="#id35" title="Permalink to this heading">#</a></h3>
+<section id="id50">
+<h3>Fixes<a class="headerlink" href="#id50" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now correctly handles diagnosics originating from <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">c:function::</span></code> directives. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/393">#393</a>)</p></li>
 </ul>
@@ -392,8 +471,8 @@ It will be removed in <code class="docutils literal notranslate"><span class="pr
 </section>
 <section id="v0-12-0-2022-05-22">
 <h2>v0.12.0 - 2022-05-22<a class="headerlink" href="#v0-12-0-2022-05-22" title="Permalink to this heading">#</a></h2>
-<section id="id37">
-<h3>Features<a class="headerlink" href="#id37" title="Permalink to this heading">#</a></h3>
+<section id="id52">
+<h3>Features<a class="headerlink" href="#id52" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>The language server now supports many (but not all) <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> command line options.
 The <code class="docutils literal notranslate"><span class="pre">sphinx.*</span></code> section of the server's initialization options has been extened to include the following options.</p>
@@ -413,26 +492,26 @@ The <code class="docutils literal notranslate"><span class="pre">sphinx.*</span>
 </li>
 </ul>
 </section>
-<section id="id39">
-<h3>Enhancements<a class="headerlink" href="#id39" title="Permalink to this heading">#</a></h3>
+<section id="id54">
+<h3>Enhancements<a class="headerlink" href="#id54" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">textDocument/documentSymbol</span></code> responses now include symbol information on directives. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/374">#374</a>)</p></li>
 </ul>
 </section>
-<section id="id41">
-<h3>Fixes<a class="headerlink" href="#id41" title="Permalink to this heading">#</a></h3>
+<section id="id56">
+<h3>Fixes<a class="headerlink" href="#id56" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">include::</span></code> directives no longer break goto definition for <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> role targets (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/361">#361</a>)</p></li>
 </ul>
 </section>
-<section id="id43">
-<h3>API Changes<a class="headerlink" href="#id43" title="Permalink to this heading">#</a></h3>
+<section id="id58">
+<h3>API Changes<a class="headerlink" href="#id58" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add method <code class="docutils literal notranslate"><span class="pre">get_initial_doctree</span></code> to <code class="docutils literal notranslate"><span class="pre">RstLanguageServer</span></code> which can be used to obtain a doctree of the given file before any role and directives have been applied. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/374">#374</a>)</p></li>
 </ul>
 </section>
-<section id="id45">
-<h3>Misc<a class="headerlink" href="#id45" title="Permalink to this heading">#</a></h3>
+<section id="id60">
+<h3>Misc<a class="headerlink" href="#id60" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">esbonio.sphinx.numJobs</span></code> configuration now defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code> in line with <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> defaults. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/374">#374</a>)</p></li>
 </ul>
@@ -440,15 +519,15 @@ The <code class="docutils literal notranslate"><span class="pre">sphinx.*</span>
 </section>
 <section id="v0-11-2-2022-05-09">
 <h2>v0.11.2 - 2022-05-09<a class="headerlink" href="#v0-11-2-2022-05-09" title="Permalink to this heading">#</a></h2>
-<section id="id47">
-<h3>Enhancements<a class="headerlink" href="#id47" title="Permalink to this heading">#</a></h3>
+<section id="id62">
+<h3>Enhancements<a class="headerlink" href="#id62" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">esbonio.lsp.rst._record</span></code> and <code class="docutils literal notranslate"><span class="pre">esbonio.lsp.sphinx._record</span></code> startup modules.
 These can be used to record all LSP client-sever communication to a text file. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/380">#380</a>)</p></li>
 </ul>
 </section>
-<section id="id49">
-<h3>Fixes<a class="headerlink" href="#id49" title="Permalink to this heading">#</a></h3>
+<section id="id64">
+<h3>Fixes<a class="headerlink" href="#id64" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now detects functionality bundled with standard Sphinx extensions (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/381">#381</a>)</p></li>
 </ul>
@@ -456,8 +535,8 @@ These can be used to record all LSP client-sever communication to a text file. (
 </section>
 <section id="v0-11-1-2022-04-26">
 <h2>v0.11.1 - 2022-04-26<a class="headerlink" href="#v0-11-1-2022-04-26" title="Permalink to this heading">#</a></h2>
-<section id="id51">
-<h3>Fixes<a class="headerlink" href="#id51" title="Permalink to this heading">#</a></h3>
+<section id="id66">
+<h3>Fixes<a class="headerlink" href="#id66" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">textDocument/documentLink</span></code> requests no longer fail when encountering <cite>::</cite> characters in C++ references. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/377">#377</a>)</p></li>
 </ul>
@@ -465,8 +544,8 @@ These can be used to record all LSP client-sever communication to a text file. (
 </section>
 <section id="v0-11-0-2022-04-18">
 <h2>v0.11.0 - 2022-04-18<a class="headerlink" href="#v0-11-0-2022-04-18" title="Permalink to this heading">#</a></h2>
-<section id="id53">
-<h3>Features<a class="headerlink" href="#id53" title="Permalink to this heading">#</a></h3>
+<section id="id68">
+<h3>Features<a class="headerlink" href="#id68" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">textDocument/documentLink</span></code> support.</p>
 <p>The server supports resolving links for role targets with initial support for intersphinx references and local <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> references.</p>
@@ -474,15 +553,15 @@ These can be used to record all LSP client-sever communication to a text file. (
 </li>
 </ul>
 </section>
-<section id="id55">
-<h3>Enhancements<a class="headerlink" href="#id55" title="Permalink to this heading">#</a></h3>
+<section id="id70">
+<h3>Enhancements<a class="headerlink" href="#id70" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Language clients can now control if the server forces a full build of a Sphinx project on startup by providing a <code class="docutils literal notranslate"><span class="pre">sphinx.forceFullBuild</span></code> initialization option, which defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/358">#358</a>)</p></li>
 <li><p>Language clients can now control the number of parallel jobs by providing a <code class="docutils literal notranslate"><span class="pre">sphinx.numJobs</span></code> initialization option, which defaults to <code class="docutils literal notranslate"><span class="pre">auto</span></code>. Clients can disable parallel builds by setting this option to <code class="docutils literal notranslate"><span class="pre">1</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/359">#359</a>)</p></li>
 </ul>
 </section>
-<section id="id58">
-<h3>Fixes<a class="headerlink" href="#id58" title="Permalink to this heading">#</a></h3>
+<section id="id73">
+<h3>Fixes<a class="headerlink" href="#id73" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Goto definition for <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> targets now works for labels containing <code class="docutils literal notranslate"><span class="pre">-</span></code> characters (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/357">#357</a>)</p></li>
 <li><p>Goto definition for <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> targets will now only return a result if the referenced document actually exists. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/369">#369</a>)</p></li>
@@ -491,8 +570,8 @@ These can be used to record all LSP client-sever communication to a text file. (
 </section>
 <section id="v0-10-3-2022-04-07">
 <h2>v0.10.3 - 2022-04-07<a class="headerlink" href="#v0-10-3-2022-04-07" title="Permalink to this heading">#</a></h2>
-<section id="id61">
-<h3>Fixes<a class="headerlink" href="#id61" title="Permalink to this heading">#</a></h3>
+<section id="id76">
+<h3>Fixes<a class="headerlink" href="#id76" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A client's capabilities is now respected when constructing <code class="docutils literal notranslate"><span class="pre">CompletionItems</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/270">#270</a>)</p></li>
 <li><p>Instead of spamming the client with notifications, the language server now reports Sphinx config/build errors as diagnostics. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/315">#315</a>)</p></li>
@@ -505,8 +584,8 @@ e.g. <code class="docutils literal notranslate"><span class="pre">DirectiveConta
 </section>
 <section id="v0-10-2-2022-03-22">
 <h2>v0.10.2 - 2022-03-22<a class="headerlink" href="#v0-10-2-2022-03-22" title="Permalink to this heading">#</a></h2>
-<section id="id67">
-<h3>Fixes<a class="headerlink" href="#id67" title="Permalink to this heading">#</a></h3>
+<section id="id82">
+<h3>Fixes<a class="headerlink" href="#id82" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Previews on Windows should now start correctly (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/341">#341</a>)</p></li>
 </ul>
@@ -514,8 +593,8 @@ e.g. <code class="docutils literal notranslate"><span class="pre">DirectiveConta
 </section>
 <section id="v0-10-1-2022-03-20">
 <h2>v0.10.1 - 2022-03-20<a class="headerlink" href="#v0-10-1-2022-03-20" title="Permalink to this heading">#</a></h2>
-<section id="id69">
-<h3>Fixes<a class="headerlink" href="#id69" title="Permalink to this heading">#</a></h3>
+<section id="id84">
+<h3>Fixes<a class="headerlink" href="#id84" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server should now correctly handle <code class="docutils literal notranslate"><span class="pre">buildDir</span></code>, <code class="docutils literal notranslate"><span class="pre">confDir</span></code> and <code class="docutils literal notranslate"><span class="pre">srcDir</span></code> config values containing paths relative to <code class="docutils literal notranslate"><span class="pre">~</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/342">#342</a>)</p></li>
 </ul>
@@ -523,8 +602,8 @@ e.g. <code class="docutils literal notranslate"><span class="pre">DirectiveConta
 </section>
 <section id="v0-10-0-2022-03-17">
 <h2>v0.10.0 - 2022-03-17<a class="headerlink" href="#v0-10-0-2022-03-17" title="Permalink to this heading">#</a></h2>
-<section id="id71">
-<h3>Features<a class="headerlink" href="#id71" title="Permalink to this heading">#</a></h3>
+<section id="id86">
+<h3>Features<a class="headerlink" href="#id86" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The server now provides an <cite>esbonio.server.preview</cite> command that can be used to preview HTML Sphinx projects via a local HTTP server. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/275">#275</a>)</p></li>
 <li><p>The language server now accepts paths relative to <code class="docutils literal notranslate"><span class="pre">${workspaceFolder}</span></code> for Sphinx's <code class="docutils literal notranslate"><span class="pre">confDir</span></code>, <code class="docutils literal notranslate"><span class="pre">srcDir</span></code> and <code class="docutils literal notranslate"><span class="pre">builDir</span></code> options. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/304">#304</a>)</p></li>
@@ -533,8 +612,8 @@ e.g. <code class="docutils literal notranslate"><span class="pre">DirectiveConta
 <li><p>The language server will now look in sphinx extension modules and <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> files for extensions to the language server. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/331">#331</a>)</p></li>
 </ul>
 </section>
-<section id="id77">
-<h3>Fixes<a class="headerlink" href="#id77" title="Permalink to this heading">#</a></h3>
+<section id="id92">
+<h3>Fixes<a class="headerlink" href="#id92" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server no longer crashes when asked to <code class="docutils literal notranslate"><span class="pre">--exclude</span></code> a module that would not be loaded anyway. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/313">#313</a>)</p></li>
 <li><p>Completion suggestions for domain objects referenced by roles such as <code class="docutils literal notranslate"><span class="pre">:doc:</span></code>, <code class="docutils literal notranslate"><span class="pre">:ref:</span></code>, <code class="docutils literal notranslate"><span class="pre">:func:</span></code> and many more now correctly update each time a rebuild is triggered. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/317">#317</a>)</p></li>
@@ -544,8 +623,8 @@ e.g. <code class="docutils literal notranslate"><span class="pre">DirectiveConta
 </section>
 <section id="v0-9-0-2022-03-07">
 <h2>v0.9.0 - 2022-03-07<a class="headerlink" href="#v0-9-0-2022-03-07" title="Permalink to this heading">#</a></h2>
-<section id="id81">
-<h3>Features<a class="headerlink" href="#id81" title="Permalink to this heading">#</a></h3>
+<section id="id96">
+<h3>Features<a class="headerlink" href="#id96" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now supports providing documentation on roles, directives (and their options).
 Note however, this requires the relevant documentation to be explicitly added to the relevant <code class="docutils literal notranslate"><span class="pre">LanguageFeatures</span></code>. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/36">#36</a>)</p></li>
@@ -557,8 +636,8 @@ Note however, this requires the relevant documentation to be explicitly added to
 <li><p>The language server now supports <code class="docutils literal notranslate"><span class="pre">textDocument/definition</span></code> requests for <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">literalinclude::</span></code> directive arguments. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/277">#277</a>)</p></li>
 </ul>
 </section>
-<section id="id89">
-<h3>Fixes<a class="headerlink" href="#id89" title="Permalink to this heading">#</a></h3>
+<section id="id104">
+<h3>Fixes<a class="headerlink" href="#id104" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Diagnostics are now cleared for deleted files. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/291">#291</a>)</p></li>
 </ul>
@@ -566,8 +645,8 @@ Note however, this requires the relevant documentation to be explicitly added to
 </section>
 <section id="v0-8-0-2021-11-26">
 <h2>v0.8.0 - 2021-11-26<a class="headerlink" href="#v0-8-0-2021-11-26" title="Permalink to this heading">#</a></h2>
-<section id="id91">
-<h3>Features<a class="headerlink" href="#id91" title="Permalink to this heading">#</a></h3>
+<section id="id106">
+<h3>Features<a class="headerlink" href="#id106" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now respects the project's <code class="docutils literal notranslate"><span class="pre">default_role</span></code> setting. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/72">#72</a>)</p></li>
 <li><p>Initial implementation of the <code class="docutils literal notranslate"><span class="pre">textDocument/documentSymbols</span></code> request which for example, powers the &quot;Outline&quot; view in VSCode.
@@ -575,8 +654,8 @@ Currently only section headers are returned. (<a class="reference external" href
 <li><p>The <code class="docutils literal notranslate"><span class="pre">esbonio.sphinx.buildDir</span></code> option now supports <code class="docutils literal notranslate"><span class="pre">${workspaceRoot}</span></code> and <code class="docutils literal notranslate"><span class="pre">${confDir}</span></code> variable expansions (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/259">#259</a>)</p></li>
 </ul>
 </section>
-<section id="id95">
-<h3>Fixes<a class="headerlink" href="#id95" title="Permalink to this heading">#</a></h3>
+<section id="id110">
+<h3>Fixes<a class="headerlink" href="#id110" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Role target <code class="docutils literal notranslate"><span class="pre">CompletionItems</span></code> now preserve additional cross reference modifiers like <code class="docutils literal notranslate"><span class="pre">!</span></code> and <code class="docutils literal notranslate"><span class="pre">~</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/211">#211</a>)</p></li>
 <li><p>Intersphinx projects are now only suggested if they contain targets relevant to the current role. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/244">#244</a>)</p></li>
@@ -586,15 +665,15 @@ Currently only section headers are returned. (<a class="reference external" href
 </section>
 <section id="v0-7-0-2021-09-13">
 <h2>v0.7.0 - 2021-09-13<a class="headerlink" href="#v0-7-0-2021-09-13" title="Permalink to this heading">#</a></h2>
-<section id="id99">
-<h3>Features<a class="headerlink" href="#id99" title="Permalink to this heading">#</a></h3>
+<section id="id114">
+<h3>Features<a class="headerlink" href="#id114" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add initial goto definition support.
 Currently only support definitions for <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> and <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> role targets. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/209">#209</a>)</p></li>
 </ul>
 </section>
-<section id="id101">
-<h3>Fixes<a class="headerlink" href="#id101" title="Permalink to this heading">#</a></h3>
+<section id="id116">
+<h3>Fixes<a class="headerlink" href="#id116" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Completion suggestions for <code class="docutils literal notranslate"><span class="pre">:option:</span></code> targets now insert text in the correct format (<code class="docutils literal notranslate"><span class="pre">&lt;progname&gt;</span> <span class="pre">&lt;option&gt;</span></code>) (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/212">#212</a>)</p></li>
 <li><p>Diagnostics are now correctly cleared on Windows (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/213">#213</a>)</p></li>
@@ -602,8 +681,8 @@ Currently only support definitions for <code class="docutils literal notranslate
 <li><p><code class="docutils literal notranslate"><span class="pre">CompletionItems</span></code> should no longer corrupt existing text when selected. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/223">#223</a>)</p></li>
 </ul>
 </section>
-<section id="id106">
-<h3>Misc<a class="headerlink" href="#id106" title="Permalink to this heading">#</a></h3>
+<section id="id121">
+<h3>Misc<a class="headerlink" href="#id121" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Updated <code class="docutils literal notranslate"><span class="pre">pygls</span></code> to <code class="docutils literal notranslate"><span class="pre">v0.11.0</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/218">#218</a>)</p></li>
 </ul>
@@ -611,8 +690,8 @@ Currently only support definitions for <code class="docutils literal notranslate
 </section>
 <section id="v0-6-2-2021-06-05">
 <h2>v0.6.2 - 2021-06-05<a class="headerlink" href="#v0-6-2-2021-06-05" title="Permalink to this heading">#</a></h2>
-<section id="id108">
-<h3>Fixes<a class="headerlink" href="#id108" title="Permalink to this heading">#</a></h3>
+<section id="id123">
+<h3>Fixes<a class="headerlink" href="#id123" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now correctly handles windows file URIs when determining Sphinx's
 build directory. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/184">#184</a>)</p></li>
@@ -622,8 +701,8 @@ is being typed within parenthesis e.g. <code class="docutils literal notranslate
 even when there are no additional path elements. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/208">#208</a>)</p></li>
 </ul>
 </section>
-<section id="id112">
-<h3>Misc<a class="headerlink" href="#id112" title="Permalink to this heading">#</a></h3>
+<section id="id127">
+<h3>Misc<a class="headerlink" href="#id127" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The cli arguments <code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code>, <code class="docutils literal notranslate"><span class="pre">--log-filter</span></code>, <code class="docutils literal notranslate"><span class="pre">--log-level</span></code> and
 <code class="docutils literal notranslate"><span class="pre">--hide-sphinx-output</span></code> have been replaced with the configuration
@@ -642,8 +721,8 @@ calling <code class="docutils literal notranslate"><span class="pre">esbonio</sp
 </section>
 <section id="v0-6-1-2021-05-13">
 <h2>v0.6.1 - 2021-05-13<a class="headerlink" href="#v0-6-1-2021-05-13" title="Permalink to this heading">#</a></h2>
-<section id="id117">
-<h3>Fixes<a class="headerlink" href="#id117" title="Permalink to this heading">#</a></h3>
+<section id="id132">
+<h3>Fixes<a class="headerlink" href="#id132" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Intersphinx projects are now only included as completion suggestions for roles
 which target object types in a project's inventory. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/158">#158</a>)</p></li>
@@ -661,8 +740,8 @@ included in completion suggestions as they are not useful. (<a class="reference 
 </section>
 <section id="v0-6-0-2021-05-07">
 <h2>v0.6.0 - 2021-05-07<a class="headerlink" href="#v0-6-0-2021-05-07" title="Permalink to this heading">#</a></h2>
-<section id="id125">
-<h3>Features<a class="headerlink" href="#id125" title="Permalink to this heading">#</a></h3>
+<section id="id140">
+<h3>Features<a class="headerlink" href="#id140" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The Language Server will now offer filepath completions for the <code class="docutils literal notranslate"><span class="pre">image</span></code>,
 <code class="docutils literal notranslate"><span class="pre">figure</span></code>, <code class="docutils literal notranslate"><span class="pre">include</span></code> and <code class="docutils literal notranslate"><span class="pre">literalinclude</span></code> directives as well as the
@@ -674,8 +753,8 @@ is the same as its <code class="docutils literal notranslate"><span class="pre">
 config option. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/142">#142</a>)</p></li>
 </ul>
 </section>
-<section id="id129">
-<h3>Fixes<a class="headerlink" href="#id129" title="Permalink to this heading">#</a></h3>
+<section id="id144">
+<h3>Fixes<a class="headerlink" href="#id144" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The Language Server no longer throws an exception while handling errors raised
 during initialization of a Sphinx application. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/139">#139</a>)</p></li>
@@ -683,8 +762,8 @@ during initialization of a Sphinx application. (<a class="reference external" hr
 (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/100">#100</a>)</p></li>
 </ul>
 </section>
-<section id="id132">
-<h3>Misc<a class="headerlink" href="#id132" title="Permalink to this heading">#</a></h3>
+<section id="id147">
+<h3>Misc<a class="headerlink" href="#id147" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Upgrage pygls to v0.10.x (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/144">#144</a>)</p></li>
 </ul>
@@ -692,8 +771,8 @@ during initialization of a Sphinx application. (<a class="reference external" hr
 </section>
 <section id="v0-5-1-2021-04-20">
 <h2>v0.5.1 - 2021-04-20<a class="headerlink" href="#v0-5-1-2021-04-20" title="Permalink to this heading">#</a></h2>
-<section id="id134">
-<h3>Fixes<a class="headerlink" href="#id134" title="Permalink to this heading">#</a></h3>
+<section id="id149">
+<h3>Fixes<a class="headerlink" href="#id149" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Pin <code class="docutils literal notranslate"><span class="pre">pygls&lt;0.10.0</span></code> to ensure installs pick up a compatible version (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/147">#147</a>)</p></li>
 </ul>
@@ -701,8 +780,8 @@ during initialization of a Sphinx application. (<a class="reference external" hr
 </section>
 <section id="v0-5-0-2021-02-25">
 <h2>v0.5.0 - 2021-02-25<a class="headerlink" href="#v0-5-0-2021-02-25" title="Permalink to this heading">#</a></h2>
-<section id="id136">
-<h3>Features<a class="headerlink" href="#id136" title="Permalink to this heading">#</a></h3>
+<section id="id151">
+<h3>Features<a class="headerlink" href="#id151" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now reports invalid references as diagnostics (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/57">#57</a>)</p></li>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">--log-level</span></code> cli argument that allows Language Clients to
@@ -720,8 +799,8 @@ TCP mode while specifying the port number to listen on. (<a class="reference ext
 specify where cached data should be stored e.g. Sphinx's build output. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/115">#115</a>)</p></li>
 </ul>
 </section>
-<section id="id145">
-<h3>Fixes<a class="headerlink" href="#id145" title="Permalink to this heading">#</a></h3>
+<section id="id160">
+<h3>Fixes<a class="headerlink" href="#id160" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server now reloads when the project's <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> is modified (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/83">#83</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$/setTraceNotification</span></code> notifications from VSCode no longer cause exceptions to be thrown
@@ -733,8 +812,8 @@ in the Language Server. (<a class="reference external" href="https://github.com/
 </section>
 <section id="v0-4-0-2021-02-01">
 <h2>v0.4.0 - 2021-02-01<a class="headerlink" href="#v0-4-0-2021-02-01" title="Permalink to this heading">#</a></h2>
-<section id="id150">
-<h3>Features<a class="headerlink" href="#id150" title="Permalink to this heading">#</a></h3>
+<section id="id165">
+<h3>Features<a class="headerlink" href="#id165" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Directive option completions are now provided
 within a directive's options block (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/36">#36</a>)</p></li>
@@ -742,8 +821,8 @@ within a directive's options block (<a class="reference external" href="https://
 for intersphinx targets are now suggested when available (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/74">#74</a>)</p></li>
 </ul>
 </section>
-<section id="id153">
-<h3>Fixes<a class="headerlink" href="#id153" title="Permalink to this heading">#</a></h3>
+<section id="id168">
+<h3>Fixes<a class="headerlink" href="#id168" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Regex that catches diagnostics from Sphinx's
 output can now handle windows paths. Diagnostic reporting now sends a
@@ -758,8 +837,8 @@ a role target (<a class="reference external" href="https://github.com/swyddfa/es
 </section>
 <section id="v0-3-0-2021-01-27">
 <h2>v0.3.0 - 2021-01-27<a class="headerlink" href="#v0-3-0-2021-01-27" title="Permalink to this heading">#</a></h2>
-<section id="id158">
-<h3>Features<a class="headerlink" href="#id158" title="Permalink to this heading">#</a></h3>
+<section id="id173">
+<h3>Features<a class="headerlink" href="#id173" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Errors in Sphinx's build output are now parsed and published
 to the LSP client as diagnostics (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/35">#35</a>)</p></li>
@@ -767,8 +846,8 @@ to the LSP client as diagnostics (<a class="reference external" href="https://gi
 prompts for any required arguments (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/58">#58</a>)</p></li>
 </ul>
 </section>
-<section id="id161">
-<h3>Fixes<a class="headerlink" href="#id161" title="Permalink to this heading">#</a></h3>
+<section id="id176">
+<h3>Fixes<a class="headerlink" href="#id176" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Errors encountered when initialising Sphinx are now caught and the language
 client is notified of an issue. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/33">#33</a>)</p></li>
@@ -782,8 +861,8 @@ are located under a <code class="docutils literal notranslate"><span class="pre"
 </section>
 <section id="v0-2-1-2020-12-08">
 <h2>v0.2.1 - 2020-12-08<a class="headerlink" href="#v0-2-1-2020-12-08" title="Permalink to this heading">#</a></h2>
-<section id="id166">
-<h3>Fixes<a class="headerlink" href="#id166" title="Permalink to this heading">#</a></h3>
+<section id="id181">
+<h3>Fixes<a class="headerlink" href="#id181" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Directives that are part of the <code class="docutils literal notranslate"><span class="pre">std</span></code> or <code class="docutils literal notranslate"><span class="pre">py</span></code> Sphinx domains
 will now be included in completion suggestions (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/31">#31</a>)</p></li>
@@ -792,8 +871,8 @@ will now be included in completion suggestions (<a class="reference external" hr
 </section>
 <section id="v0-2-0-2020-12-06">
 <h2>v0.2.0 - 2020-12-06<a class="headerlink" href="#v0-2-0-2020-12-06" title="Permalink to this heading">#</a></h2>
-<section id="id168">
-<h3>Features<a class="headerlink" href="#id168" title="Permalink to this heading">#</a></h3>
+<section id="id183">
+<h3>Features<a class="headerlink" href="#id183" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Python log events can now published to Language Clients (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/27">#27</a>)</p></li>
 <li><p>Sphinx's build output is now redirected to the LSP client as log
@@ -804,8 +883,8 @@ and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usa
 domains including <code class="docutils literal notranslate"><span class="pre">ref</span></code>, <code class="docutils literal notranslate"><span class="pre">doc</span></code>, <code class="docutils literal notranslate"><span class="pre">func</span></code>, <code class="docutils literal notranslate"><span class="pre">meth</span></code>, <code class="docutils literal notranslate"><span class="pre">class</span></code> and more. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/29">#29</a>)</p></li>
 </ul>
 </section>
-<section id="id172">
-<h3>Fixes<a class="headerlink" href="#id172" title="Permalink to this heading">#</a></h3>
+<section id="id187">
+<h3>Fixes<a class="headerlink" href="#id187" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Fix discovery of roles so that roles in Sphinx domains are used and
 that unimplemented <code class="docutils literal notranslate"><span class="pre">docutils</span></code> roles are not surfaced. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/26">#26</a>)</p></li>
@@ -814,8 +893,8 @@ that unimplemented <code class="docutils literal notranslate"><span class="pre">
 </section>
 <section id="v0-1-2-2020-12-01">
 <h2>v0.1.2 - 2020-12-01<a class="headerlink" href="#v0-1-2-2020-12-01" title="Permalink to this heading">#</a></h2>
-<section id="id174">
-<h3>Misc<a class="headerlink" href="#id174" title="Permalink to this heading">#</a></h3>
+<section id="id189">
+<h3>Misc<a class="headerlink" href="#id189" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">ubuntu-20.04</span></code> for Python builds so that the correct version of <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> is
 available (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/25">#25</a>)</p></li>
@@ -824,8 +903,8 @@ available (<a class="reference external" href="https://github.com/swyddfa/esboni
 </section>
 <section id="v0-1-1-2020-12-01">
 <h2>v0.1.1 - 2020-12-01<a class="headerlink" href="#v0-1-1-2020-12-01" title="Permalink to this heading">#</a></h2>
-<section id="id176">
-<h3>Misc<a class="headerlink" href="#id176" title="Permalink to this heading">#</a></h3>
+<section id="id191">
+<h3>Misc<a class="headerlink" href="#id191" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Ensure <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> is installed to fix the Python release builds (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/24">#24</a>)</p></li>
 </ul>
@@ -833,27 +912,27 @@ available (<a class="reference external" href="https://github.com/swyddfa/esboni
 </section>
 <section id="v0-1-0-2020-12-01">
 <h2>v0.1.0 - 2020-12-01<a class="headerlink" href="#v0-1-0-2020-12-01" title="Permalink to this heading">#</a></h2>
-<section id="id178">
-<h3>Features<a class="headerlink" href="#id178" title="Permalink to this heading">#</a></h3>
+<section id="id193">
+<h3>Features<a class="headerlink" href="#id193" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The language server can now offer completion suggestions for <code class="docutils literal notranslate"><span class="pre">directives</span></code> and
 <code class="docutils literal notranslate"><span class="pre">roles</span></code> (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/23">#23</a>)</p></li>
 </ul>
 </section>
 </section>
-<section id="id180">
-<h2>0.0.6 - 2020-11-21<a class="headerlink" href="#id180" title="Permalink to this heading">#</a></h2>
-<section id="id181">
-<h3>Misc<a class="headerlink" href="#id181" title="Permalink to this heading">#</a></h3>
+<section id="id195">
+<h2>0.0.6 - 2020-11-21<a class="headerlink" href="#id195" title="Permalink to this heading">#</a></h2>
+<section id="id196">
+<h3>Misc<a class="headerlink" href="#id196" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">--version</span></code> option to the cli that will print the version number and exit. (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/11">#11</a>)</p></li>
 </ul>
 </section>
 </section>
-<section id="id183">
-<h2>0.0.5 - 2020-11-20<a class="headerlink" href="#id183" title="Permalink to this heading">#</a></h2>
-<section id="id184">
-<h3>Misc<a class="headerlink" href="#id184" title="Permalink to this heading">#</a></h3>
+<section id="id198">
+<h2>0.0.5 - 2020-11-20<a class="headerlink" href="#id198" title="Permalink to this heading">#</a></h2>
+<section id="id199">
+<h3>Misc<a class="headerlink" href="#id199" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Update build pipeline to use <code class="docutils literal notranslate"><span class="pre">towncrier</span></code> to autogenerate release notes
 and changelog entries (<a class="reference external" href="https://github.com/swyddfa/esbonio/issues/5">#5</a>)</p></li>
@@ -920,157 +999,165 @@ and changelog entries (<a class="reference external" href="https://github.com/sw
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#v0-15-0-2022-12-03">v0.15.0 - 2022-12-03</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#enhancements">Enhancements</a></li>
+<li><a class="reference internal" href="#fixes">Fixes</a></li>
+<li><a class="reference internal" href="#api-changes">API Changes</a></li>
+<li><a class="reference internal" href="#deprecated">Deprecated</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#v0-14-3-2022-11-05">v0.14.3 - 2022-11-05</a><ul>
 <li><a class="reference internal" href="#misc">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-14-2-2022-11-05">v0.14.2 - 2022-11-05</a><ul>
-<li><a class="reference internal" href="#enhancements">Enhancements</a></li>
-<li><a class="reference internal" href="#fixes">Fixes</a></li>
-<li><a class="reference internal" href="#api-changes">API Changes</a></li>
-<li><a class="reference internal" href="#deprecated">Deprecated</a></li>
-<li><a class="reference internal" href="#id9">Misc</a></li>
+<li><a class="reference internal" href="#id12">Enhancements</a></li>
+<li><a class="reference internal" href="#id14">Fixes</a></li>
+<li><a class="reference internal" href="#id16">API Changes</a></li>
+<li><a class="reference internal" href="#id20">Deprecated</a></li>
+<li><a class="reference internal" href="#id23">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-14-1-2022-09-11">v0.14.1 - 2022-09-11</a><ul>
-<li><a class="reference internal" href="#id11">Fixes</a></li>
+<li><a class="reference internal" href="#id25">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-14-0-2022-07-31">v0.14.0 - 2022-07-31</a><ul>
-<li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#id14">Enhancements</a></li>
-<li><a class="reference internal" href="#id17">Fixes</a></li>
-<li><a class="reference internal" href="#id21">API Changes</a></li>
+<li><a class="reference internal" href="#id27">Features</a></li>
+<li><a class="reference internal" href="#id29">Enhancements</a></li>
+<li><a class="reference internal" href="#id32">Fixes</a></li>
+<li><a class="reference internal" href="#id36">API Changes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-13-1-2022-06-29">v0.13.1 - 2022-06-29</a><ul>
-<li><a class="reference internal" href="#id24">Fixes</a></li>
-<li><a class="reference internal" href="#id28">API Changes</a></li>
-<li><a class="reference internal" href="#id31">Deprecated</a></li>
+<li><a class="reference internal" href="#id39">Fixes</a></li>
+<li><a class="reference internal" href="#id43">API Changes</a></li>
+<li><a class="reference internal" href="#id46">Deprecated</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-13-0-2022-05-27">v0.13.0 - 2022-05-27</a><ul>
-<li><a class="reference internal" href="#id33">Features</a></li>
-<li><a class="reference internal" href="#id35">Fixes</a></li>
+<li><a class="reference internal" href="#id48">Features</a></li>
+<li><a class="reference internal" href="#id50">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-12-0-2022-05-22">v0.12.0 - 2022-05-22</a><ul>
-<li><a class="reference internal" href="#id37">Features</a></li>
-<li><a class="reference internal" href="#id39">Enhancements</a></li>
-<li><a class="reference internal" href="#id41">Fixes</a></li>
-<li><a class="reference internal" href="#id43">API Changes</a></li>
-<li><a class="reference internal" href="#id45">Misc</a></li>
+<li><a class="reference internal" href="#id52">Features</a></li>
+<li><a class="reference internal" href="#id54">Enhancements</a></li>
+<li><a class="reference internal" href="#id56">Fixes</a></li>
+<li><a class="reference internal" href="#id58">API Changes</a></li>
+<li><a class="reference internal" href="#id60">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-11-2-2022-05-09">v0.11.2 - 2022-05-09</a><ul>
-<li><a class="reference internal" href="#id47">Enhancements</a></li>
-<li><a class="reference internal" href="#id49">Fixes</a></li>
+<li><a class="reference internal" href="#id62">Enhancements</a></li>
+<li><a class="reference internal" href="#id64">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-11-1-2022-04-26">v0.11.1 - 2022-04-26</a><ul>
-<li><a class="reference internal" href="#id51">Fixes</a></li>
+<li><a class="reference internal" href="#id66">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-11-0-2022-04-18">v0.11.0 - 2022-04-18</a><ul>
-<li><a class="reference internal" href="#id53">Features</a></li>
-<li><a class="reference internal" href="#id55">Enhancements</a></li>
-<li><a class="reference internal" href="#id58">Fixes</a></li>
+<li><a class="reference internal" href="#id68">Features</a></li>
+<li><a class="reference internal" href="#id70">Enhancements</a></li>
+<li><a class="reference internal" href="#id73">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-10-3-2022-04-07">v0.10.3 - 2022-04-07</a><ul>
-<li><a class="reference internal" href="#id61">Fixes</a></li>
+<li><a class="reference internal" href="#id76">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-10-2-2022-03-22">v0.10.2 - 2022-03-22</a><ul>
-<li><a class="reference internal" href="#id67">Fixes</a></li>
+<li><a class="reference internal" href="#id82">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-10-1-2022-03-20">v0.10.1 - 2022-03-20</a><ul>
-<li><a class="reference internal" href="#id69">Fixes</a></li>
+<li><a class="reference internal" href="#id84">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-10-0-2022-03-17">v0.10.0 - 2022-03-17</a><ul>
-<li><a class="reference internal" href="#id71">Features</a></li>
-<li><a class="reference internal" href="#id77">Fixes</a></li>
+<li><a class="reference internal" href="#id86">Features</a></li>
+<li><a class="reference internal" href="#id92">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-9-0-2022-03-07">v0.9.0 - 2022-03-07</a><ul>
-<li><a class="reference internal" href="#id81">Features</a></li>
-<li><a class="reference internal" href="#id89">Fixes</a></li>
+<li><a class="reference internal" href="#id96">Features</a></li>
+<li><a class="reference internal" href="#id104">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-8-0-2021-11-26">v0.8.0 - 2021-11-26</a><ul>
-<li><a class="reference internal" href="#id91">Features</a></li>
-<li><a class="reference internal" href="#id95">Fixes</a></li>
+<li><a class="reference internal" href="#id106">Features</a></li>
+<li><a class="reference internal" href="#id110">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-7-0-2021-09-13">v0.7.0 - 2021-09-13</a><ul>
-<li><a class="reference internal" href="#id99">Features</a></li>
-<li><a class="reference internal" href="#id101">Fixes</a></li>
-<li><a class="reference internal" href="#id106">Misc</a></li>
+<li><a class="reference internal" href="#id114">Features</a></li>
+<li><a class="reference internal" href="#id116">Fixes</a></li>
+<li><a class="reference internal" href="#id121">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-6-2-2021-06-05">v0.6.2 - 2021-06-05</a><ul>
-<li><a class="reference internal" href="#id108">Fixes</a></li>
-<li><a class="reference internal" href="#id112">Misc</a></li>
+<li><a class="reference internal" href="#id123">Fixes</a></li>
+<li><a class="reference internal" href="#id127">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-6-1-2021-05-13">v0.6.1 - 2021-05-13</a><ul>
-<li><a class="reference internal" href="#id117">Fixes</a></li>
+<li><a class="reference internal" href="#id132">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-6-0-2021-05-07">v0.6.0 - 2021-05-07</a><ul>
-<li><a class="reference internal" href="#id125">Features</a></li>
-<li><a class="reference internal" href="#id129">Fixes</a></li>
-<li><a class="reference internal" href="#id132">Misc</a></li>
+<li><a class="reference internal" href="#id140">Features</a></li>
+<li><a class="reference internal" href="#id144">Fixes</a></li>
+<li><a class="reference internal" href="#id147">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-5-1-2021-04-20">v0.5.1 - 2021-04-20</a><ul>
-<li><a class="reference internal" href="#id134">Fixes</a></li>
+<li><a class="reference internal" href="#id149">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-5-0-2021-02-25">v0.5.0 - 2021-02-25</a><ul>
-<li><a class="reference internal" href="#id136">Features</a></li>
-<li><a class="reference internal" href="#id145">Fixes</a></li>
+<li><a class="reference internal" href="#id151">Features</a></li>
+<li><a class="reference internal" href="#id160">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-4-0-2021-02-01">v0.4.0 - 2021-02-01</a><ul>
-<li><a class="reference internal" href="#id150">Features</a></li>
-<li><a class="reference internal" href="#id153">Fixes</a></li>
+<li><a class="reference internal" href="#id165">Features</a></li>
+<li><a class="reference internal" href="#id168">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-3-0-2021-01-27">v0.3.0 - 2021-01-27</a><ul>
-<li><a class="reference internal" href="#id158">Features</a></li>
-<li><a class="reference internal" href="#id161">Fixes</a></li>
+<li><a class="reference internal" href="#id173">Features</a></li>
+<li><a class="reference internal" href="#id176">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-2-1-2020-12-08">v0.2.1 - 2020-12-08</a><ul>
-<li><a class="reference internal" href="#id166">Fixes</a></li>
+<li><a class="reference internal" href="#id181">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-2-0-2020-12-06">v0.2.0 - 2020-12-06</a><ul>
-<li><a class="reference internal" href="#id168">Features</a></li>
-<li><a class="reference internal" href="#id172">Fixes</a></li>
+<li><a class="reference internal" href="#id183">Features</a></li>
+<li><a class="reference internal" href="#id187">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-1-2-2020-12-01">v0.1.2 - 2020-12-01</a><ul>
-<li><a class="reference internal" href="#id174">Misc</a></li>
+<li><a class="reference internal" href="#id189">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-1-1-2020-12-01">v0.1.1 - 2020-12-01</a><ul>
-<li><a class="reference internal" href="#id176">Misc</a></li>
+<li><a class="reference internal" href="#id191">Misc</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-1-0-2020-12-01">v0.1.0 - 2020-12-01</a><ul>
-<li><a class="reference internal" href="#id178">Features</a></li>
+<li><a class="reference internal" href="#id193">Features</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id180">0.0.6 - 2020-11-21</a><ul>
-<li><a class="reference internal" href="#id181">Misc</a></li>
+<li><a class="reference internal" href="#id195">0.0.6 - 2020-11-21</a><ul>
+<li><a class="reference internal" href="#id196">Misc</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id183">0.0.5 - 2020-11-20</a><ul>
-<li><a class="reference internal" href="#id184">Misc</a></li>
+<li><a class="reference internal" href="#id198">0.0.5 - 2020-11-20</a><ul>
+<li><a class="reference internal" href="#id199">Misc</a></li>
 </ul>
 </li>
 </ul>
