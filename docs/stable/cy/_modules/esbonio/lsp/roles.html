@@ -166,10 +166,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../lsp/extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../lsp/extending/roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../lsp/extending/roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lsp/extending/api-reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../lsp/how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../lsp/how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -178,7 +182,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/hello-world.html">Shwmae i gyd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -224,8 +228,10 @@
           <h1>Cod ffynhonnell ar gyfer esbonio.lsp.roles</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Role support.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
@@ -255,10 +261,100 @@
 <span class="kn">from</span> <span class="nn">esbonio.lsp.util.patterns</span> <span class="kn">import</span> <span class="n">ROLE</span>
 
 
-<div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A definition provider for role targets&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="RoleLanguageFeature"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature">[docs]</a><span class="k">class</span> <span class="nc">RoleLanguageFeature</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Base class for role language features.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TargetDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
+<div class="viewcode-block" id="RoleLanguageFeature.complete_targets"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of completion items representing valid targets for the given</span>
+<span class="sd">        role.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context</span>
+<span class="sd">           The completion context</span>
+
+<span class="sd">        name</span>
+<span class="sd">           The name of the role to generate completion suggestions for.</span>
+
+<span class="sd">        domain</span>
+<span class="sd">           The name of the domain the role is a member of</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="RoleLanguageFeature.find_target_definitions"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.find_target_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_target_definitions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of locations representing the definition of the given role</span>
+<span class="sd">        target.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        doc:</span>
+<span class="sd">           The document containing the match</span>
+<span class="sd">        match:</span>
+<span class="sd">           The match object that triggered the definition request</span>
+<span class="sd">        name:</span>
+<span class="sd">           The name of the role</span>
+<span class="sd">        domain:</span>
+<span class="sd">           The domain the role is part of, if applicable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="RoleLanguageFeature.get_implementation"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.get_implementation">[docs]</a>    <span class="k">def</span> <span class="nf">get_implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the implementation for the given role name.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        role</span>
+<span class="sd">           The name of the role</span>
+
+<span class="sd">        domain</span>
+<span class="sd">           The domain the role belongs to, if any</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_roles</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RoleLanguageFeature.index_roles"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.index_roles">[docs]</a>    <span class="k">def</span> <span class="nf">index_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return all known roles.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RoleLanguageFeature.resolve_target_link"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.resolve_target_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_target_link</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a link corresponding to the given target.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context</span>
+<span class="sd">           The document link context</span>
+
+<span class="sd">        domain</span>
+<span class="sd">           The name (if applicable) of the domain the role is a member of</span>
+
+<span class="sd">        name</span>
+<span class="sd">           The name of the role to generate completion suggestions for.</span>
+
+<span class="sd">        label</span>
+<span class="sd">           The label of the target to provide the link for</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="RoleLanguageFeature.suggest_roles"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.RoleLanguageFeature.suggest_roles">[docs]</a>    <span class="k">def</span> <span class="nf">suggest_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Suggest roles that may be used, given a completion context.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_roles</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="TargetDefinition"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetDefinition">[docs]</a><span class="k">class</span> <span class="nc">TargetDefinition</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A definition provider for role targets.</span>
+
+<span class="sd">    .. deprecated:: 0.15.0</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use a subclass of</span>
+<span class="sd">       :class:`~esbonio.lsp.roles.RoleLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TargetDefinition.find_definitions"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetDefinition.find_definitions">[docs]</a>    <span class="k">def</span> <span class="nf">find_definitions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a list of locations representing the definition of the given role</span>
@@ -277,10 +373,16 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="TargetCompletion"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion">[docs]</a><span class="k">class</span> <span class="nc">TargetCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A completion provider for role targets&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TargetCompletion"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetCompletion">[docs]</a><span class="k">class</span> <span class="nc">TargetCompletion</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A completion provider for role targets.</span>
 
-<div class="viewcode-block" id="TargetCompletion.complete_targets"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetCompletion.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
+<span class="sd">    .. deprecated:: 0.15.0</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use a subclass of</span>
+<span class="sd">       :class:`~esbonio.lsp.roles.RoleLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TargetCompletion.complete_targets"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetCompletion.complete_targets">[docs]</a>    <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Return a list of completion items representing valid targets for the given</span>
@@ -297,10 +399,16 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="TargetLink"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink">[docs]</a><span class="k">class</span> <span class="nc">TargetLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A document link provider for role targets&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TargetLink"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetLink">[docs]</a><span class="k">class</span> <span class="nc">TargetLink</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A document link provider for role targets.</span>
 
-<div class="viewcode-block" id="TargetLink.resolve_link"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.TargetLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
+<span class="sd">    .. deprecated:: 0.15.0</span>
+
+<span class="sd">       This will be removed in ``v1.0``, use a subclass of</span>
+<span class="sd">       :class:`~esbonio.lsp.roles.RoleLanguageFeature` instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TargetLink.resolve_link"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.TargetLink.resolve_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Return a link corresponding to the given target.</span>
@@ -321,7 +429,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="Roles"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles">[docs]</a><span class="k">class</span> <span class="nc">Roles</span><span class="p">(</span><span class="n">LanguageFeature</span><span class="p">):</span>
+<div class="viewcode-block" id="Roles"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles">[docs]</a><span class="k">class</span> <span class="nc">Roles</span><span class="p">(</span><span class="n">LanguageFeature</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Role support for the language server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -330,47 +438,128 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;Cache for documentation.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetDefinition</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;A list of providers that locate the definition for the given role target.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">RoleLanguageFeature</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="sd">&quot;&quot;&quot;Collection of registered features&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetLink</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;A list of providers that resolve document links for role targets.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Roles.add_feature"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_feature">[docs]</a>    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="n">RoleLanguageFeature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register a role language feature</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TargetCompletion</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;A list of providers that give completion suggestions for role target</span>
-<span class="sd">        objects.&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        feature</span>
+<span class="sd">           The role language feature</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Roles.add_target_definition_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Create a unique key for this instance.</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="nb">len</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">key</span><span class="p">)])</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
+
+<div class="viewcode-block" id="Roles.add_target_definition_provider"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_definition_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_definition_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetDefinition` provider.</span>
 
+<span class="sd">        .. deprecated:: 0.15.0</span>
+
+<span class="sd">           This will be removed in ``v1.0`` use</span>
+<span class="sd">           :meth:`~esbonio.lsp.roles.Roles.add_feature` with a</span>
+<span class="sd">           :class:`~esbonio.lsp.roles.RoleLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_target_link_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;TargetDefinition providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;RoleLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.definition&quot;</span>
+
+        <span class="k">def</span> <span class="nf">find_target_definitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">provider</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">TargetDefinitionProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">RoleLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;find_target_definitions&quot;</span><span class="p">:</span> <span class="n">find_target_definitions</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
+
+<div class="viewcode-block" id="Roles.add_target_link_provider"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_link_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_link_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetLink` provider.</span>
 
+<span class="sd">        .. deprecated:: 0.15.0</span>
+
+<span class="sd">           This will be removed in ``v1.0`` use</span>
+<span class="sd">           :meth:`~esbonio.lsp.roles.Roles.add_feature` with a</span>
+<span class="sd">           :class:`~esbonio.lsp.roles.RoleLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_target_completion_provider"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_target_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;TargetLink providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;RoleLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.link&quot;</span>
+
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">TargetLinkProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">RoleLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;resolve_target_link&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
+
+<div class="viewcode-block" id="Roles.add_target_completion_provider"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_target_completion_provider">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_completion_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">:</span> <span class="n">TargetCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register a :class:`~esbonio.lsp.roles.TargetCompletion` provider.</span>
 
+<span class="sd">        .. deprecated:: 0.15.0</span>
+
+<span class="sd">           This will be removed in ``v1.0`` use</span>
+<span class="sd">           :meth:`~esbonio.lsp.roles.Roles.add_feature` with a</span>
+<span class="sd">           :class:`~esbonio.lsp.roles.RoleLanguageFeature` subclass instead.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        provider</span>
 <span class="sd">           The provider to register</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Roles.add_documentation"><a class="viewcode-back" href="../../../lsp/extending/api-reference.html#esbonio.lsp.roles.Roles.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;TargetCompletion providers are deprecated in favour of &quot;</span>
+            <span class="s2">&quot;RoleLanguageFeatures, this method will be removed in v1.0&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">provider</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.completion&quot;</span>
+
+        <span class="n">feature</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">TargetCompletionProvider&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">RoleLanguageFeature</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;complete_targets&quot;</span><span class="p">:</span> <span class="n">provider</span><span class="o">.</span><span class="n">complete_targets</span><span class="p">},</span>
+        <span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span></div>
+
+<div class="viewcode-block" id="Roles.add_documentation"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.add_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Register role documentation.</span>
 
 <span class="sd">        ``documentation`` should be a dictionary of the form ::</span>
@@ -446,13 +635,36 @@
 
     <span class="k">def</span> <span class="nf">definition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
 
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Be sure to only match complete roles</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;`&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_target_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">find_target_definitions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DefinitionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
 
         <span class="n">definitions</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">provide</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_definition_providers</span><span class="p">:</span>
-            <span class="n">definitions</span> <span class="o">+=</span> <span class="n">provide</span><span class="o">.</span><span class="n">find_definitions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">definitions</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">find_target_definitions</span><span class="p">(</span>
+                    <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to find definitions of &#39;</span><span class="si">%s</span><span class="s2">&#39; for role &#39;:</span><span class="si">%s</span><span class="s2">:&#39;, &quot;</span>
+                    <span class="s2">&quot;error in feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                    <span class="n">label</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span><span class="p">,</span>
+                    <span class="n">feature_name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">definitions</span>
 
@@ -471,15 +683,7 @@
                 <span class="n">domain</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
-                <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">tooltip</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">for</span> <span class="n">provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_link_providers</span><span class="p">:</span>
-                    <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">resolve_link</span><span class="p">(</span>
-                        <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span>
-                    <span class="p">)</span>
-                    <span class="k">if</span> <span class="n">target</span><span class="p">:</span>
-                        <span class="k">break</span>
-
+                <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_target_link</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
                     <span class="k">continue</span>
 
@@ -487,18 +691,43 @@
                 <span class="n">start</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="n">idx</span>
                 <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
 
-                <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">DocumentLink</span><span class="p">(</span>
-                        <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
-                        <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span> <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">tooltip_support</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                        <span class="nb">range</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span>
-                            <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">start</span><span class="p">),</span>
-                            <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">end</span><span class="p">),</span>
-                        <span class="p">),</span>
-                    <span class="p">)</span>
+                <span class="n">link</span> <span class="o">=</span> <span class="n">DocumentLink</span><span class="p">(</span>
+                    <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
+                    <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span> <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">tooltip_support</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="nb">range</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span>
+                        <span class="n">start</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">start</span><span class="p">),</span>
+                        <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">end</span><span class="p">),</span>
+                    <span class="p">),</span>
                 <span class="p">)</span>
 
+                <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">links</span>
+
+<div class="viewcode-block" id="Roles.resolve_target_link"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.resolve_target_link">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_target_link</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">DocumentLinkContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Resolve a given document link.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">resolve_target_link</span><span class="p">(</span>
+                    <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">label</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">target</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">target</span><span class="p">,</span> <span class="n">tooltip</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to resolve target link &#39;</span><span class="si">%s</span><span class="s2">&#39; for role &#39;:</span><span class="si">%s</span><span class="s2">:&#39;, &quot;</span>
+                    <span class="s2">&quot;error in feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                    <span class="n">label</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span><span class="p">,</span>
+                    <span class="n">feature_name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
 
     <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Generate completion suggestions relevant to the current context.</span>
@@ -572,6 +801,24 @@
 
         <span class="k">return</span> <span class="n">item</span>
 
+<div class="viewcode-block" id="Roles.suggest_roles"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.suggest_roles">[docs]</a>    <span class="k">def</span> <span class="nf">suggest_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Suggest roles that may be used, given a completion context.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        context</span>
+<span class="sd">           The completion context</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="n">feature</span><span class="o">.</span><span class="n">suggest_roles</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to suggest roles, error in feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">complete_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
 
         <span class="n">match</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span>
@@ -588,7 +835,7 @@
             <span class="n">end</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="n">character</span><span class="o">=</span><span class="n">end</span><span class="p">),</span>
         <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">role</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_roles</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">role</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">suggest_roles</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">domain</span><span class="p">):</span>
                 <span class="k">continue</span>
@@ -628,6 +875,25 @@
 
         <span class="n">item</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">MarkupContent</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">item</span>
+
+    <span class="k">def</span> <span class="nf">suggest_targets</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
+
+        <span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">targets</span> <span class="o">+=</span> <span class="n">feature</span><span class="o">.</span><span class="n">complete_targets</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to suggest targets for role &#39;:</span><span class="si">%s</span><span class="s2">:&#39;, error in feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span><span class="p">,</span>
+                    <span class="n">feature_name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">targets</span>
 
     <span class="k">def</span> <span class="nf">complete_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">CompletionContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CompletionItem</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Generate the list of role target completion suggestions.&quot;&quot;&quot;</span>
@@ -670,30 +936,27 @@
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">start</span><span class="p">:]</span>
         <span class="n">modifier</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;modifier&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">provide</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_completion_providers</span><span class="p">:</span>
-            <span class="n">candidates</span> <span class="o">=</span> <span class="n">provide</span><span class="o">.</span><span class="n">complete_targets</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">suggest_targets</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
 
-            <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t interfere with items that already carry a `text_edit`, allowing</span>
+            <span class="c1"># some providers (like filepaths) to do something special.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="p">:</span>
+                <span class="n">new_text</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="ow">or</span> <span class="n">candidate</span><span class="o">.</span><span class="n">label</span>
 
-                <span class="c1"># Don&#39;t interfere with items that already carry a `text_edit`, allowing</span>
-                <span class="c1"># some providers (like filepaths) to do something special.</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="p">:</span>
-                    <span class="n">new_text</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="ow">or</span> <span class="n">candidate</span><span class="o">.</span><span class="n">label</span>
+                <span class="c1"># This is rather annoying, but `filter_text` needs to start with</span>
+                <span class="c1"># the text we are going to replace, otherwise VSCode won&#39;t show our</span>
+                <span class="c1"># suggestions!</span>
+                <span class="n">candidate</span><span class="o">.</span><span class="n">filter_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
 
-                    <span class="c1"># This is rather annoying, but `filter_text` needs to start with</span>
-                    <span class="c1"># the text we are going to replace, otherwise VSCode won&#39;t show our</span>
-                    <span class="c1"># suggestions!</span>
-                    <span class="n">candidate</span><span class="o">.</span><span class="n">filter_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span> <span class="o">=</span> <span class="n">TextEdit</span><span class="p">(</span>
+                    <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modifier</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="o">=</span> <span class="kc">None</span>
 
-                    <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span> <span class="o">=</span> <span class="n">TextEdit</span><span class="p">(</span>
-                        <span class="nb">range</span><span class="o">=</span><span class="n">range_</span><span class="p">,</span> <span class="n">new_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modifier</span><span class="si">}{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">&quot;</span>
-                    <span class="p">)</span>
-                    <span class="n">candidate</span><span class="o">.</span><span class="n">insert_text</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">new_text</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">endchars</span><span class="p">):</span>
+                <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">new_text</span> <span class="o">+=</span> <span class="n">endchars</span>
 
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">new_text</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">endchars</span><span class="p">):</span>
-                    <span class="n">candidate</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">new_text</span> <span class="o">+=</span> <span class="n">endchars</span>
-
-                <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">targets</span>
 
@@ -714,12 +977,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_role</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">hover_role</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">hover_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">HoverContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 
         <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="k">else</span> <span class="n">name</span>
-        <span class="n">role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_roles</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">role</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_implementation</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">role</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -740,6 +1001,55 @@
         <span class="c1"># TODO: Add extension point for providers to contribute hovers for a target.</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
+<div class="viewcode-block" id="Roles.get_roles"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_roles">[docs]</a>    <span class="k">def</span> <span class="nf">get_roles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a dictionary of all known roles.&quot;&quot;&quot;</span>
+
+        <span class="n">roles</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;calling &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">roles</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">index_roles</span><span class="p">())</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to index roles, error in feature &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">roles</span></div>
+
+<div class="viewcode-block" id="Roles.get_implementation"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_implementation">[docs]</a>    <span class="k">def</span> <span class="nf">get_implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the implementation of a role given its name</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        role</span>
+<span class="sd">           The name of the role.</span>
+
+<span class="sd">        domain</span>
+<span class="sd">           The domain of the role, if applicable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">domain</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">role</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">role</span>
+
+        <span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">impl</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">get_implementation</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">impl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">impl</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Unable to get implementation for &#39;:</span><span class="si">%s</span><span class="s2">:&#39;, error in feature: &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="n">feature_name</span><span class="p">,</span>
+                    <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Unable to get implementation for &#39;:</span><span class="si">%s</span><span class="s2">:&#39;, unknown role&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
     <span class="k">def</span> <span class="nf">implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
 
         <span class="n">region</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;role&quot;</span><span class="p">)</span>
@@ -758,18 +1068,13 @@
         <span class="k">return</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">find_role_implementation</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ImplementationContext</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Location</span><span class="p">]:</span>
 
-        <span class="n">roles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">get_roles</span><span class="p">()</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Key is: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-
-        <span class="n">impl</span> <span class="o">=</span> <span class="n">roles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">impl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_implementation</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">impl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting implementation of &#39;</span><span class="si">%s</span><span class="s2">&#39; (</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">impl</span><span class="p">)</span>
         <span class="n">location</span> <span class="o">=</span> <span class="n">get_object_location</span><span class="p">(</span><span class="n">impl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">location</span><span class="p">]</span>
@@ -781,7 +1086,7 @@
 
         <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">get_documentation</span><span class="p">(</span>
+<div class="viewcode-block" id="Roles.get_documentation"><a class="viewcode-back" href="../../../lsp/extending/roles.html#esbonio.lsp.roles.Roles.get_documentation">[docs]</a>    <span class="k">def</span> <span class="nf">get_documentation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">implementation</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;Return the documentation for the given role, if available.</span>
@@ -821,7 +1126,7 @@
         <span class="k">if</span> <span class="n">documentation</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">documentation</span>
 
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">esbonio_setup</span><span class="p">(</span><span class="n">rst</span><span class="p">:</span> <span class="n">RstLanguageServer</span><span class="p">):</span>

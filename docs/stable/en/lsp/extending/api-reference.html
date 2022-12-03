@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="How To" href="../how-to.html" /><link rel="prev" title="Supporting Custom Directive Registries" href="directives/directive-registry.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="How To" href="../how-to.html" /><link rel="prev" title="Supporting Custom Role Registries" href="roles/role-registry.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.svg"/><meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>API Reference - Esbonio</title>
@@ -167,10 +167,14 @@
 <li class="toctree-l3"><a class="reference internal" href="directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -179,7 +183,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -403,6 +407,10 @@ Python file.</p></li>
 <dt class="sig sig-object py" id="esbonio.lsp.rst.RstLanguageServer.get_roles">
 <span class="sig-name descname"><span class="pre">get_roles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/rst.html#RstLanguageServer.get_roles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.RstLanguageServer.get_roles" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a dictionary of known roles.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code>.
+Use the <a class="reference internal" href="roles.html#esbonio.lsp.roles.Roles.get_roles" title="esbonio.lsp.roles.Roles.get_roles"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_roles()</span></code></a> method instead.</p>
+</div>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -452,7 +460,7 @@ annotations.</p>
 </div>
 <p>In this example the setup function is requesting instances of the
 <a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer" title="esbonio.lsp.sphinx.SphinxLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code></a> and the
-<a class="reference internal" href="#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a> language feature.</p>
+<a class="reference internal" href="roles.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a> language feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -544,10 +552,22 @@ annotations.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">ServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/rst.html#ServerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.rst.</span></span><span class="sig-name descname"><span class="pre">ServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enableScrollSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enableLivePreview</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/rst.html#ServerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>Configuration options for the server.</p>
 <dl class="field-list simple">
 </dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig.enable_live_preview">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable_live_preview</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'enableLivePreview')</span></em><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig.enable_live_preview" title="Permalink to this definition">#</a></dt>
+<dd><p>Set it to True if you want to build Sphinx app on change event</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig.enable_scroll_sync">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enable_scroll_sync</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'enableScrollSync')</span></em><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig.enable_scroll_sync" title="Permalink to this definition">#</a></dt>
+<dd><p>Enable custom transformation to add classes with line numbers</p>
+</dd></dl>
+
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="esbonio.lsp.rst.ServerConfig.log_filter">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Optional]</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'logFilter')</span></em><a class="headerlink" href="#esbonio.lsp.rst.ServerConfig.log_filter" title="Permalink to this definition">#</a></dt>
@@ -576,6 +596,34 @@ annotations.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxLanguageServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer" title="esbonio.lsp.rst.RstLanguageServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RstLanguageServer</span></code></a></p>
 <p>A language server dedicated to working with Sphinx projects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.build" title="Permalink to this definition">#</a></dt>
+<dd><p>Trigger sphinx build. Force complete rebuild with flag or build only selected files in the list.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.cb_build_finished">
+<span class="sig-name descname"><span class="pre">cb_build_finished</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.cb_build_finished"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_build_finished" title="Permalink to this definition">#</a></dt>
+<dd><p>Callback handling build-finished event.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.cb_env_before_read_docs">
+<span class="sig-name descname"><span class="pre">cb_env_before_read_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docnames</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.cb_env_before_read_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_env_before_read_docs" title="Permalink to this definition">#</a></dt>
+<dd><p>Callback handling env-before-read-docs event.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.cb_source_read">
+<span class="sig-name descname"><span class="pre">cb_source_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.cb_source_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_source_read" title="Permalink to this definition">#</a></dt>
+<dd><p>Callback handling source_read event.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.create_sphinx_app">
 <span class="sig-name descname"><span class="pre">create_sphinx_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.create_sphinx_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.create_sphinx_app" title="Permalink to this definition">#</a></dt>
@@ -624,6 +672,9 @@ would be <code class="docutils literal notranslate"><span class="pre">lsp/featur
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_domain">
 <span class="sig-name descname"><span class="pre">get_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_domain" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the domain with the given name.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+</div>
 <p>If a domain with the given name cannot be found, this method will return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -636,6 +687,9 @@ would be <code class="docutils literal notranslate"><span class="pre">lsp/featur
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_domains">
 <span class="sig-name descname"><span class="pre">get_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_domains" title="Permalink to this definition">#</a></dt>
 <dd><p>Get all the domains registered with an applications.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+</div>
 <p>Returns a generator that iterates through all of an application’s domains,
 taking into account configuration variables such as <code class="docutils literal notranslate"><span class="pre">primary_domain</span></code>.
 Yielded values will be a tuple of the form <code class="docutils literal notranslate"><span class="pre">(prefix,</span> <span class="pre">domain)</span></code> where</p>
@@ -652,6 +706,9 @@ in the domain</p></li>
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_projects">
 <span class="sig-name descname"><span class="pre">get_intersphinx_projects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_intersphinx_projects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_projects" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the list of configured intersphinx project names.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v.1.0</span></code></p>
+</div>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -660,6 +717,9 @@ in the domain</p></li>
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_targets">
 <span class="sig-name descname"><span class="pre">get_intersphinx_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_intersphinx_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_targets" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the intersphinx objects targeted by the given role.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -676,6 +736,9 @@ in the domain</p></li>
 <span class="sig-name descname"><span class="pre">get_role_target_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_role_target_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_target_types" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a map indicating which object types a role is capable of linking
 with.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+</div>
 <p>For example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;func&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
@@ -702,18 +765,13 @@ with.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.get_roles">
-<span class="sig-name descname"><span class="pre">get_roles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.get_roles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a dictionary of known roles.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets">
 <span class="sig-name descname"><span class="pre">has_intersphinx_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx.html#SphinxLanguageServer.has_intersphinx_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets" title="Permalink to this definition">#</a></dt>
 <dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given intersphinx project has targets targeted by the
 given role.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.15.0: </span>This will be removed in <code class="docutils literal notranslate"><span class="pre">v1.0</span></code></p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -743,6 +801,12 @@ given role.</p>
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.configuration">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">configuration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.configuration" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the server’s actual configuration.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxLanguageServer.file_list_pending_build_version_updates">
+<span class="sig-name descname"><span class="pre">file_list_pending_build_version_updates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxLanguageServer.file_list_pending_build_version_updates" title="Permalink to this definition">#</a></dt>
+<dd><p>List of all the files that need an updated last_build_version</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -793,7 +857,7 @@ given role.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="esbonio.lsp.sphinx.SphinxServerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hideSphinxOutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx/config.html#SphinxServerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxServerConfig" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.sphinx.</span></span><span class="sig-name descname"><span class="pre">SphinxServerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enableScrollSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enableLivePreview</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showDeprecationWarnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hideSphinxOutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/sphinx/config.html#SphinxServerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.sphinx.SphinxServerConfig" title="Permalink to this definition">#</a></dt>
 <dd><div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 0.12.0: </span>This will be removed in v1.0.
 Use <a class="reference internal" href="../getting-started.html#confval-sphinx.quiet-boolean"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.quiet</span> <span class="pre">(boolean)</span></code></a> and <a class="reference internal" href="../getting-started.html#confval-sphinx.silent-boolean"><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx.silent</span> <span class="pre">(boolean)</span></code></a>
@@ -1338,177 +1402,6 @@ See <a class="reference internal" href="#esbonio.lsp.rst.RstLanguageServer.get_l
 
 </dd></dl>
 
-<section id="roles">
-<h3>Roles<a class="headerlink" href="#roles" title="Permalink to this heading">#</a></h3>
-<dl class="py data">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.ROLE">
-<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">ROLE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.roles.ROLE" title="Permalink to this definition">#</a></dt>
-<dd><p>Compiled regular expression object.</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.DEFAULT_ROLE">
-<span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_ROLE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">re.compile(...)</span></em><a class="headerlink" href="#esbonio.lsp.roles.DEFAULT_ROLE" title="Permalink to this definition">#</a></dt>
-<dd><p>Compiled regular expression object.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">Roles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#Roles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles" title="Permalink to this definition">#</a></dt>
-<dd><p>Role support for the language server.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_documentation">
-<span class="sig-name descname"><span class="pre">add_documentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">documentation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#Roles.add_documentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_documentation" title="Permalink to this definition">#</a></dt>
-<dd><p>Register role documentation.</p>
-<p><code class="docutils literal notranslate"><span class="pre">documentation</span></code> should be a dictionary of the form</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">documentation</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;raw(docutils.parsers.rst.roles.raw_role)&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;is_markdown&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-        <span class="s2">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;# :raw:&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;The raw role is used for...&quot;</span><span class="p">,</span>
-            <span class="o">...</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>where the key is of the form <cite>name(dotted_name)</cite>. There are cases where a role’s
-implementation is not sufficient to uniquely identify it as multiple roles can
-be provided by a single class.</p>
-<p>This means the key has to be a combination of the <code class="docutils literal notranslate"><span class="pre">name</span></code> the user writes in
-an reStructuredText document and <code class="docutils literal notranslate"><span class="pre">dotted_name</span></code> is the fully qualified name of
-the role’s implementation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If there is a clash with an existing key, the existing value will be
-overwritten with the new value.</p>
-</div>
-<p>The values in this dictionary are themselves dictionaries with the following
-fields.</p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">description</span></code></dt><dd><p>A list of strings for the role’s usage.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">is_markdown</span></code></dt><dd><p>A boolean flag used to indicate whether the <code class="docutils literal notranslate"><span class="pre">description</span></code> is written in
-plain text or markdown.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">source</span></code></dt><dd><p>The url to the documentation’s source.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">license</span></code></dt><dd><p>The url to the documentation’s license.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>documentation</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a><em>]</em><em>]</em>) – The documentation to register.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_completion_provider">
-<span class="sig-name descname"><span class="pre">add_target_completion_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#Roles.add_target_completion_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_completion_provider" title="Permalink to this definition">#</a></dt>
-<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion" title="esbonio.lsp.roles.TargetCompletion"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetCompletion</span></code></a> provider.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion" title="esbonio.lsp.roles.TargetCompletion"><em>TargetCompletion</em></a>) – The provider to register</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_definition_provider">
-<span class="sig-name descname"><span class="pre">add_target_definition_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#Roles.add_target_definition_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_definition_provider" title="Permalink to this definition">#</a></dt>
-<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition" title="esbonio.lsp.roles.TargetDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetDefinition</span></code></a> provider.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition" title="esbonio.lsp.roles.TargetDefinition"><em>TargetDefinition</em></a>) – The provider to register</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.Roles.add_target_link_provider">
-<span class="sig-name descname"><span class="pre">add_target_link_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#Roles.add_target_link_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.Roles.add_target_link_provider" title="Permalink to this definition">#</a></dt>
-<dd><p>Register a <a class="reference internal" href="#esbonio.lsp.roles.TargetLink" title="esbonio.lsp.roles.TargetLink"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetLink</span></code></a> provider.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>provider</strong> (<a class="reference internal" href="#esbonio.lsp.roles.TargetLink" title="esbonio.lsp.roles.TargetLink"><em>TargetLink</em></a>) – The provider to register</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetCompletion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">TargetCompletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetCompletion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetCompletion" title="Permalink to this definition">#</a></dt>
-<dd><p>A completion provider for role targets</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetCompletion.complete_targets">
-<span class="sig-name descname"><span class="pre">complete_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetCompletion.complete_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetCompletion.complete_targets" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a list of completion items representing valid targets for the given
-role.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.CompletionContext" title="esbonio.lsp.rst.CompletionContext"><em>CompletionContext</em></a>) – The completion context</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The name of the domain the role is a member of</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the role to generate completion suggestions for.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetDefinition">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">TargetDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetDefinition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetDefinition" title="Permalink to this definition">#</a></dt>
-<dd><p>A definition provider for role targets</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetDefinition.find_definitions">
-<span class="sig-name descname"><span class="pre">find_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetDefinition.find_definitions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetDefinition.find_definitions" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a list of locations representing the definition of the given role
-target.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>doc</strong> – The document containing the match</p></li>
-<li><p><strong>match</strong> – The match object that triggered the definition request</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the role</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The domain the role is part of, if applicable.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetLink">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esbonio.lsp.roles.</span></span><span class="sig-name descname"><span class="pre">TargetLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetLink" title="Permalink to this definition">#</a></dt>
-<dd><p>A document link provider for role targets</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="esbonio.lsp.roles.TargetLink.resolve_link">
-<span class="sig-name descname"><span class="pre">resolve_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/esbonio/lsp/roles.html#TargetLink.resolve_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esbonio.lsp.roles.TargetLink.resolve_link" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a link corresponding to the given target.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference internal" href="#esbonio.lsp.DocumentLinkContext" title="esbonio.lsp.rst.DocumentLinkContext"><em>DocumentLinkContext</em></a>) – The document link context</p></li>
-<li><p><strong>domain</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The name (if applicable) of the domain the role is a member of</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the role to generate completion suggestions for.</p></li>
-<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The label of the target to provide the link for</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 </section>
 <section id="module-esbonio.lsp.testing">
 <span id="testing"></span><h2>Testing<a class="headerlink" href="#module-esbonio.lsp.testing" title="Permalink to this heading">#</a></h2>
@@ -1680,14 +1573,14 @@ or equal to what’s given</p></li>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="directives/directive-registry.html">
+          <a class="prev-page" href="roles/role-registry.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Supporting Custom Directive Registries</div>
+                <div class="title">Supporting Custom Role Registries</div>
                 
               </div>
             </a>
@@ -1755,6 +1648,8 @@ or equal to what’s given</p></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig"><code class="docutils literal notranslate"><span class="pre">ServerConfig</span></code></a><ul>
+<li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig.enable_live_preview"><code class="docutils literal notranslate"><span class="pre">ServerConfig.enable_live_preview</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig.enable_scroll_sync"><code class="docutils literal notranslate"><span class="pre">ServerConfig.enable_scroll_sync</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig.log_filter"><code class="docutils literal notranslate"><span class="pre">ServerConfig.log_filter</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig.log_level"><code class="docutils literal notranslate"><span class="pre">ServerConfig.log_level</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.rst.ServerConfig.show_deprecation_warnings"><code class="docutils literal notranslate"><span class="pre">ServerConfig.show_deprecation_warnings</span></code></a></li>
@@ -1764,6 +1659,10 @@ or equal to what’s given</p></li>
 </li>
 <li><a class="reference internal" href="#sphinxlanguageserver">SphinxLanguageServer</a><ul>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer</span></code></a><ul>
+<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.build"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.build()</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_build_finished"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.cb_build_finished()</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_env_before_read_docs"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.cb_env_before_read_docs()</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.cb_source_read"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.cb_source_read()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.create_sphinx_app"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.create_sphinx_app()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_default_role"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_default_role()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_directive_options"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_directive_options()</span></code></a></li>
@@ -1774,11 +1673,11 @@ or equal to what’s given</p></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_intersphinx_targets"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_intersphinx_targets()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_target_types"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_role_target_types()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_role_targets"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_role_targets()</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.get_roles"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.get_roles()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.has_intersphinx_targets"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.has_intersphinx_targets()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.preview"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.preview()</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.app"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.app</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.configuration"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.configuration</span></code></a></li>
+<li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.file_list_pending_build_version_updates"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.file_list_pending_build_version_updates</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.preview_port"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.preview_port</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.preview_process"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.preview_process</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.sphinx.SphinxLanguageServer.sphinx_args"><code class="docutils literal notranslate"><span class="pre">SphinxLanguageServer.sphinx_args</span></code></a></li>
@@ -1868,30 +1767,6 @@ or equal to what’s given</p></li>
 <li><a class="reference internal" href="#esbonio.lsp.DocumentLinkContext"><code class="docutils literal notranslate"><span class="pre">DocumentLinkContext</span></code></a><ul>
 <li><a class="reference internal" href="#esbonio.lsp.DocumentLinkContext.doc"><code class="docutils literal notranslate"><span class="pre">DocumentLinkContext.doc</span></code></a></li>
 <li><a class="reference internal" href="#esbonio.lsp.DocumentLinkContext.tooltip_support"><code class="docutils literal notranslate"><span class="pre">DocumentLinkContext.tooltip_support</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#roles">Roles</a><ul>
-<li><a class="reference internal" href="#esbonio.lsp.roles.ROLE"><code class="docutils literal notranslate"><span class="pre">ROLE</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.DEFAULT_ROLE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_ROLE</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.Roles"><code class="docutils literal notranslate"><span class="pre">Roles</span></code></a><ul>
-<li><a class="reference internal" href="#esbonio.lsp.roles.Roles.add_documentation"><code class="docutils literal notranslate"><span class="pre">Roles.add_documentation()</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.Roles.add_target_completion_provider"><code class="docutils literal notranslate"><span class="pre">Roles.add_target_completion_provider()</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.Roles.add_target_definition_provider"><code class="docutils literal notranslate"><span class="pre">Roles.add_target_definition_provider()</span></code></a></li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.Roles.add_target_link_provider"><code class="docutils literal notranslate"><span class="pre">Roles.add_target_link_provider()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion"><code class="docutils literal notranslate"><span class="pre">TargetCompletion</span></code></a><ul>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetCompletion.complete_targets"><code class="docutils literal notranslate"><span class="pre">TargetCompletion.complete_targets()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition"><code class="docutils literal notranslate"><span class="pre">TargetDefinition</span></code></a><ul>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetDefinition.find_definitions"><code class="docutils literal notranslate"><span class="pre">TargetDefinition.find_definitions()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetLink"><code class="docutils literal notranslate"><span class="pre">TargetLink</span></code></a><ul>
-<li><a class="reference internal" href="#esbonio.lsp.roles.TargetLink.resolve_link"><code class="docutils literal notranslate"><span class="pre">TargetLink.resolve_link()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

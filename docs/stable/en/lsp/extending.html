@@ -167,10 +167,14 @@
 <li class="toctree-l3"><a class="reference internal" href="extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="extending/roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="extending/roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -179,7 +183,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -238,6 +242,7 @@ This section of the documentation outlines the server’s architecture and how y
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="extending/directives.html">Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending/roles.html">Roles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
 </ul>
 </div>
@@ -482,7 +487,7 @@ Instead a language server acts a container for all the active language features 
 </ul>
 </dd>
 <dt id="term-Language-Feature">Language Feature<a class="headerlink" href="#term-Language-Feature" title="Permalink to this term">#</a></dt><dd><p>Language features are subclasses of <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.LanguageFeature" title="esbonio.lsp.rst.LanguageFeature"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageFeature</span></code></a>.
-They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="extending/api-reference.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>).</p>
+They are typically based on a single aspect of reStructuredText (e.g. <a class="reference internal" href="extending/roles.html#esbonio.lsp.roles.Roles" title="esbonio.lsp.roles.Roles"><code class="xref py py-class docutils literal notranslate"><span class="pre">Roles</span></code></a>).</p>
 <p>Language Features (where it makes sense) should be server agnostic, that way the same features can be reused across different envrionments.</p>
 </dd>
 <dt id="term-Engine">Engine<a class="headerlink" href="#term-Engine" title="Permalink to this term">#</a></dt><dd><p>For lack of a better name… an “engine” is responsible for mapping messages from the LSP Protocol into function calls within the language server.

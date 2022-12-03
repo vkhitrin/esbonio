@@ -167,10 +167,14 @@
 <li class="toctree-l3"><a class="reference internal" href="extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="extending/roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="extending/roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -179,7 +183,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -306,7 +310,10 @@ Currently only available for English and can be confused by reStructuredText syn
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">#</a></h2>
 <p>The bundled language servers offer some commands that can be invoked from a language client using
 a <a class="reference external" href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_executeCommand">workspace/executeCommand</a> request.</p>
-
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.build">
+<span class="sig-name descname"><span class="pre">esbonio.server.build</span></span><a class="headerlink" href="#command-esbonio.server.build" title="Permalink to this definition">#</a></dt>
+<dd>
 <hr />
 <div class="pt-2">
   <label>Startup Module:</label>
@@ -326,12 +333,12 @@ a <a class="reference external" href="https://microsoft.github.io/language-serve
   </div>
 </div>
 <hr />
-</section>
-<section id="notifications">
-<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading">#</a></h2>
-<p>The bundled language servers also emit custom notifications that language clients
-can use to react to events happening within the server.</p>
+</dd></dl>
 
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.configuration">
+<span class="sig-name descname"><span class="pre">esbonio.server.configuration</span></span><a class="headerlink" href="#command-esbonio.server.configuration" title="Permalink to this definition">#</a></dt>
+<dd>
 <hr />
 <div class="pt-2">
   <label>Startup Module:</label>
@@ -348,6 +355,58 @@ can use to react to events happening within the server.</p>
   </select>
 
   <div id="group-2">
+  </div>
+</div>
+<hr />
+</dd></dl>
+
+<dl class="std command">
+<dt class="sig sig-object std" id="command-esbonio.server.preview">
+<span class="sig-name descname"><span class="pre">esbonio.server.preview</span></span><a class="headerlink" href="#command-esbonio.server.preview" title="Permalink to this definition">#</a></dt>
+<dd>
+<hr />
+<div class="pt-2">
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-3"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-3">esbonio</option>
+<option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-3">esbonio.lsp.rst</option>
+<option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-3">esbonio.lsp.sphinx</option>
+  </select>
+
+  <div id="group-3">
+  </div>
+</div>
+<hr />
+</dd></dl>
+
+</section>
+<section id="notifications">
+<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading">#</a></h2>
+<p>The bundled language servers also emit custom notifications that language clients
+can use to react to events happening within the server.</p>
+
+<hr />
+<div class="pt-2">
+  <label>Startup Module:</label>
+
+  <select name="subject"
+          class="mb-2"
+          hx-get="advanced-usage/:subject.html"
+          hx-target="#group-4"
+          data-category="startup-module"
+          data-kind="relevant-to">
+    <option data-id="esbonio" value="startup-module-esbonio-4">esbonio</option>
+<option data-id="esbonio-lsp-rst" value="startup-module-esbonio-lsp-rst-4">esbonio.lsp.rst</option>
+<option data-id="esbonio-lsp-sphinx" value="startup-module-esbonio-lsp-sphinx-4">esbonio.lsp.sphinx</option>
+  </select>
+
+  <div id="group-4">
   </div>
 </div>
 <hr />

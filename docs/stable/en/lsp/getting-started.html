@@ -167,10 +167,14 @@
 <li class="toctree-l3"><a class="reference internal" href="extending/directives/directive-registry.html">Supporting Custom Directive Registries</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="extending/roles.html">Roles</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="extending/roles/role-registry.html">Supporting Custom Role Registries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="extending/api-reference.html">API Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="how-to.html">How To</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="how-to/get-debug-info.html">How To: Get Debug Information</a></li>
 </ul>
 </li>
@@ -179,7 +183,7 @@
 <p class="caption" role="heading"><span class="caption-text">Sphinx Extensions</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../extensions/relevant_to.html">Relevent To</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../extensions/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/formatting-example.html">Formatting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/hello-world.html">Hello World</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/tutorial/solution-example.html">Solution Example</a></li>
@@ -334,6 +338,9 @@ building your documentation e.g.</p>
   </div>
 </div>
 <hr />
+<section id="sphinx-options">
+<h3>Sphinx Options<a class="headerlink" href="#sphinx-options" title="Permalink to this heading">#</a></h3>
+<p>The following options control the creation of the Sphinx application object managed by the server.</p>
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-sphinx.buildDir-string">
 <span class="sig-name descname"><span class="pre">sphinx.buildDir</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-sphinx.buildDir-string" title="Permalink to this definition">#</a></dt>
@@ -488,6 +495,23 @@ See the documentation on the <a class="reference external" href="https://www.sph
 <dd><p>Treat warnings as errors. (Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd></dl>
 
+</section>
+<section id="server-options">
+<h3>Server Options<a class="headerlink" href="#server-options" title="Permalink to this heading">#</a></h3>
+<p>The following options control the behavior of the language server as a whole.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-server.enableScrollSync-boolean">
+<span class="sig-name descname"><span class="pre">server.enableScrollSync</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.enableScrollSync-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>When enabled, the server will inject line numbers into HTML build output making it possible for clients to implement synced scrolling.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-server.enableLivePreview-boolean">
+<span class="sig-name descname"><span class="pre">server.enableLivePreview</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.enableLivePreview-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>When enabled, the server will report diagnostics and build projects taking into account the state of unsaved files.
+<strong>Note:</strong> The server currently relies on the client to tell it when to build unsaved files by issuing a <a class="reference internal" href="advanced-usage.html#command-esbonio.server.build"><code class="xref std std-command docutils literal notranslate"><span class="pre">esbonio.server.build</span></code></a> command.</p>
+</dd></dl>
+
 <dl class="std confval">
 <dt class="sig sig-object std" id="confval-server.logLevel-string">
 <span class="sig-name descname"><span class="pre">server.logLevel</span> <span class="pre">(string)</span></span><a class="headerlink" href="#confval-server.logLevel-string" title="Permalink to this definition">#</a></dt>
@@ -518,6 +542,13 @@ This will be removed in <code class="docutils literal notranslate"><span class="
 If you prefer this flag can be used to exclude any Sphinx output from the log.</p>
 </dd></dl>
 
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-server.showDeprecationWarnings-boolean">
+<span class="sig-name descname"><span class="pre">server.showDeprecationWarnings</span> <span class="pre">(boolean)</span></span><a class="headerlink" href="#confval-server.showDeprecationWarnings-boolean" title="Permalink to this definition">#</a></dt>
+<dd><p>Developer flag which, when enabled, the server will publish any deprecation warnings as diagnostics.</p>
+</dd></dl>
+
+</section>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
@@ -760,7 +791,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <ul>
 <li><a class="reference internal" href="#">Getting Started</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#sphinx-options">Sphinx Options</a></li>
+<li><a class="reference internal" href="#server-options">Server Options</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#debugging">Debugging</a></li>
 <li><a class="reference internal" href="#commands">Commands</a></li>
